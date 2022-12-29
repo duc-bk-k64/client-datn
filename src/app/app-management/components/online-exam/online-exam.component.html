@@ -1,0 +1,29 @@
+<div class="grid">
+    <div class="col-12 lg:col-6 xl:col-3 card" style="height: 100%;">
+        <div class="flex align-items-center justify-content-center mb-8 mt-8" style="color: rgb(10, 185, 185);font-size: 2.5em">
+            HUST EXAM
+        </div>
+        <div class="flex align-items-center justify-content-center mb-8 " style="color: rgb(10, 185, 185);font-size: 2.5em">
+            {{min}}:{{second}}    
+        </div>
+        <div class="grid">
+            <div *ngFor="let question of questions; index as i" class="col-2 m-1 ml-1 card" style="background-color: rgb(215, 214, 214);font-weight: bold;"> 
+                <p>{{question}}</p>             
+            </div>
+        </div>
+        <div class="flex justify-content-center">
+            <p-button label="Submit" icon="pi pi-check" class="mt-8"></p-button>
+
+        </div>
+    </div>
+    <div class="col-12 lg:col-6 xl:col-9">
+        <div class="card">
+            <div class="flex align-items-center justify-content-center mb-8 mt-4" style="font-size: 2.5em">
+                BÀI THI THIẾT KẾ VÀ XÂY DỰNG PHẦN MỀM
+            
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './app-management/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AuthGuard } from './app-management/service/auth-guard';
+import { OnlineExamComponent } from './app-management/components/online-exam/online-exam.component';
 
 @NgModule({
     imports: [
@@ -18,7 +19,9 @@ import { AuthGuard } from './app-management/service/auth-guard';
             { path: 'auth', loadChildren: () => import('./app-management/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'landing', loadChildren: () => import('./app-management/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'pages/notfound', component: NotfoundComponent },
+            { path: 'onlineExam/:id', component:OnlineExamComponent, canActivate:[AuthGuard]},
             { path: '**', redirectTo: 'pages/notfound' },
+    
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],
     exports: [RouterModule]

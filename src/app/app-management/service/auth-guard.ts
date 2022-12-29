@@ -10,12 +10,6 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (this.authService.isAuthenticated()) {
-            // if (this.authService.isAuthorized(state.url)){
-            //     return true;
-            // }else{
-            //     this.router.navigate([AppRoutingUrl.common.accessdenied]);
-            //     return false;
-            // }
             return true;
         }
         else {

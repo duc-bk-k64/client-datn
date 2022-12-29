@@ -24,18 +24,18 @@ export class AuthService  {
     }
 
     public isAuthenticated(): boolean {
-        return true;
-        // try {
-        //     let token = this.secureStorageService.getItem(storageKey.TOKEN) 
-        //     if (token === undefined) {
-        //         token = '';
-        //         return false;
-        //     }
-        //     return !this.jwtHelper.isTokenExpired(token);
+        // return true;
+        try {
+            let token = this.secureStorageService.getItem(storageKey.TOKEN) 
+            if (token === undefined) {
+                token = '';
+                return false;
+            }
+            return !this.jwtHelper.isTokenExpired(token);
 
-        // } catch (e) {
-        //     return false;
-        // }
+        } catch (e) {
+            return false;
+        }
     }
     public isAuthorized(): boolean {
         try{
@@ -72,7 +72,7 @@ export class AuthService  {
 
    
     setToken(token: string) {
-        this.secureStorageService.setItem(storageKey.TOKEN,token);
+        this.secureStorageService.setItem(storageKey.TOKEN,'Bearer '+token);
     }
     getRedirectUrl(): string {
         return this.secureStorageService.getItem(storageKey.REFERER);

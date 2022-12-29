@@ -35,6 +35,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Empty',
                         icon: 'pi pi-fw pi-sign-in',
                         routerLink: ['/pages/empty']
+                    },
+                    {
+                        label: 'Account Management',
+                        icon: 'pi pi-fw pi-sign-in',
+                        routerLink: ['/pages/account']
                     }
                   
                 ]

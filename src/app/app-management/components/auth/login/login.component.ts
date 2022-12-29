@@ -37,17 +37,15 @@ export class LoginComponent {
 
     constructor(public layoutService: LayoutService,private messageService: MessageService,private authService:AuthService ,private router: Router,public httpClient: HttpClient, public secureStorageService : SecureStorageService ) { }
     login() {
-        this.httpClient.post<any>(getServerApiUrl()+ '/auth/signin',{'userName':this.username,'passWord':this.password}).subscribe({
+        this.httpClient.post<any>('/api/authenticate',{'username':this.username,'password':this.password,'rememberMe':true}).subscribe({
             next: data => {
-                if(data.resultCode == 0) {
-                    this.authService.setToken(data.data);
+                try {
+                    this.authService.setToken(data.id_token);
                     this.router.navigate([this.authService.getRedirectUrl()]);
-                    // console.log(data);
+                } catch (error) {
+                    this.messageService.add({severity:data.title, summary:data.detail});
                 }
-                else{
-                    // console.log(data);
-                    this.messageService.add({severity:'error', summary:data.message});
-                }
+               
             },
             error: error => {
                 this.router.navigate(['/auth/error']);

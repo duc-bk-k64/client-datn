@@ -15,10 +15,13 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {DropdownModule} from 'primeng/dropdown';
 
 import {PasswordModule} from 'primeng/password';
+import { AccountManagementComponent } from './account-management/account-management.component';
 
 @NgModule({
     declarations: [
    
+  
+    AccountManagementComponent
   ],
     imports: [
         CommonModule,
