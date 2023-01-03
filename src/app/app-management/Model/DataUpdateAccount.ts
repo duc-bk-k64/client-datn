@@ -1,6 +1,4 @@
-export interface Account {
-    id?:number;
-    username?: string;
+export interface DataUpdateAccount {
     email?:string;
     roles?:string;
     status?:boolean;

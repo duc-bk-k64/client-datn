@@ -4,9 +4,9 @@
        <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
             <div class="my-2">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2"  ></button>
-                <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-warning mr-2" ></button>
-                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"  ></button>
+                <button pButton pRipple label="New" pTooltip="Tạo mới tài khoản" icon="pi pi-plus" class="p-button-success mr-2" (click)="showCreateDialogFunc()" ></button>
+                <!-- <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-warning mr-2" ></button>
+                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"  ></button> -->
             </div>
         </ng-template>
 
@@ -65,9 +65,10 @@
                         <p-columnFilter type="text" field="note" display="menu"></p-columnFilter>
                     </div>
                 </th>
-                <!-- <th style="width: 3rem">
+                <th style="width: 3rem">
                 </th>
-               -->
+                <th style="width: 3rem">
+                </th>
             </tr>
 
         </ng-template>
@@ -81,9 +82,12 @@
                 <td>{{obj.status}}</td>
                 <td>{{obj.roles}}</td>
                 <td>{{obj.note}}</td>
-                <!-- <td>
-                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-text"></button>
-                </td> -->
+                <td>
+                    <button pButton pTooltip="Cập nhật tài khoản" tooltipPosition="left" pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click)="showUpdateDialogFunc(obj)"></button>
+                </td>
+                <td>
+                    <button pButton pRipple pTooltip="Xóa tài khoản" tooltipPosition="left" type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                </td>
             </tr>
 
         </ng-template>
@@ -145,9 +149,11 @@
                         <p-columnFilter type="text" field="note" display="menu"></p-columnFilter>
                     </div>
                 </th>
-                <!-- <th style="width: 3rem">
+                <th style="width: 3rem">
                 </th>
-               -->
+                <th style="width: 3rem">
+                </th>
+              
             </tr>
 
         </ng-template>
@@ -161,11 +167,13 @@
                 <td>{{obj.status}}</td>
                 <td>{{obj.roles}}</td>
                 <td>{{obj.note}}</td>
-                <!-- <td>
-                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-text"></button>
-                </td> -->
+                <td>
+                    <button pButton pTooltip="Cập nhật tài khoản" tooltipPosition="left" pRipple type="button" icon="pi pi-check" class="p-button-rounded" (click) ="showUpdateDialogFunc(obj)"></button>
+                </td>
+                <td>
+                    <button pButton pRipple pTooltip="Xóa tài khoản" tooltipPosition="left" type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                </td>
             </tr>
-
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
@@ -175,3 +183,110 @@
         </p-table>
     </div>
 </div>
+<p-dialog [(visible)]="showCreateDialog" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="{{labelCreate}}" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'50vw', height: '30vw'}" [modal]="true">
+
+    <ng-template pTemplate="content">
+        <div class = "grid">
+            <div class="col-12">
+             
+            </div>
+            <div class = "col-12 lg:col-4 ">
+                <div class="field">
+                    <!-- <label for="name">Group name</label>
+                    <input type="text" pTooltip="Group name"  tooltipPosition="bottom"  pInputText id="name"  [(ngModel)]="groupModel.group_name" required autofocus placeholder="Group name"  [ngClass]="{'ng-invalid ng-dirty' : !groupModel.group_name}" /> -->
+                    <!-- <small class="ng-dirty ng-invalid" style="color: red;" *ngIf="!accountModel.userName">Username is required.</small> -->
+                </div>
+
+            </div>
+            <div class = "col-12 lg:col-4 ">
+                <div class="field">
+                    <!-- <label for="password">Group code</label>
+                    <input id="password" pTooltip="Group code" [disabled]="isUpdate" tooltipPosition="bottom"  pInputText [(ngModel)]="groupModel.group_code" required autofocus placeholder="Group code" />
+                    <small class="ng-dirty ng-invalid" style="color: red;" *ngIf="!groupModel.group_code">Group code is required.</small> -->
+                </div>
+
+            </div>
+            <div class = "col-12 lg:col-4">
+                <div class="field">
+                    <!-- <label for="status">Status</label>
+                    <p-dropdown id="status" [options]="statusList" optionValue="value" [(ngModel)]="groupModel.status" placeholder="Select status" optionLabel="name" [showClear]="true"></p-dropdown> -->
+
+                </div>
+
+            </div>
+
+            
+            <div class = "col-12 lg:col-4">
+                <div class="field">
+                    <!-- <label for="role">User</label>
+                    <p-multiSelect id="role" defaultLabel="Select user" autofocus [options]="parentComponent.listUserCanAdd" [(ngModel)]="userSelected" optionLabel="username" optionValue="id" display="chip"></p-multiSelect> -->
+                </div>
+            </div>
+          
+            
+        </div>
+       
+      
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple  label="Cancel" icon="pi pi-times" class="p-button-text" (click) ="cancelCreateDialog()"></button>
+        <!-- <button pButton pRipple type="button" label="Create" icon="pi pi-check" class="p-button-text" [disabled]="!this.groupModel.group_code" *ngIf="!isUpdate" (click)="createGroup()" ></button>
+        <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" *ngIf="isUpdate" [disabled]="!this.groupModel.group_code" (click)="updateGroup()" ></button> -->
+    </ng-template>
+</p-dialog>
+<p-dialog [(visible)]="showUpdateDialog" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="{{labelUpdate}}" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'50vw', height: '30vw'}" [modal]="true">
+
+    <ng-template pTemplate="content">
+        <div class = "grid">
+            <div class = "col-12 lg:col-4 ">
+                <div class="field">
+                    <label for="name">Tên đăng nhập</label>
+                    <input type="text" pTooltip="Username"  tooltipPosition="bottom" id="name" [disabled]="true"  pInputText   [(ngModel)]="accountUpdate.username" required autofocus placeholder="Username"  [ngClass]="{'ng-invalid ng-dirty' : !accountUpdate.username}" />
+                    <small class="ng-dirty ng-invalid" style="color: red;" *ngIf="!accountUpdate.username">Username is required.</small>
+                </div>
+
+            </div>
+            <div class = "col-12 lg:col-4 ">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" pTooltip="Email"  tooltipPosition="bottom"  pInputText [(ngModel)]="accountUpdate.email" required autofocus placeholder="Email" />
+                    <small class="ng-dirty ng-invalid" style="color: red;" *ngIf="!accountUpdate.email">Email is required.</small>
+                </div>
+
+            </div>
+            <div class = "col-12 lg:col-4">
+                <div class="field">
+                    <label for="status">Trạng thái</label>
+                    <p-dropdown id="status" [options]="statusList"  [(ngModel)]="accountUpdate.status" defaultLabel="Select status" optionLabel="name" optionValue="value"></p-dropdown>
+
+                </div>
+
+            </div>
+
+            
+            <div class = "col-12 lg:col-4">
+                <div class="field">
+                    <label for="role">Vai trò</label>
+                    <p-dropdown id="role" defaultLabel="Select role"  [options]="roleList" [(ngModel)]="accountUpdate.roles" ></p-dropdown>
+                </div>
+            </div>
+            <div class = "col-12 lg:col-8 ">
+                <div class="field">
+                    <label for="note">Note</label>
+                    <input id="note" pTooltip="Lưu ý"  tooltipPosition="bottom"  pInputText [(ngModel)]="accountUpdate.note" required autofocus placeholder="Note" />
+                </div>
+
+            </div>
+          
+            
+        </div>
+       
+      
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" (click)="updateAccount()"   ></button>
+        <button pButton pRipple  label="Cancel" icon="pi pi-times" class="p-button-text" (click) ="cancelUpdateDialog()"></button>
+    </ng-template>
+</p-dialog>
