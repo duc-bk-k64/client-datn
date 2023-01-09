@@ -34,10 +34,12 @@ export class LoginComponent {
 
     password: any;
     username: any;
+    rememberMe: boolean = false;
 
     constructor(public layoutService: LayoutService,private messageService: MessageService,private authService:AuthService ,private router: Router,public httpClient: HttpClient, public secureStorageService : SecureStorageService ) { }
     login() {
-        this.httpClient.post<any>('/api/authenticate',{'username':this.username,'password':this.password,'rememberMe':true}).subscribe({
+        // console.log(this.rememberMe)
+        this.httpClient.post<any>('/api/authenticate',{'username':this.username,'password':this.password,'rememberMe':this.rememberMe}).subscribe({
             next: data => {
                 try {
                     this.authService.setToken(data.id_token);

@@ -9,6 +9,11 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OnlineExamComponent } from './app-management/components/online-exam/online-exam.component';
 import {ButtonModule} from 'primeng/button';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {CheckboxModule} from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import {InputTextModule} from 'primeng/inputtext';
+import {ImageModule} from 'primeng/image';
 @NgModule({
     declarations: [
         AppComponent, NotfoundComponent, OnlineExamComponent
@@ -18,7 +23,12 @@ import {ButtonModule} from 'primeng/button';
         AppRoutingModule,
         AppLayoutModule,
         CommonModule,
-        ButtonModule
+        ButtonModule,
+        RadioButtonModule,
+        CheckboxModule,
+        FormsModule,
+        InputTextModule,
+        ImageModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
