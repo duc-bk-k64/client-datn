@@ -16,12 +16,19 @@ import {DropdownModule} from 'primeng/dropdown';
 
 import {PasswordModule} from 'primeng/password';
 import { AccountManagementComponent } from './account-management/account-management.component';
+import { ExamclassManagementComponent } from './examclass-management/examclass-management.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
    
   
-    AccountManagementComponent
+    AccountManagementComponent,
+             ExamclassManagementComponent
   ],
     imports: [
         CommonModule,
@@ -37,7 +44,13 @@ import { AccountManagementComponent } from './account-management/account-managem
         MultiSelectModule,
         ConfirmDialogModule,
         DropdownModule,
-        PasswordModule
+        PasswordModule,
+        MatTableModule,
+        MatCardModule,
+        FormsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        ReactiveFormsModule
     ]
 })
 export class PagesModule { }

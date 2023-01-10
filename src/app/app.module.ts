@@ -9,6 +9,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OnlineExamComponent } from './app-management/components/online-exam/online-exam.component';
 import {ButtonModule} from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
     declarations: [
         AppComponent, NotfoundComponent, OnlineExamComponent
@@ -18,7 +20,9 @@ import {ButtonModule} from 'primeng/button';
         AppRoutingModule,
         AppLayoutModule,
         CommonModule,
-        ButtonModule
+        ButtonModule,
+        BrowserAnimationsModule,
+        MatTableModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
