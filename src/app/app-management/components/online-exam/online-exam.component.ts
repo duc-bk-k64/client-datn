@@ -71,7 +71,6 @@ export class OnlineExamComponent implements OnInit {
     await this.http.get<any>("/api/student-answers/exam?studentId=4&examClassId=74",{headers: this.header}).toPromise().then(
       data => {
         this.exam = data;
-        // console.log(this.exam)
       },
       error => {
         console.log(error)
@@ -89,6 +88,5 @@ export class OnlineExamComponent implements OnInit {
       this.questions[i].content = "Câu hỏi là gì?";
       this.questions[i].level = "EASY";
     }
-    // console.log(this.questions)
   }
 }
