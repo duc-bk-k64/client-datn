@@ -9,5 +9,5 @@ export interface Question {
     status?:boolean;
     note?:string;
     subject?:any;
-    listAnswer?:string[];
+    answerDTOs?:any[];
 }

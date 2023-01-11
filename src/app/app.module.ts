@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {ImageModule} from 'primeng/image';
 
+import { ToastModule } from 'primeng/toast';
 @NgModule({
     declarations: [
         AppComponent, NotfoundComponent, OnlineExamComponent
@@ -37,7 +38,8 @@ import {ImageModule} from 'primeng/image';
         CheckboxModule,
         FormsModule,
         InputTextModule,
-        ImageModule
+        ImageModule,
+        ToastModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
