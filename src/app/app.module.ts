@@ -32,7 +32,7 @@ import { ToastModule } from 'primeng/toast';
         ButtonModule,
 
         BrowserAnimationsModule,
-        MatTableModule
+        MatTableModule,
 
         RadioButtonModule,
         CheckboxModule,
