@@ -1,0 +1,81 @@
+<div style="width: 100%">
+    <div class="content p-12">
+        <h2 class="cssTieuDe">Quản lý lớp thi</h2>
+         
+        <div class="table-container">
+            <div class="flex-row respRow">
+                <div class="flex-row">
+                <mat-form-field floatLabel="always" appearance="outline">
+                    <mat-select >
+                        <!-- <mat-option>
+                            <ngx-mat-select-search class="filter" placeholderLabel="Tìm kiếm"
+                                [formControl]="filterExam"></ngx-mat-select-search>
+                        </mat-option> -->
+                    </mat-select>
+                </mat-form-field>
+                </div>
+                <div class="row">
+                <button pButton pRipple label="Tạo mới lớp thi" pTooltip="Tạo mới lớp thi" icon="pi pi-plus" class="p-button-success mr-2" ></button>
+            </div>
+            </div>
+            <div fxLayout="row" fxLayoutWrap>
+                <mat-card class="example-card" *ngFor="let item of dataTable">
+                <mat-card-title >
+                       <p>{{item.name}}</p>
+                </mat-card-title>
+                <mat-card-content>
+                    Thời gian mở : {{item.startTime | date:'dd/MM/yyyy h:mm a'}} &#160;  <span style="color: red;">*</span>  Thời gian kết thúc {{item.endTime | date:'dd/MM/yyyy h:mm a'}}
+                </mat-card-content>
+                <mat-card-content>
+                    <p>Số lượng sinh viên : {{item.numberOfStudents }} &#160; <span style="color: red;">*</span> Số câu hỏi : {{item.numberOfQuestions}} </p>
+                </mat-card-content>
+                <button pButton pRipple pTooltip="Xóa lớp thi" tooltipPosition="left" type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deleteExam(item)"></button>
+            </mat-card>
+            </div>
+            <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 fs-13" >
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef style="width:200px">
+                        Tên lớp thi
+                    </th>
+                    <td mat-cell *matCellDef="let element" style="width:100px;text-align: left">
+                        {{ element.name }}
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="startTime" >
+                    <th mat-header-cell *matHeaderCellDef style="width:200px">
+                        Thời gian bắt đầu
+                    </th>
+                    <td mat-cell *matCellDef="let element" style="width:100px">
+                        {{ element.startTime | date:'dd/MM/yyyy' }}
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="endTime" sticky>
+                    <th mat-header-cell *matHeaderCellDef style="width:200px">
+                     Thời gian kết thúc
+                    </th>
+                    <td mat-cell *matCellDef="let element" style="width:100px;text-align: left">
+                        {{ element.endTime | date:'dd/MM/yyyy'}}
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="numberOfQuestion" sticky>
+                    <th mat-header-cell *matHeaderCellDef style="width:200px">
+                       Số lượng câu hỏi
+                    </th>
+                    <td mat-cell *matCellDef="let element" style="width:100px;text-align: left">
+                        {{ element.numberOfQuestions }}
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="numberOfStudent" sticky>
+                    <th mat-header-cell *matHeaderCellDef style="width:200px">
+                        Số lượng học sinh
+                    </th>
+                    <td mat-cell *matCellDef="let element" style="width:100px;text-align: left">
+                        {{ element.numberOfStudents }}
+                    </td>
+                </ng-container> 
+                
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns;" ></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table> -->
+       
