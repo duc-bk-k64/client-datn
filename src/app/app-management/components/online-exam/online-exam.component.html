@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="grid">
     <div class="col-12 lg:col-6 xl:col-3 card" style="height: 100%;">
         <div class="flex align-items-center justify-content-center mb-8 mt-8" style="color: rgb(10, 185, 185);font-size: 2.5em">
@@ -35,15 +36,15 @@
                         </div>
                     </div>
                     <div class="grid" *ngIf="question.type=='SINGLE_SELECT'">
-                        <div *ngFor="let answer of question.listAnswer" class="p-field-checkbox col-3">
-                            <p-radioButton [disabled]="expired" [inputId]="answer"  [value] = "answer" [(ngModel)] = "listAnswer[i]"  ></p-radioButton>
-                            <label [for]="answer"> {{answer}}</label>
+                        <div *ngFor="let answer of question.answerDTOs" class="p-field-checkbox col-3">
+                            <p-radioButton [disabled]="expired" [inputId]="answer.id"  [value] = "answer.content" [(ngModel)] = "listAnswer[i]"  ></p-radioButton>
+                            <label [for]="answer.id"> {{answer.content}}</label>
                         </div>
                     </div>
                     <div class="grid" *ngIf="question.type=='MULTI_SELECT'">
-                        <div *ngFor="let answer of question.listAnswer" class="p-field-checkbox col-3">
-                            <p-checkbox [inputId]="answer" [disabled]="expired" [value] = "answer" [(ngModel)] = "listAnswer[i]"  ></p-checkbox>
-                            <label [for]="answer"> {{answer}}</label>
+                        <div *ngFor="let answer of question.answerDTOs" class="p-field-checkbox col-3">
+                            <p-checkbox [inputId]="answer.id" [disabled]="expired" [value] = "answer.content" [(ngModel)] = "listAnswer[i]"  ></p-checkbox>
+                            <label [for]="answer.id"> {{answer.content}}</label>
                         </div>
                     </div>
                     <div  *ngIf="question.type  == 'FILL_IN_BLANK'">
