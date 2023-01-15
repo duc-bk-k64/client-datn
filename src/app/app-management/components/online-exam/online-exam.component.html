@@ -29,21 +29,21 @@
             <div class="grid">
                 <div class ="col-12" *ngFor="let question of questions;  index as i" style="font-size: 1.0em" >
                     <label for="question" style="font-weight: bold;">Question {{i+1}}</label>
-                    <p id="question" style="font-weight: bold;">{{question.content}} ({{question.level}})</p>
+                    <p id="question" style="font-weight: bold;">{{question.content}} </p>
                     <div *ngIf="question.images" class="grid">
-                        <div *ngFor="let image of question.images" class="col-6">
-                            <p-image [src]="image" alt="Image"  [preview]="true"></p-image>
+                        <div class="col-8">
+                            <p-image [src]="question.images" alt="Image"  [preview]="true"></p-image>
                         </div>
                     </div>
                     <div class="grid" *ngIf="question.type=='SINGLE_SELECT'">
                         <div *ngFor="let answer of question.answerDTOs" class="p-field-checkbox col-3">
-                            <p-radioButton [disabled]="expired" [inputId]="answer.id"  [value] = "answer.content" [(ngModel)] = "listAnswer[i]"  ></p-radioButton>
+                            <p-radioButton [disabled]="expired" [id]="answer.id"  [value] = "answer.id" [(ngModel)] = "listAnswer[i]"  ></p-radioButton>
                             <label [for]="answer.id"> {{answer.content}}</label>
                         </div>
                     </div>
                     <div class="grid" *ngIf="question.type=='MULTI_SELECT'">
                         <div *ngFor="let answer of question.answerDTOs" class="p-field-checkbox col-3">
-                            <p-checkbox [inputId]="answer.id" [disabled]="expired" [value] = "answer.content" [(ngModel)] = "listAnswer[i]"  ></p-checkbox>
+                            <p-checkbox [id]="answer.id" [disabled]="expired" [value] = "answer.id" [(ngModel)] = "listAnswer[i]"  ></p-checkbox>
                             <label [for]="answer.id"> {{answer.content}}</label>
                         </div>
                     </div>
