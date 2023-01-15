@@ -1,8 +1,4 @@
 export interface Answer {
+    id?:number;
     content?:string;
-    image?:string[];
-    isCorrect?:boolean;
-    status?:boolean;
-    note?:string;
-    questionId?:number;
 }

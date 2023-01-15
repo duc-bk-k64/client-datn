@@ -22,13 +22,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { ExamStatisticsComponent } from './exam-statistics/exam-statistics.component';
 
 @NgModule({
     declarations: [
    
   
     AccountManagementComponent,
-             ExamclassManagementComponent
+             ExamclassManagementComponent,
+             ExamStatisticsComponent
   ],
     imports: [
         CommonModule,
