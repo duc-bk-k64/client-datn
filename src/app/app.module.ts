@@ -15,11 +15,13 @@ import { MatTableModule } from '@angular/material/table';
 
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CheckboxModule} from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule,} from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {ImageModule} from 'primeng/image';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { ToastModule } from 'primeng/toast';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 @NgModule({
     declarations: [
         AppComponent, NotfoundComponent, OnlineExamComponent
@@ -32,13 +34,16 @@ import { ToastModule } from 'primeng/toast';
         ButtonModule,
 
         BrowserAnimationsModule,
-        MatTableModule
-
+        MatTableModule,
+MatDialogModule,
         RadioButtonModule,
         CheckboxModule,
         FormsModule,
         InputTextModule,
         ImageModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
         ToastModule
     ],
     providers: [

@@ -1,0 +1,88 @@
+<div mat-dialog-content style="margin-top:10px; overflow: inherit;">
+    <div class="container" [formGroup]="formControl">
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="46" style="width: 35%; font-weight: bold;">Tên môn học</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="name" [(ngModel)]="data.item.name">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Số lượng sinh viên</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="numberOfStudents" [(ngModel)]="data.item.numberOfStudents">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Số lượng câu hỏi</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="numberOfQuestions" [(ngModel)]="data.item.numberOfQuestions">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Số câu hỏi dễ</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="easyQuestionRate" [(ngModel)]="data.item.easyQuestionRate">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Số câu hỏi trung bình</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="mediumQuestionRate" [(ngModel)]="data.item.mediumQuestionRate">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Số câu hỏi khó</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="difficultQuestionRate" [(ngModel)]="data.item.difficultQuestionRate">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Trạng thái</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="status" [(ngModel)]="data.item.status">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Ghi chú</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="note" [(ngModel)]="data.item.note">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Thời gian mở đầu</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <input matInput type="datetime-local" [min]="data.item.startTime" readonly 
+                formControlName="startTime" [(ngModel)]="data.item.startTime" >
+            </mat-form-field>
+        </div>
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">Thời gian kết thúc</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <input matInput type="datetime-local"  [min]="data.item.endTime" readonly 
+                formControlName="endTime" [(ngModel)]="data.item.endTime" >
+            </mat-form-field>
+        </div>
+        
+         
+        <div class="flex-row" fxLayoutAlign="start center">
+            <p fxFlex="23" style="width: 35%; font-weight: bold;">isComeBack</p>
+            <mat-form-field floatLabel="always" appearance="outline" fxFlex="180">
+                <textarea matInput formControlName="isComeBack" [(ngModel)]="data.item.isComeBack">
+                    </textarea>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions style="text-align: right ; float: right;" class="fs-14">
+            <button mat-raised-button color="primary" (click)="addExam()">
+                Thêm mới
+            </button>
+            
+        </div>
+       

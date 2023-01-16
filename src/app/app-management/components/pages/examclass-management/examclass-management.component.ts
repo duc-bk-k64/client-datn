@@ -10,7 +10,9 @@ import { AuthService } from 'src/app/app-management/service/auth.service';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddExamComponent } from './dialog-add-exam/dialog-add-exam.component';
 @Component({
   selector: 'app-examclass-management',
   templateUrl: './examclass-management.component.html',
@@ -27,7 +29,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
   dataTable: any = [];
 
   constructor(public service: ExamClassService, private httpClient: HttpClient, private router: Router, private messageService: MessageService,
-    private authService: AuthService,
+    private authService: AuthService,public dialog: MatDialog,
     ) {
     super()
   }
@@ -73,6 +75,37 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
         }
       )
   }
+  openDialogAdd() {
+    let item: any = {
+      name: "",
+      numberOfStudents: "",
+      startTime: null,
+      endTime: null,
+      isComeBack: null,
+      status: null,
+      note: "",
+      numberOfQuestions: "",
+      easyQuestionRate: "",
+      mediumQuestionRate: "",
+      difficultQuestionRate: "",
+      subjectId: "",
+      teacherId: ""
+    };
+    item = JSON.parse(JSON.stringify(item));
+    const dialogRef = this.dialog.open(DialogAddExamComponent, {
+        width: '700px',
+        height: '65vh',
+        autoFocus: false,
+        data: {
+            item
+        }
+    });
+    dialogRef.afterClosed().subscribe((response: any) => {
+        if (response === true) {
+            this.getList();
+        }
+    });
+}
   deleteExam(item: any) {
     this.service.deleteExam(item.id).pipe(this.unsubsribeOnDestroy)
       .subscribe(
