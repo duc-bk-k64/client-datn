@@ -23,7 +23,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { DialogAddExamComponent } from './examclass-management/dialog-add-exam/dialog-add-exam.component';
-
+import { InputNumberModule } from 'primeng/inputnumber';
+import {CalendarModule} from 'primeng/calendar';
+import { CardModule } from 'primeng/card';
 @NgModule({
     declarations: [
    
@@ -52,7 +54,10 @@ import { DialogAddExamComponent } from './examclass-management/dialog-add-exam/d
         FormsModule,
         MatSelectModule,
         MatFormFieldModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        InputNumberModule,
+        CalendarModule,
+        CardModule
     ]
 })
 export class PagesModule { }

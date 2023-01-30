@@ -9,10 +9,11 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OnlineExamComponent } from './app-management/components/online-exam/online-exam.component';
 import {ButtonModule} from 'primeng/button';
-
+import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
-
+import { DynamicDialogModule,DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {CheckboxModule} from 'primeng/checkbox';
 import { FormsModule ,ReactiveFormsModule,} from '@angular/forms';
@@ -32,7 +33,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
         AppLayoutModule,
         CommonModule,
         ButtonModule,
-
+        DynamicDialogModule,
         BrowserAnimationsModule,
         MatTableModule,
 MatDialogModule,
@@ -49,7 +50,11 @@ MatDialogModule,
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
       AuthGuard,JwtHelperService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-        MessageService,ConfirmationService
+        MessageService,ConfirmationService, {
+            provide: DynamicDialogRef,
+            useValue: {}
+          },
+          DialogService
     ],
     bootstrap: [AppComponent]
 })

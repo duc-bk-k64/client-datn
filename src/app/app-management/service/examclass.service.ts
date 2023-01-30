@@ -29,4 +29,10 @@ export class ExamClassService extends BaseService{
             headers: this.sharedHeaders,
         })
     }
+    updateExam(item:any){
+        return this._http.put(`/api/exam-classes/${item.id}`,item,
+        {
+            headers: this.sharedHeaders,
+        })  
+    }
 }

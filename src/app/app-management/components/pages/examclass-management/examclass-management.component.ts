@@ -13,6 +13,8 @@ import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddExamComponent } from './dialog-add-exam/dialog-add-exam.component';
+import {DialogService} from 'primeng/dynamicdialog';
+import {CardModule} from 'primeng/card';
 @Component({
   selector: 'app-examclass-management',
   templateUrl: './examclass-management.component.html',
@@ -29,7 +31,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
   dataTable: any = [];
 
   constructor(public service: ExamClassService, private httpClient: HttpClient, private router: Router, private messageService: MessageService,
-    private authService: AuthService,public dialog: MatDialog,
+    private authService: AuthService,public dialog: MatDialog,public dialogService: DialogService
     ) {
     super()
   }
@@ -77,6 +79,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
   }
   openDialogAdd() {
     let item: any = {
+      
       name: "",
       numberOfStudents: "",
       startTime: null,
@@ -88,23 +91,44 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
       easyQuestionRate: "",
       mediumQuestionRate: "",
       difficultQuestionRate: "",
-      subjectId: "",
-      teacherId: ""
+      subjectId: 2,
+      teacherId: 4
     };
     item = JSON.parse(JSON.stringify(item));
-    const dialogRef = this.dialog.open(DialogAddExamComponent, {
-        width: '700px',
+    const dialogRef = this.dialogService.open(DialogAddExamComponent, {
+        width: '1200px',
         height: '65vh',
-        autoFocus: false,
+      
         data: {
             item
         }
     });
-    dialogRef.afterClosed().subscribe((response: any) => {
-        if (response === true) {
+    dialogRef.onClose.subscribe((response: any) => {
+       
             this.getList();
-        }
+        
     });
+}
+openDialogUpdate(element:any) {
+  let item: any = {
+    ...element,
+  };
+  console.log(item)
+  item = JSON.parse(JSON.stringify(item));
+  const dialogRef = this.dialogService.open(DialogAddExamComponent, {
+      width: '1200px',
+      height: '65vh',
+    
+      data: {
+          item,
+          id:element.id
+      }
+  });
+  dialogRef.onClose.subscribe((response: any) => {
+      if (response === true) {
+          this.getList();
+      }
+  });
 }
   deleteExam(item: any) {
     this.service.deleteExam(item.id).pipe(this.unsubsribeOnDestroy)
