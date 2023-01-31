@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddExamComponent } from './dialog-add-exam/dialog-add-exam.component';
 import {DialogService} from 'primeng/dynamicdialog';
 import {CardModule} from 'primeng/card';
+import {CascadeSelectModule} from 'primeng/cascadeselect';
 @Component({
   selector: 'app-examclass-management',
   templateUrl: './examclass-management.component.html',
@@ -29,7 +30,9 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
 
   displayedColumns: string[] = ["name", "startTime", "endTime", "numberOfQuestion", "numberOfStudent"];
   dataTable: any = [];
-
+  filterLopThi = new FormControl('');
+  filteredLopThi: any = [];
+  dsLopThi: any;
   constructor(public service: ExamClassService, private httpClient: HttpClient, private router: Router, private messageService: MessageService,
     private authService: AuthService,public dialog: MatDialog,public dialogService: DialogService
     ) {
@@ -39,18 +42,12 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
   ngOnInit(): void {
     this.header = new HttpHeaders().set(storageKey.AUTHORIZATION, this.authService.getToken());
     this.getList()
-    // this.getDS()
-    // this.filterExam = new FormControl();
-    // console.log(this.filterExam)
-    // this.filterExam.valueChanges.subscribe(
-    //   value => {
-    //     this.listExam = this.listExam.filter(x =>{
-    //       console.log(this.filterExam)
-    //     }
-
-    //     )
-    // }
-    // )
+    this.filterLopThi.valueChanges.subscribe({
+      next: (value) => {
+          this.filteredLopThi = this.dsLopThi.filter(
+          );
+      }
+  })
   }
   getList() {
     this.listExam = []
@@ -58,16 +55,18 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
       .subscribe(
         (rs: any) => {
           console.log(rs)
-          this.dataSource = rs.content
           this.dataTable = rs.content
-          rs.content.map((e: any, i: any) => {
-            this.listExam.push({
+          rs.content.map((e: any,i:any) => {
+            this.filteredLopThi.push({
               ...e,
               view: ` ${e.name}`,
-            });
+            })
+              if (rs.content?.length === i + 1) {
+              this.dsLopThi = this.filteredLopThi;
+          }
           });
-          console.log(this.dataSource)
-
+         
+          console.log(this.filteredLopThi)
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cập nhật thành công' });
         },
         error => {
@@ -103,10 +102,8 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
             item
         }
     });
-    dialogRef.onClose.subscribe((response: any) => {
-       
+    dialogRef.onClose.subscribe(() => {
             this.getList();
-        
     });
 }
 openDialogUpdate(element:any) {
@@ -135,15 +132,15 @@ openDialogUpdate(element:any) {
       .subscribe(
         (rs: any) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Xóa thành công' });
-          this.getList()
+          
         },
         error => {
           console.log(error)
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
         }
-
+        
       )
-    
+      this.getList()
   }
   // async getDS() {
   //  await this.httpClient.get<any>("/api/exam-classes",{headers: this.header}).toPromise().then(data => {

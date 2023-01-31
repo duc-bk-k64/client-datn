@@ -26,6 +26,7 @@ import { DialogAddExamComponent } from './examclass-management/dialog-add-exam/d
 import { InputNumberModule } from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import {CascadeSelectModule} from 'primeng/cascadeselect';
 @NgModule({
     declarations: [
    
@@ -57,7 +58,8 @@ import { CardModule } from 'primeng/card';
         ReactiveFormsModule,
         InputNumberModule,
         CalendarModule,
-        CardModule
+        CardModule,
+        CascadeSelectModule
     ]
 })
 export class PagesModule { }

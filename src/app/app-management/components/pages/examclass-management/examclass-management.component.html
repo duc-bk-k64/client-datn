@@ -7,10 +7,13 @@
                 <div class="flex-row">
                 <mat-form-field floatLabel="always" appearance="outline">
                     <mat-select >
-                        <!-- <mat-option>
+                        <mat-option>
                             <ngx-mat-select-search class="filter" placeholderLabel="Tìm kiếm"
-                                [formControl]="filterExam"></ngx-mat-select-search>
-                        </mat-option> -->
+                                [formControl]="filterLopThi"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let item of filteredLopThi" [value]="item.name">
+                            {{item.view}}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
                 </div>
