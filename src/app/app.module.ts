@@ -35,7 +35,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
         ButtonModule,
         DynamicDialogModule,
         BrowserAnimationsModule,
-        MatTableModule,,
+        MatTableModule,
 MatDialogModule,
         RadioButtonModule,
         CheckboxModule,

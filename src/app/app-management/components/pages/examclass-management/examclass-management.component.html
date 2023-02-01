@@ -35,7 +35,7 @@
                 <button pButton pRipple pTooltip="Xóa lớp thi" tooltipPosition="left" type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deleteExam(item)"></button>
                 <button pButton pRipple pTooltip="Chỉnh sửa lớp thi" tooltipPosition="left" type="button" icon="pi pi-cog" class="p-button-rounded p-button-rounded"   (click)="openDialogUpdate(item)"></button>
             </mat-card> -->
-            <p-card class="card-item" header="{{item.name}}" *ngFor="let item of dataTable"   styleClass="p-card-shadow" >
+            <p-card class="card-item" header="{{item.name}}" *ngFor="let item of dataTable"  routerLink="/examclass-detail" styleClass="p-card-shadow" >
                 <!-- <ng-template pTemplate="header">
                     <img alt="Card" src="assets/showcase/images/usercard.png">
                 </ng-template> -->
