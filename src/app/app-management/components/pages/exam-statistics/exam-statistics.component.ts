@@ -15,6 +15,7 @@ export class ExamStatisticsComponent implements OnInit {
   constructor(private authService: AuthService,private httpClient: HttpClient,private router: Router,private messageService: MessageService) { }
 
   ngOnInit(): void {
+    localStorage.setItem("examClassIdStatistic","74");
     this.examClassId =  localStorage.getItem("examClassIdStatistic")||'';
     this.header = new HttpHeaders().set(storageKey.AUTHORIZATION,this.authService.getToken());
     this.loadStatisticsData();
