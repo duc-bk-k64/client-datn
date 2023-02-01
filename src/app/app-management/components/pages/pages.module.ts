@@ -23,14 +23,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ExamStatisticsComponent } from './exam-statistics/exam-statistics.component';
-
+import { DialogAddExamComponent } from './examclass-management/dialog-add-exam/dialog-add-exam.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import {CalendarModule} from 'primeng/calendar';
+import { CardModule } from 'primeng/card';
+import {CascadeSelectModule} from 'primeng/cascadeselect';
 @NgModule({
     declarations: [
    
   
     AccountManagementComponent,
              ExamclassManagementComponent,
-             ExamStatisticsComponent
+             ExamStatisticsComponent,
+             DialogAddExamComponent
   ],
     imports: [
         CommonModule,
@@ -52,7 +57,11 @@ import { ExamStatisticsComponent } from './exam-statistics/exam-statistics.compo
         FormsModule,
         MatSelectModule,
         MatFormFieldModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        InputNumberModule,
+        CalendarModule,
+        CardModule,
+        CascadeSelectModule
     ]
 })
 export class PagesModule { }

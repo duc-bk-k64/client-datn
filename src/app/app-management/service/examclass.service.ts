@@ -23,4 +23,16 @@ export class ExamClassService extends BaseService{
     deleteExam(id:any) {
         return this._http.delete(`/api/exam-classes/${id}`, {  headers: this.sharedHeaders, })
     }
+    addExam(item:any){
+        return this._http.post(`/api/exam-classes`,item,
+        {
+            headers: this.sharedHeaders,
+        })
+    }
+    updateExam(item:any){
+        return this._http.put(`/api/exam-classes/${item.id}`,item,
+        {
+            headers: this.sharedHeaders,
+        })  
+    }
 }
