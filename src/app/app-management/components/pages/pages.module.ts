@@ -22,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { ExamStatisticsComponent } from './exam-statistics/exam-statistics.component';
 import { DialogAddExamComponent } from './examclass-management/dialog-add-exam/dialog-add-exam.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
@@ -33,6 +34,7 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
   
     AccountManagementComponent,
              ExamclassManagementComponent,
+             ExamStatisticsComponent,
              DialogAddExamComponent
   ],
     imports: [

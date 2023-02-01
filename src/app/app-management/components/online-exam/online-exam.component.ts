@@ -30,6 +30,9 @@ export class OnlineExamComponent implements OnInit {
   answerDTO : Answer = {};
   exam: Exam[] = []
   typeQuestion = ['SINGLE_SELECT','MULTI_SELECT','FILL_IN_BLANK']
+  studentId = 4;
+  examClassId = 74;
+  studentScore : number = -1;
   ngOnInit(): void {
     this.header = new HttpHeaders().set(storageKey.AUTHORIZATION,this.authService.getToken());
     this.loadQuestion();
@@ -53,41 +56,82 @@ export class OnlineExamComponent implements OnInit {
     
   }
   countDown:any;
-  counter = 1800;
+  counter = 30;
   tick = 1000;
   min :any;
   second : any;
   header:any;
+  studentAnswerSubmit : any[] = [];
   async submit() {
-    for(let i=0; i<this.questions.length;i++) {
-      if(this.listAnswer[i]==undefined) this.listAnswer[i] = '';
-      console.log("question ID "+this.questions[i].id+" : "+this.listAnswer[i])
-    }
-    this.messageService.add({severity:'success', summary:'Nộp bài thành công'});
     
-    this.counter=0;
+    for(let i=0; i<this.questions.length;i++) {
+      if(this.listAnswer[i]==undefined) this.listAnswer[i] = '-1';
+      if(this.questions[i].type == "FILL_IN_BLANK") {
+        this.listAnswer[i] = this.listAnswer[i].replace(/\s{2,}/g, ' ').trim().split(" ").toString();
+      }
+      else  {
+        this.listAnswer[i] = this.listAnswer[i].toString();
+      }
+      let studentAnswer = {
+        "id":this.questions[i].id,
+        "content":this.listAnswer[i],
+        "examClass" : {
+          "id":this.examClassId
+        },
+        "question" : {
+          "id":this.questions[i].question_id,
+          "type":this.questions[i].type
+        },
+        "student": {
+          "id":this.studentId
+        }
+      }
+      this.studentAnswerSubmit.push(studentAnswer)
+    }
+    await this.http.post<any>("/api/student-answers/submit",{"studentAnswerDTOS":this.studentAnswerSubmit},{headers: this.header}).toPromise().then(
+      data => {
+        this.studentScore = data;
+        console.log(data)
+        this.messageService.add({severity:'success', summary:'Nộp bài thành công'});
+        this.counter=0;
+      },
+      error => {
+        console.log(error.error)
+        this.messageService.add({severity:'error', summary:error.error.title, detail:error.error.detail});
+
+      }
+    )
   }
   async loadQuestion() {
-    await this.http.get<any>("/api/student-answers/exam?studentId=4&examClassId=74",{headers: this.header}).toPromise().then(
+    await this.http.get<any>("/api/student-answers/exam?studentId="+this.studentId+"&examClassId="+this.examClassId,{headers: this.header}).toPromise().then(
       data => {
         this.exam = data;
+        // console.log(this.exam)
       },
       error => {
         console.log(error)
       }
     );
+    for(let i = 0;i<this.exam.length ; i++) {
+      let qs = {} as Question; 
+      let  aw = {} as Answer ; 
+      let index = this.questions.findIndex(e => e.id === this.exam[i].id)
+      aw.id = this.exam[i].answerId;
+      aw.content = this.exam[i].answerContent;
+      if(index > -1) {
+        this.questions[index].answerDTOs?.push(aw)
+      } else {
+        qs.id=this.exam[i].id;
+        qs.content=this.exam[i].questionContent;
+        qs.images = this.exam[i].images;
+        qs.type=this.exam[i].questionType;
+        qs.answerDTOs = [aw]
+        qs.question_id = this.exam[i].question_id;
+        this.questions.push(qs)
+      }
+    }
+    // console.log(this.questions)
    
-    for(let i = 0; i<this.exam.length;i++) {
-      this.questions.push(this.exam[i].question||{});
-      this.answers.push(this.exam[i].answerDTOS);
-    }
-    // missing value
-    for(let i = 0;i<this.questions.length;i++) {
-      this.questions[i].answerDTOs = this.answers[i];
-      this.questions[i].type =this.typeQuestion[Math.floor(Math.random()*3)]
-      this.questions[i].content = "Câu hỏi là gì?";
-      this.questions[i].level = "EASY";
-    }
-
+  
   }
 }

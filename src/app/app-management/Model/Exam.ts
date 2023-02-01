@@ -3,6 +3,14 @@ import { Question } from "./Question";
 
 export interface Exam {
     id?:number;
-    question?:Question;
-    answerDTOS?:Answer[];
+    content?:string;
+    questionImages?:string;
+    question_id?:number;
+    questionContent?:string;
+    questionType?:string;
+    answerId?:number;
+    answerContent?:string;
+    answerImages?:string;
+    is_correct?:boolean;
+    images?:string;
 }
