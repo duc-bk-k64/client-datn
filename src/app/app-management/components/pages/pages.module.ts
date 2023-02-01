@@ -28,6 +28,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
+import {ChartModule} from 'primeng/chart';
 @NgModule({
     declarations: [
    
@@ -61,7 +62,8 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
         InputNumberModule,
         CalendarModule,
         CardModule,
-        CascadeSelectModule
+        CascadeSelectModule,
+        ChartModule
     ]
 })
 export class PagesModule { }
