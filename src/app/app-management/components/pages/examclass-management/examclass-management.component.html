@@ -35,17 +35,18 @@
                 <button pButton pRipple pTooltip="Xóa lớp thi" tooltipPosition="left" type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="deleteExam(item)"></button>
                 <button pButton pRipple pTooltip="Chỉnh sửa lớp thi" tooltipPosition="left" type="button" icon="pi pi-cog" class="p-button-rounded p-button-rounded"   (click)="openDialogUpdate(item)"></button>
             </mat-card> -->
-            <p-card class="card-item" header="{{item.name}}" *ngFor="let item of dataTable"  routerLink="/examclass-detail" styleClass="p-card-shadow" >
+            <p-card class="card-item" header="{{item.name}}" *ngFor="let item of dataTable"  [routerLink]="['examclass-detail/',item.id]" routerLinkActive="active" styleClass="p-card-shadow" >
                 <!-- <ng-template pTemplate="header">
                     <img alt="Card" src="assets/showcase/images/usercard.png">
                 </ng-template> -->
+                <p> Tiêu đề {{item.id}}</p>
                 <ng-template pTemplate="abc">
                     Thời gian mở : {{item.startTime | date:'dd/MM/yyyy h:mm a'}} &#160;  <span style="color: red;">*</span>  Thời gian kết thúc {{item.endTime | date:'dd/MM/yyyy h:mm a'}}
                 </ng-template>
                 <p>Số lượng sinh viên : {{item.numberOfStudents }} &#160; <span style="color: red;">*</span> Số câu hỏi : {{item.numberOfQuestions}} </p>
       
                 <ng-template pTemplate="footer">
-                    <p-button label="Update" icon="pi pi-cog" class="p-button-rounded p-button-rounded"   (click)="openDialogUpdate(item)"></p-button>
+                  
                     <p-button label="Delete" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}" (click)="deleteExam(item)"></p-button>
                 </ng-template>
             </p-card>

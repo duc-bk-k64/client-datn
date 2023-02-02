@@ -35,4 +35,10 @@ export class ExamClassService extends BaseService{
             headers: this.sharedHeaders,
         })  
     }
+    getListQs(item:any){
+        return this._http.put(`/api/question/exam-class/${item}`,item,
+        {
+            headers: this.sharedHeaders,
+        })  
+    }
 }

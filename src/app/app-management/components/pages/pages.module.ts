@@ -13,7 +13,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {DropdownModule} from 'primeng/dropdown';
-import { RouterModule, Routes } from '@angular/router';
+
 import {PasswordModule} from 'primeng/password';
 import { AccountManagementComponent } from './account-management/account-management.component';
 import { ExamclassManagementComponent } from './examclass-management/examclass-management.component';
@@ -30,13 +30,7 @@ import { CardModule } from 'primeng/card';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
 import { ExamclassDetailComponent } from './examclass-management/examclass-detail/examclass-detail.component';
 import { AuthGuard } from '../../service/auth-guard';
-const routes: Routes = [
-  {
-    path:'examclass-detail',
-    component:ExamclassDetailComponent,
-    canActivate:[AuthGuard]
-  }
-]
+
 @NgModule({
     declarations: [
    

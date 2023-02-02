@@ -44,13 +44,14 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Exam List',
                         icon: 'pi pi-fw pi-sign-in',
-                        routerLink: ['/pages/exam-list']
+                        routerLink: ['/pages/examclass']
                     },
                     {
                         label: 'Exam Statistics',
                         icon: 'pi pi-fw pi-sign-in',
                         routerLink: ['/pages/exam-statistics']
-                    }
+                    },
+                    
                   
                 ]
             },
