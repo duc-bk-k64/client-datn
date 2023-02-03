@@ -36,9 +36,13 @@ export class ExamClassService extends BaseService{
         })  
     }
     getListQs(item:any){
-        return this._http.put(`/api/question/exam-class/${item}`,item,
+        return this._http.get(`/api/questions/exam-class/${item}`,
         {
             headers: this.sharedHeaders,
         })  
     }
+    deleteQs(id:any) {
+        return this._http.delete(`/api/questions/${id}`, {  headers: this.sharedHeaders, })
+    }
+    
 }

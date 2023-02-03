@@ -30,6 +30,7 @@ import { CardModule } from 'primeng/card';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
 import { ExamclassDetailComponent } from './examclass-management/examclass-detail/examclass-detail.component';
 import { AuthGuard } from '../../service/auth-guard';
+import { DialogAddStudentComponent } from './examclass-management/dialog-add-student/dialog-add-student.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { AuthGuard } from '../../service/auth-guard';
              ExamclassManagementComponent,
              ExamStatisticsComponent,
              DialogAddExamComponent,
-             ExamclassDetailComponent
+             ExamclassDetailComponent,
+             DialogAddStudentComponent
   ],
     imports: [
         CommonModule,

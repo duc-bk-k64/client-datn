@@ -48,7 +48,7 @@ addExam(){
     .subscribe(
         (rs: any) => {
             if (rs.success) {
-               
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Thêm mới thành công' });
                 this.dialogRef.close(true);
             } else{
               this.messageService.add({severity:'error', summary: 'Error', detail: 'Có lỗi xảy ra'})

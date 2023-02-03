@@ -64,7 +64,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
           });
          
           console.log(this.filteredLopThi)
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cập nhật thành công' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Lấy dữ liệu thành công' });
         },
         error => {
           console.log(error)

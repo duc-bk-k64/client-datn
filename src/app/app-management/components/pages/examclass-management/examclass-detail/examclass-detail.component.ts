@@ -6,6 +6,9 @@ import { getServerApiUrl, storageKey } from 'src/app/app-constant';
 import { BaseClass } from 'src/app/BaseClass';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'src/app/app-management/service/auth.service';
+import { StudentService} from 'src/app/app-management/service/student.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DialogAddStudentComponent } from '../dialog-add-student/dialog-add-student.component';
 @Component({
   selector: 'app-examclass-detail',
   templateUrl: './examclass-detail.component.html',
@@ -13,21 +16,70 @@ import { AuthService } from 'src/app/app-management/service/auth.service';
 })
 export class ExamclassDetailComponent extends BaseClass implements OnInit  {
   header: any;
-  constructor(public service: ExamClassService, private httpClient: HttpClient, private router: Router, private messageService: MessageService,
-    private authService: AuthService) { super();}
+  listQs:any[]=[];
+  listQsSelected:any[]=[];
+  listSV:any[]=[];
+  listSVSelected:any[]=[];
+  
+  constructor(public service: ExamClassService,public serviceSV: StudentService, private httpClient: HttpClient, private router: Router, private messageService: MessageService,
+    private authService: AuthService,private route: ActivatedRoute,public dialogService: DialogService) { super();}
 
   ngOnInit(): void {
-    
+    this.getList(this.route.snapshot.params['id']),
+    this.getListSV(this.route.snapshot.params['id'])
     this.header = new HttpHeaders().set(storageKey.AUTHORIZATION, this.authService.getToken());
   }
   getList(id:any){  
     this.service.getListQs(id).pipe(this.unsubsribeOnDestroy)
     .subscribe(
       (rs: any) => {
-        
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Xóa thành công' });
+        console.log(rs)
+       this.listQs=rs
         
       },
     )}
- 
+    deleteQs(item: any) {
+
+      this.service.deleteQs(item.id).pipe(this.unsubsribeOnDestroy)
+        .subscribe(
+          (rs: any) => {
+            console.log(rs.status)
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Xóa thành công' });
+          },
+          error => {
+            console.log(error)
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Có lỗi xảy ra' });
+          }
+          
+        )
+    }
+    getListSV(id:any){
+      this.serviceSV.getListSV(id).pipe(this.unsubsribeOnDestroy)
+    .subscribe(
+      (rs: any) => {
+        console.log(rs)
+        
+       this.listSV=rs
+        
+      },
+    )
+    }
+    openDialogAdd() {
+      let item: any = {
+        fullname: "",
+        studentCode:""
+      };
+      item = JSON.parse(JSON.stringify(item));
+      const dialogRef = this.dialogService.open(DialogAddStudentComponent, {
+          width: '1200px',
+          height: '65vh',
+        
+          data: {
+              item
+          }
+      });
+      dialogRef.onClose.subscribe(() => {
+              
+      });
+  }
 }
