@@ -30,6 +30,7 @@ export class OnlineExamComponent implements OnInit {
   studentId:any;
   examClassId:any;
   studentScore : number = -1;
+  loading: boolean = true;
   ngOnInit(): void {
     localStorage.setItem("studentId","4");
     localStorage.setItem("examClassId","74");
@@ -64,6 +65,7 @@ export class OnlineExamComponent implements OnInit {
   header:any;
   studentAnswerSubmit : any[] = [];
   async submit() {
+    this.loading = true;
     this.expired = true;
     for(let i=0; i<this.questions.length;i++) {
       if(this.listAnswer[i]==undefined) this.listAnswer[i] = '-1';
@@ -96,7 +98,8 @@ export class OnlineExamComponent implements OnInit {
         console.log(data)
         this.messageService.add({severity:'success', summary:'Nộp bài thành công'});
         this.counter=0;
-        this.router.navigate(['/pages/home']);
+        setTimeout(()=>{this.router.navigate(['/pages/home']);},2000)
+        
       },
       error => {
         console.log(error.error)
@@ -104,6 +107,7 @@ export class OnlineExamComponent implements OnInit {
 
       }
     )
+    this.loading = false;
   }
   async loadQuestion() {
     await this.http.get<any>("/api/student-answers/exam?studentId="+this.studentId+"&examClassId="+this.examClassId,{headers: this.header}).toPromise().then(
@@ -133,6 +137,7 @@ export class OnlineExamComponent implements OnInit {
         this.questions.push(qs)
       }
     }
+    this.loading =false;
     // console.log(this.questions)
    
   

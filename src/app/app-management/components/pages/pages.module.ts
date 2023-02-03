@@ -29,6 +29,8 @@ import {CalendarModule} from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
 import {ChartModule} from 'primeng/chart';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LoadingComponent } from './loading/loading.component';
 @NgModule({
     declarations: [
    
@@ -36,7 +38,8 @@ import {ChartModule} from 'primeng/chart';
     AccountManagementComponent,
              ExamclassManagementComponent,
              ExamStatisticsComponent,
-             DialogAddExamComponent
+             DialogAddExamComponent,
+             LoadingComponent
   ],
     imports: [
         CommonModule,
@@ -63,7 +66,9 @@ import {ChartModule} from 'primeng/chart';
         CalendarModule,
         CardModule,
         CascadeSelectModule,
-        ChartModule
-    ]
+        ChartModule,
+        ProgressSpinnerModule
+    ],
+    exports: [LoadingComponent]
 })
 export class PagesModule { }
