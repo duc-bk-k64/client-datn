@@ -51,6 +51,11 @@ export class AppMenuComponent implements OnInit {
                         icon: 'pi pi-fw pi-sign-in',
                         routerLink: ['/pages/exam-statistics']
                     },
+                    {
+                        label: 'Exam Point Statistics',
+                        icon: 'pi pi-fw pi-sign-in',
+                        routerLink: ['/pages/exam-point-statistics']
+                    },
                     
                   
                 ]

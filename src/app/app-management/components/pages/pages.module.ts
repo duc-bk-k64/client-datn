@@ -31,6 +31,7 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
 import { ExamclassDetailComponent } from './examclass-management/examclass-detail/examclass-detail.component';
 import { AuthGuard } from '../../service/auth-guard';
 import { DialogAddStudentComponent } from './examclass-management/dialog-add-student/dialog-add-student.component';
+import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point-statistics.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { DialogAddStudentComponent } from './examclass-management/dialog-add-stu
              ExamStatisticsComponent,
              DialogAddExamComponent,
              ExamclassDetailComponent,
-             DialogAddStudentComponent
+             DialogAddStudentComponent,
+             ExamPointStatisticsComponent
   ],
     imports: [
         CommonModule,
