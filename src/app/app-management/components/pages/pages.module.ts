@@ -28,6 +28,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import {CalendarModule} from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
+import {ChartModule} from 'primeng/chart';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { LoadingComponent } from './loading/loading.component';
 import { ExamclassDetailComponent } from './examclass-management/examclass-detail/examclass-detail.component';
 import { AuthGuard } from '../../service/auth-guard';
 import { DialogAddStudentComponent } from './examclass-management/dialog-add-student/dialog-add-student.component';
@@ -40,10 +43,7 @@ import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point
     AccountManagementComponent,
              ExamclassManagementComponent,
              ExamStatisticsComponent,
-             DialogAddExamComponent,
-             ExamclassDetailComponent,
-             DialogAddStudentComponent,
-             ExamPointStatisticsComponent
+             DialogAddExamComponent
   ],
     imports: [
         CommonModule,
@@ -69,7 +69,10 @@ import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point
         InputNumberModule,
         CalendarModule,
         CardModule,
-        CascadeSelectModule
-    ]
+        CascadeSelectModule,
+        ChartModule,
+        ProgressSpinnerModule
+    ],
+    exports: [LoadingComponent]
 })
 export class PagesModule { }

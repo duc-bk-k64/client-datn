@@ -1,5 +1,6 @@
+import { PagesModule } from './app-management/components/pages/pages.module';
 import { AuthGuard } from './app-management/service/auth-guard';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ToastModule } from 'primeng/toast';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
     declarations: [
         AppComponent, NotfoundComponent, OnlineExamComponent
@@ -35,7 +37,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
         ButtonModule,
         DynamicDialogModule,
         BrowserAnimationsModule,
-        MatTableModule,
+        MatTableModule,,
 MatDialogModule,
         RadioButtonModule,
         CheckboxModule,
@@ -45,7 +47,9 @@ MatDialogModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
-        ToastModule
+        ToastModule,
+        ProgressSpinnerModule,
+        PagesModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
@@ -56,6 +60,9 @@ MatDialogModule,
           },
           DialogService
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA
+      ],
 })
 export class AppModule { }
