@@ -43,7 +43,12 @@ import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point
     AccountManagementComponent,
              ExamclassManagementComponent,
              ExamStatisticsComponent,
-             DialogAddExamComponent
+             DialogAddExamComponent,
+            ExamPointStatisticsComponent,
+            ExamclassDetailComponent,
+            DialogAddStudentComponent,
+            LoadingComponent
+
   ],
     imports: [
         CommonModule,

@@ -1,5 +1,14 @@
 
 <p-toast></p-toast>
+<p-toast></p-toast>
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+           
+            <p-chart type="doughnut" [data]="data" [options]="chartOptions" [style]="{'width': '40%'}"></p-chart>
+        </div>
+    </div>
+</div>
     <p-table #dt2 [value]="listSV" [(selection)]="listSVSelected" [globalFilterFields]="['name','mssv']"  responsiveLayout="scroll" [rows]="10"  [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" selectionMode="multiple" [rowHover]="true" dataKey="id">
         <ng-template pTemplate="caption">
             <div class="flex">
@@ -8,13 +17,29 @@
                      <button pButton pRipple icon="pi pi-lock" pTooltip="Deactivate application" class="p-button-rounded p-button-warning" ></button>
                 </span> -->
                 <h3 >Danh sách sinh viên ({{listSV.length}})</h3>
-                <!-- <span class="p-icon-left ml-auto">
-                    <button pButton pRipple label="Thêm sinh viên" pTooltip="Thêm sinh viên" icon="pi pi-plus" class="p-button-success mr-2" (click)="openDialogAdd()"></button>
-                </span>
-                     -->
+
+             
+                    <span class="p-input-icon-left ml-auto" >
+                        <p-dropdown  [options]="filteredLopThi" [(ngModel)]="searchLopThi" (ngModelChange)="getListSV()" optionLabel="name" optionValue="id"></p-dropdown>
+                    </span>
+               
+                <!-- <mat-form-field floatLabel="always" appearance="outline">
+                    <mat-label>Đơn vị</mat-label>
+                    <mat-select [(ngModel)]="searchLopThi"  required>
+                        <mat-option>
+                            <ngx-mat-select-search class="filter" placeholderLabel="Tìm kiếm"
+                                [formControl]="filterLopThi"></ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let item of filteredLopThi" [value]="item.id">
+                            {{ item.view }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+              
                
             </div>
         </ng-template>
+        
         <ng-template pTemplate="header">
             <tr>
                 <th>
