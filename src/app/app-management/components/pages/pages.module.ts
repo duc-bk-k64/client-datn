@@ -35,7 +35,8 @@ import { ExamclassDetailComponent } from './examclass-management/examclass-detai
 import { AuthGuard } from '../../service/auth-guard';
 import { DialogAddStudentComponent } from './examclass-management/dialog-add-student/dialog-add-student.component';
 import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point-statistics.component';
-
+import { ViewExamComponent } from './view-exam/view-exam.component';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 @NgModule({
     declarations: [
    
@@ -47,7 +48,8 @@ import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point
             ExamPointStatisticsComponent,
             ExamclassDetailComponent,
             DialogAddStudentComponent,
-            LoadingComponent
+            LoadingComponent,
+            ViewExamComponent
 
   ],
     imports: [
@@ -76,7 +78,8 @@ import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point
         CardModule,
         CascadeSelectModule,
         ChartModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        ToggleButtonModule
     ],
     exports: [LoadingComponent]
 })

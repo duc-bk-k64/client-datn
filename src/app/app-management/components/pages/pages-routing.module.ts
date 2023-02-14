@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ExamclassManagementComponent } from './examclass-management/examclass-management.component';
 import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point-statistics.component';
-
+import { ViewExamComponent } from './view-exam/view-exam.component';
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'empty', loadChildren: () => import('./empty/emptydemo.module').then(m => m.EmptyDemoModule) },
@@ -13,7 +13,8 @@ import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point
         { path:'examclass',component:ExamclassManagementComponent},
         { path: 'exam-statistics', component: ExamStatisticsComponent },
         { path:'examclass/:id', component:ExamclassDetailComponent},
-        {path : 'exam-point-statistics',component:ExamPointStatisticsComponent}
+        {path : 'exam-point-statistics',component:ExamPointStatisticsComponent},
+        {path : 'view-exam',component:ViewExamComponent},
     ])],
     exports: [RouterModule]
 })

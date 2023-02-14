@@ -23,7 +23,7 @@
             </div>
             </div>
             <div fxLayout="row" fxLayoutWrap>
-            <p-card class="card-item" header="{{item.name}}" *ngFor="let item of dataTable"  [routerLink]="['examclass-detail/',item.id]" routerLinkActive="active" styleClass="p-card-shadow" >
+            <p-card class="card-item" header="{{item.name}}" *ngFor="let item of dataTable"  [routerLink]="['/pages/examclass/',item.id]" routerLinkActive="active" styleClass="p-card-shadow" >
                 <!-- <ng-template pTemplate="header">
                     <img alt="Card" src="assets/showcase/images/usercard.png">
                 </ng-template> -->

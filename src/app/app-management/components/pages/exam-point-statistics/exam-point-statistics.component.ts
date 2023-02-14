@@ -80,7 +80,7 @@ export class ExamPointStatisticsComponent extends BaseClass implements OnInit  {
             this.listDiemGioi=this.listDiemGioi+1
           }
         }else{
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Chưa có điểm' });
+          
         }
       }
       console.log(this.searchLopThi)

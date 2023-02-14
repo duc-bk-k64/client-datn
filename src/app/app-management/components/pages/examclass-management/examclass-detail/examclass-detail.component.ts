@@ -20,7 +20,7 @@ export class ExamclassDetailComponent extends BaseClass implements OnInit  {
   listQsSelected:any[]=[];
   listSV:any[]=[];
   listSVSelected:any[]=[];
-  
+  loading:boolean = true;
   constructor(public service: ExamClassService,public serviceSV: StudentService, private httpClient: HttpClient, private router: Router, private messageService: MessageService,
     private authService: AuthService,private route: ActivatedRoute,public dialogService: DialogService) { super();}
 
