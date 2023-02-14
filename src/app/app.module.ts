@@ -38,6 +38,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         DynamicDialogModule,
         BrowserAnimationsModule,
         MatTableModule,
+
         MatDialogModule,
         RadioButtonModule,
         CheckboxModule,

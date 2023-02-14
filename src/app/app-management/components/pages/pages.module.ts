@@ -31,6 +31,12 @@ import {CascadeSelectModule} from 'primeng/cascadeselect';
 import {ChartModule} from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LoadingComponent } from './loading/loading.component';
+import { ExamclassDetailComponent } from './examclass-management/examclass-detail/examclass-detail.component';
+import { AuthGuard } from '../../service/auth-guard';
+import { DialogAddStudentComponent } from './examclass-management/dialog-add-student/dialog-add-student.component';
+import { ExamPointStatisticsComponent } from './exam-point-statistics/exam-point-statistics.component';
+import { ViewExamComponent } from './view-exam/view-exam.component';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 @NgModule({
     declarations: [
    
@@ -39,7 +45,12 @@ import { LoadingComponent } from './loading/loading.component';
              ExamclassManagementComponent,
              ExamStatisticsComponent,
              DialogAddExamComponent,
-             LoadingComponent
+            ExamPointStatisticsComponent,
+            ExamclassDetailComponent,
+            DialogAddStudentComponent,
+            LoadingComponent,
+            ViewExamComponent
+
   ],
     imports: [
         CommonModule,
@@ -67,7 +78,8 @@ import { LoadingComponent } from './loading/loading.component';
         CardModule,
         CascadeSelectModule,
         ChartModule,
-        ProgressSpinnerModule
+        ProgressSpinnerModule,
+        ToggleButtonModule
     ],
     exports: [LoadingComponent]
 })

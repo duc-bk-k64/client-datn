@@ -7,10 +7,7 @@ import { getServerApiUrl, storageKey } from 'src/app/app-constant';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from 'src/app/app-management/service/auth.service';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddExamComponent } from './dialog-add-exam/dialog-add-exam.component';
 import {DialogService} from 'primeng/dynamicdialog';
@@ -26,7 +23,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
   header: any;
 
   listExam: any[] = [];
-  dataSource = new MatTableDataSource<any>();
+
 
   displayedColumns: string[] = ["name", "startTime", "endTime", "numberOfQuestion", "numberOfStudent"];
   dataTable: any = [];
@@ -34,7 +31,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
   filteredLopThi: any = [];
   dsLopThi: any;
   constructor(public service: ExamClassService, private httpClient: HttpClient, private router: Router, private messageService: MessageService,
-    private authService: AuthService,public dialog: MatDialog,public dialogService: DialogService
+    private authService: AuthService,public dialogService: DialogService
     ) {
     super()
   }
@@ -67,7 +64,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
           });
          
           console.log(this.filteredLopThi)
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cập nhật thành công' });
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Lấy dữ liệu thành công' });
         },
         error => {
           console.log(error)
@@ -78,13 +75,12 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
   }
   openDialogAdd() {
     let item: any = {
-      
       name: "",
       numberOfStudents: "",
       startTime: null,
       endTime: null,
-      isComeBack: null,
-      status: null,
+      isComeBack: true,
+      status:true,
       note: "",
       numberOfQuestions: "",
       easyQuestionRate: "",
@@ -106,27 +102,7 @@ export class ExamclassManagementComponent extends BaseClass implements OnInit {
             this.getList();
     });
 }
-openDialogUpdate(element:any) {
-  let item: any = {
-    ...element,
-  };
-  console.log(item)
-  item = JSON.parse(JSON.stringify(item));
-  const dialogRef = this.dialogService.open(DialogAddExamComponent, {
-      width: '1200px',
-      height: '65vh',
-    
-      data: {
-          item,
-          id:element.id
-      }
-  });
-  dialogRef.onClose.subscribe((response: any) => {
-      if (response === true) {
-          this.getList();
-      }
-  });
-}
+
   deleteExam(item: any) {
     this.service.deleteExam(item.id).pipe(this.unsubsribeOnDestroy)
       .subscribe(
@@ -142,20 +118,4 @@ openDialogUpdate(element:any) {
       )
       this.getList()
   }
-  // async getDS() {
-  //  await this.httpClient.get<any>("/api/exam-classes",{headers: this.header}).toPromise().then(data => {
-  //   console.log(data)
-  //   this.messageService.add({severity:'success', summary: 'Success', detail: 'Cập nhật thành công'});
-  //   // console.log(data)
-  //  },
-  //  error => {
-  //   console.log(error)
-  //   this.messageService.add({severity:'error', summary: 'Error', detail: 'Có lỗi xảy ra'});
-
-  //  }
-  //  )
-
-  // }
-
-
 }

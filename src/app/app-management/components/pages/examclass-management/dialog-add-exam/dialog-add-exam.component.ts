@@ -25,7 +25,7 @@ export class DialogAddExamComponent extends BaseClass implements OnInit {
     subjectId: ["",[Validators.required]],
     teacherId:  ["",[Validators.required]],
      isComeBack: ["true"],
-    status: [""],
+    status: ["true"],
     note: [""],
     
 });;
@@ -43,34 +43,20 @@ export class DialogAddExamComponent extends BaseClass implements OnInit {
    console.log(this.config.data)
   }
 addExam(){
-  if(this.config.data.item.id){
-  this.service.updateExam(this.config.data.item).pipe(this.unsubsribeOnDestroy)
-  .subscribe(
-      (rs: any) => {
-          if (rs.success) {
-             
-              this.dialogRef.close(true);
-          } else{
-            this.messageService.add({severity:'error', summary: 'Error', detail: 'Có lỗi xảy ra'})
-          }
-              
-      },
-      (error) => {this.messageService.add({severity:'error', summary: 'Error', detail: 'Có lỗi xảy ra'});}
-  )}
-  else{
+  
     this.service.addExam(this.config.data.item).pipe(this.unsubsribeOnDestroy)
     .subscribe(
         (rs: any) => {
             if (rs.success) {
-               
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Thêm mới thành công' });
                 this.dialogRef.close(true);
             } else{
-              this.messageService.add({severity:'error', summary: 'Error', detail: 'Có lỗi xảy ra'})
+            
             }
                 
         },
-        (error) => {this.messageService.add({severity:'error', summary: 'Error', detail: 'Có lỗi xảy ra'});}
+       
     )
-  }
+  
 }
 }

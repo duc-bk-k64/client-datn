@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="p-fluid grid" [formGroup]="formControl">
    
         <div class="field col-12 ">
@@ -50,16 +51,20 @@
             </mat-form-field>
         </div> -->
         <div class="field col-12 md:col-6">
-            <span class="p-float-label">
+            <!-- <span class="p-float-label">
                 <input type="text" pInputText formControlName="status" [(ngModel)]="config.data.item.status"/>
                 <label for="float-input" fxFlex="23" style="width: 35%; font-weight: bold;">Trạng thái</label>
-            </span>
+            </span> -->
+            <label for="float-input" fxFlex="23" style="width: 35%; font-weight: bold;">Trạng thái</label>
+            <p-toggleButton [(ngModel)]="config.data.item.status" onLabel="Mở"  offLabel="Đong" onIcon=" pi-check" offIcon="pi pi-times"></p-toggleButton>
         </div>
         <div class="field col-12 md:col-6">
-            <span class="p-float-label">
-                <input type="text" pInputText formControlName="note" [(ngModel)]="config.data.item.note"/>
-                <label for="float-input" fxFlex="23" style="width: 35%; font-weight: bold;">Ghi chú</label>
-            </span>
+           
+               
+                <label for="float-input" fxFlex="23" style="width: 35%; font-weight: bold;">Quay lại</label>
+                <p-toggleButton [(ngModel)]="config.data.item.isComeBack" onLabel="Có"  offLabel="Không" onIcon=" pi-check" offIcon="pi pi-times"></p-toggleButton>
+        
+           
         </div>
         <div class="field col-12 md:col-6">
             <div class="field col-12 md:col-4">
@@ -78,13 +83,13 @@
          
         <div class="field col-12 ">
             <span class="p-float-label">
-                <input type="text" pInputText formControlName="isComeBack" [(ngModel)]="config.data.item.isComeBack"/>
+                <input type="text" pInputText formControlName="note" [(ngModel)]="config.data.item.note"/>
                 <label for="float-input" fxFlex="23" style="width: 35%; font-weight: bold;">Ghi chú</label>
             </span>
         </div>
         <div mat-dialog-actions style="text-align: right ; float: left;" class="fs-14">
             <button mat-raised-button color="secondary" (click)="addExam()">
-                {{ !config.data.item.id ? "Thêm mới lớp thi" : "Cập nhật lớp thi" }} 
+                Thêm mới lớp thi
             </button>
             
         </div>
