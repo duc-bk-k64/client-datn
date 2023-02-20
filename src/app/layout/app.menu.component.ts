@@ -90,7 +90,7 @@ export class AppMenuComponent implements OnInit {
             ];
 
         }
-        else  if(role =="TEACHER") {
+        else  if(role == "TEACHER") {
             this.model = [
                 {
                     label: 'Home',
@@ -132,9 +132,9 @@ export class AppMenuComponent implements OnInit {
             ];
 
         }
-        // else {
-        //     this.router.navigate(['/auth/access'])
-        // }
+        else {
+            this.router.navigate(['/auth/access'])
+        }
       
     }
 }
