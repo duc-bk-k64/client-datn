@@ -1,3 +1,6 @@
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { ImageModule } from 'primeng/image';
+import { ExamResultComponent } from './exam-result/exam-result.component';
 import { StudentExamListComponent } from './student-exam-list/student-exam-list.component';
 import { AppComponent } from './../../../app.component';
 import { NgModule } from '@angular/core';
@@ -55,7 +58,8 @@ import { QuestionManagementComponent } from './question-management/question-mana
             ViewExamComponent,
             SubjectManagementComponent,
             QuestionManagementComponent,
-            StudentExamListComponent
+            StudentExamListComponent,
+            ExamResultComponent
 
   ],
     imports: [
@@ -86,7 +90,9 @@ import { QuestionManagementComponent } from './question-management/question-mana
         CascadeSelectModule,
         ChartModule,
         ProgressSpinnerModule,
-        ToggleButtonModule
+        ToggleButtonModule,
+        ImageModule,
+        RadioButtonModule,
     ],
     exports: [LoadingComponent]
 })
