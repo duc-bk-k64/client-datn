@@ -1,3 +1,4 @@
+import { ExamResultComponent } from './exam-result/exam-result.component';
 import { StudentExamListComponent } from './student-exam-list/student-exam-list.component';
 import { AuthGuardAdmin } from './../../service/authGuard-Admin';
 import { ExamStatisticsComponent } from './exam-statistics/exam-statistics.component';
@@ -23,6 +24,9 @@ import { AuthGuardStudent } from '../../service/authGuard-Student';
         { path:'examclass/:id', component:ExamclassDetailComponent},
         {path : 'exam-point-statistics',component:ExamPointStatisticsComponent,canActivate:[AuthGuardTeacher]},
         {path : 'view-exam/:id',component:ViewExamComponent,canActivate:[AuthGuardStudent]},
+        {path: 'student-exam-list', component:StudentExamListComponent},
+        {path: 'exam-result/:examId/:studentId', component:ExamResultComponent},
+
     ])],
     exports: [RouterModule]
 })
