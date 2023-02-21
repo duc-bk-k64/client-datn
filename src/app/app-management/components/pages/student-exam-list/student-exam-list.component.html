@@ -1,4 +1,4 @@
-<div style="width: 100%">
+<div style="width: 100%; padding: 15px" >
     <div class="content p-12">
         <h2 class="cssTieuDe">Danh sách lớp thi</h2>
 
@@ -8,7 +8,9 @@
                 <div
                     *ngFor="let item of listExam"
                     [ngSwitch] = "item.state"
+                    style="cursor: pointer;"
                 >
+                <a routerLink="/pages/view-exam/{{item.id}}">
                     <div class="class-item" *ngSwitchCase = "'timeout'"
                     style="background-color: white; border-color: '#459C75'"
                     >
@@ -122,6 +124,7 @@
                     <div *ngSwitchCaseDefault>
                         <a> Dang load </a>
                     </div>
+                </a>
                 </div>
 
             </div>

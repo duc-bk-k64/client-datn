@@ -22,7 +22,7 @@ import { AuthGuardStudent } from '../../service/authGuard-Student';
         { path: 'exam-statistics', component: ExamStatisticsComponent, canActivate:[AuthGuardTeacher]},
         { path:'examclass/:id', component:ExamclassDetailComponent},
         {path : 'exam-point-statistics',component:ExamPointStatisticsComponent,canActivate:[AuthGuardTeacher]},
-        {path : 'view-exam',component:ViewExamComponent,canActivate:[AuthGuardStudent]},
+        {path : 'view-exam/:id',component:ViewExamComponent,canActivate:[AuthGuardStudent]},
     ])],
     exports: [RouterModule]
 })
