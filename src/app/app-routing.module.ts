@@ -1,3 +1,4 @@
+import { StudentExamListComponent } from './app-management/components/pages/student-exam-list/student-exam-list.component';
 import { AuthGuardStudent } from './app-management/service/authGuard-Student';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -21,8 +22,8 @@ import { OnlineExamComponent } from './app-management/components/online-exam/onl
             { path: 'landing', loadChildren: () => import('./app-management/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'pages/notfound', component: NotfoundComponent },
             { path: 'onlineExam', component:OnlineExamComponent, canActivate:[AuthGuard,AuthGuardStudent]},
+            { path: 'pages/home-student', component:StudentExamListComponent},
             { path: '**', redirectTo: 'pages/notfound' },
-    
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],
     exports: [RouterModule]

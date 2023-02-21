@@ -98,7 +98,7 @@ export class OnlineExamComponent implements OnInit {
         console.log(data)
         this.messageService.add({severity:'success', summary:'Nộp bài thành công'});
         this.counter=0;
-        setTimeout(()=>{this.router.navigate(['/pages/home']);},2000)
+        setTimeout(()=>{this.router.navigate(['/pages/home-student']);},2000)
         
       },
       error => {
