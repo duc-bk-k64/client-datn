@@ -32,8 +32,8 @@ export class OnlineExamComponent implements OnInit {
   studentScore : number = -1;
   loading: boolean = true;
   ngOnInit(): void {
-    // localStorage.setItem("studentId","4");
-    // localStorage.setItem("examClassId","74");
+    localStorage.setItem("studentId","4");
+    localStorage.setItem("examClassId","74");
     this.studentId=localStorage.getItem("studentId");
     this.examClassId=localStorage.getItem("examClassId");
     this.header = new HttpHeaders().set(storageKey.AUTHORIZATION,this.authService.getToken());
@@ -98,7 +98,7 @@ export class OnlineExamComponent implements OnInit {
         console.log(data)
         this.messageService.add({severity:'success', summary:'Nộp bài thành công'});
         this.counter=0;
-        setTimeout(()=>{this.router.navigate(['/pages/home']);},2000)
+        setTimeout(()=>{this.router.navigate(['/pages/home-student']);},2000)
         
       },
       error => {
