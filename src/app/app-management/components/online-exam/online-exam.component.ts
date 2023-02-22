@@ -22,7 +22,7 @@ export class OnlineExamComponent implements OnInit {
   questions : Question[] = [];
   answers : any[] = [];
   listAnswer: any[] = [];
-  examName : String = "BÀI THI ĐẠI SỐ TUYẾN TÍNH";
+  examName : string = "";
   expired: boolean = false;
   answerDTO : Answer = {};
   exam: Exam[] = []
@@ -32,8 +32,9 @@ export class OnlineExamComponent implements OnInit {
   studentScore : number = -1;
   loading: boolean = true;
   ngOnInit(): void {
-    localStorage.setItem("studentId","4");
-    localStorage.setItem("examClassId","74");
+    // localStorage.setItem("studentId","4");
+    // localStorage.setItem("examClassId","74");
+    this.examName = "BÀI THI "+localStorage.getItem("examName");
     this.studentId=localStorage.getItem("studentId");
     this.examClassId=localStorage.getItem("examClassId");
     this.header = new HttpHeaders().set(storageKey.AUTHORIZATION,this.authService.getToken());
