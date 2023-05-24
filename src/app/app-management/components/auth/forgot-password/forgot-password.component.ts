@@ -18,9 +18,13 @@ export class ForgotPasswordComponent implements OnInit {
   loading: boolean = false;
   async forgotPassword () {
     this.loading = true;
-    await this.httpClient.post<any>("/api/reset-password/init",this.email).toPromise().then(
+    await this.httpClient.post<any>("/api/v1/project/auth/forgotpw",{userName:this.email}).toPromise().then(
       data => {
-        this.router.navigate(['/auth/reset-password'])
+        if(data.resultCode == "0")
+        this.router.navigate(['/auth/reset-password']);
+        else 
+        this.messageService.add({severity:"error", summary:data.message});
+
       },
       error => {
         this.messageService.add({severity:"error", summary:error.title});

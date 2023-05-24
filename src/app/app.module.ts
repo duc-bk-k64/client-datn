@@ -11,7 +11,6 @@ import { AppLayoutModule } from './layout/app.layout.module';
 import { NotfoundComponent } from './app-management/components/notfound/notfound.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { OnlineExamComponent } from './app-management/components/online-exam/online-exam.component';
 import {ButtonModule} from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,10 +27,11 @@ import { MatInputModule } from '@angular/material/input';
 import { ToastModule } from 'primeng/toast';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig,SocialLoginModule } from 'angularx-social-login';
+
 @NgModule({
     declarations: [
-        AppComponent, NotfoundComponent, OnlineExamComponent
-
+        AppComponent, NotfoundComponent
     ],
     imports: [
         AppRoutingModule,
@@ -41,7 +41,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         DynamicDialogModule,
         BrowserAnimationsModule,
         MatTableModule,
-
         MatDialogModule,
         RadioButtonModule,
         CheckboxModule,
@@ -53,7 +52,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
         MatInputModule,
         ToastModule,
         ProgressSpinnerModule,
-        PagesModule
+        PagesModule,
+        // SocialLoginModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
@@ -62,7 +62,29 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
             provide: DynamicDialogRef,
             useValue: {}
           },
-          DialogService
+          DialogService,
+          // {
+          //   provide: 'SocialAuthServiceConfig',
+          //   useValue: {
+          //     autoLogin: false,
+          //     providers: [
+          //       {
+          //         id: FacebookLoginProvider.PROVIDER_ID,
+          //         provider: new FacebookLoginProvider('796009544943077'),
+          //       },
+          //       {
+          //         id: GoogleLoginProvider.PROVIDER_ID,
+          //         provider: new GoogleLoginProvider(
+          //           "447143817673-kakprgbhain4331qff59tra446bfqd90.apps.googleusercontent.com"
+          //         )
+          //       }
+          //     ],
+          //     onError: (err) => {
+          //       console.error(err);
+          //     }
+          //   } as SocialAuthServiceConfig,
+          // },
+         
     ],
     bootstrap: [AppComponent],
     schemas: [

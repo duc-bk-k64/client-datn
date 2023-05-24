@@ -72,7 +72,7 @@ export class AuthService  {
 
    
     setToken(token: string) {
-        this.secureStorageService.setItem(storageKey.TOKEN,'Bearer '+token);
+        this.secureStorageService.setItem(storageKey.TOKEN,token);
     }
     getRedirectUrl(): string {
         return this.secureStorageService.getItem(storageKey.REFERER);

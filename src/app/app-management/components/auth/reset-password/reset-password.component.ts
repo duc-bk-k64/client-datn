@@ -18,12 +18,18 @@ export class ResetPasswordComponent implements OnInit {
   loading:boolean = false;
   async resetPassword() {
     this.loading = true;
-    await this.httpClient.post<any>("/api/reset-password/finish",{"key":this.code,"newPassword":this.newPassword}).toPromise().then(
+    await this.httpClient.post<any>("/api/v1/project/auth/resetpw",{"token":this.code,"password":this.newPassword}).toPromise().then(
       data => {
-        this.messageService.add({severity:"success", summary:"Reset password successfully"});
-        setTimeout( () => {
-          this.router.navigate(['/auth/login'])
-        }, 2000 );
+        if(data.resultCode == "0") {
+          this.messageService.add({severity:"success", summary:"Reset password successfully"});
+          setTimeout( () => {
+            this.router.navigate(['/auth/login'])
+          }, 2000 );
+
+        }
+        else 
+        this.messageService.add({severity:"error", summary:data.message});
+
       },
       error => {
         console.log(error)

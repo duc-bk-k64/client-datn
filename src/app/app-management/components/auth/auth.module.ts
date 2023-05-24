@@ -11,6 +11,7 @@ import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PagesModule } from '../pages/pages.module';
+import { SignUpComponent } from './sign-up/sign-up.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -25,7 +26,8 @@ import { PagesModule } from '../pages/pages.module';
     ],
     declarations: [
       ForgotPasswordComponent,
-      ResetPasswordComponent
+      ResetPasswordComponent,
+      SignUpComponent
     ],
     schemas: [
       CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA

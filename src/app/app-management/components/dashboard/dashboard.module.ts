@@ -13,6 +13,9 @@ import {ToastModule} from 'primeng/toast';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { MessageService } from 'primeng/api';
+// import {AngularFireStorageModule} from '@angular/fire/storage'
+// import {AngularFireModule} from '@angular/fire'
+import {  storageKey } from 'src/app/app-constant';
 @NgModule({
     imports: [
         CommonModule,
@@ -26,7 +29,9 @@ import { MessageService } from 'primeng/api';
         DashboardsRoutingModule,
         ToastModule,
         MessageModule,
-        MessagesModule 
+        MessagesModule,
+        // AngularFireModule.initializeApp(storageKey.firebaseConfig),
+        // AngularFireStorageModule 
     ],
     declarations: [DashboardComponent],
     providers: [MessageService]

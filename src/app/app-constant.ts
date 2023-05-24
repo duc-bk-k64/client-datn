@@ -14,7 +14,16 @@ export const storageKey: any = {
     LANGUAGES: 'languages',
     AUTHORIZATION: 'Authorization',
     USER_INFO: 'userInfo',
-    REFERER: 'redirect'
+    REFERER: 'redirect',
+    firebaseConfig : {
+        apiKey: "AIzaSyBixWPo7A7rnPRt8B48fNY7eiVyjP79jEA",
+        authDomain: "first-project-47825.firebaseapp.com",
+        projectId: "first-project-47825",
+        storageBucket: "first-project-47825.appspot.com",
+        messagingSenderId: "633929248521",
+        appId: "1:633929248521:web:e55eae22a825d05780add8",
+        measurementId: "G-CKZ57LLKT1"
+      }
 };
 export const name: any = {
     App: 'APPLICATION',

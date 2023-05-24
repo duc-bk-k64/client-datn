@@ -1,12 +1,9 @@
-import { StudentExamListComponent } from './app-management/components/pages/student-exam-list/student-exam-list.component';
-import { AuthGuardStudent } from './app-management/service/authGuard-Student';
+
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './app-management/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AuthGuard } from './app-management/service/auth-guard';
-import { OnlineExamComponent } from './app-management/components/online-exam/online-exam.component';
-import { ViewExamComponent } from './app-management/components/pages/view-exam/view-exam.component';
 
 @NgModule({
     imports: [
@@ -22,9 +19,6 @@ import { ViewExamComponent } from './app-management/components/pages/view-exam/v
             { path: 'auth', loadChildren: () => import('./app-management/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'landing', loadChildren: () => import('./app-management/components/landing/landing.module').then(m => m.LandingModule) },
             { path: 'pages/notfound', component: NotfoundComponent },
-            { path: 'onlineExam', component:OnlineExamComponent, canActivate:[AuthGuard,AuthGuardStudent]},
-            { path: 'pages/home-student', component:StudentExamListComponent, canActivate:[AuthGuard,AuthGuardStudent]},
-            {path : 'pages/view-exam/:id',component:ViewExamComponent,canActivate:[AuthGuard,AuthGuardStudent]},
             { path: '**', redirectTo: 'pages/notfound' },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],
