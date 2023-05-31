@@ -51,17 +51,17 @@ export class AuthService  {
             return false;
         }
     }
-    public getUsername(): string {
-        try{
-            let token = this.secureStorageService.getItem(storageKey.TOKEN)
-            let username= this.jwtHelper.decodeToken(token).sub;
-            return username;
+    // public getUsername(): string {
+    //     try{
+    //         let token = this.secureStorageService.getItem(storageKey.TOKEN)
+    //         let username= this.jwtHelper.decodeToken(token).sub;
+    //         return username;
          
-        }catch (ex){
-            return "";
-        }
+    //     }catch (ex){
+    //         return "";
+    //     }
 
-    }
+    // }
 
     
 
@@ -81,6 +81,19 @@ export class AuthService  {
     setRedirectUrl(url: string) {
         // url = url === "/" ? "" : url;
         this.secureStorageService.setItem(storageKey.REFERER, url);
+    }
+    setUsername(username: string) {
+        this.secureStorageService.setItem(storageKey.USER_NAME,username)
+    }
+    getUsername(): string  {
+        return this.secureStorageService.getItem(storageKey.USER_NAME)
+    }
+    
+    setRole(role: string) {
+        this.secureStorageService.setItem(storageKey.ROLE,role)
+    }
+    getRole(): string  {
+        return this.secureStorageService.getItem(storageKey.ROLE)
     }
     
 

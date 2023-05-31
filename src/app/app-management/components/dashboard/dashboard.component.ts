@@ -11,6 +11,9 @@ import {MessageService} from 'primeng/api';
 import { storageKey } from 'src/app/app-constant';
 import { AuthService } from '../../service/auth.service';
 
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+
 @Component({
     templateUrl: './dashboard.component.html',
     styles :[]
@@ -28,6 +31,11 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
     subscription!: Subscription;
     header: any;
 
+    //websocket
+    // webSocketEndPoint: string = 'http://localhost:8080/ws';
+
+    // stompClient: any;
+
     constructor( public layoutService: LayoutService,private messageService: MessageService, private http: HttpClient, private  authService: AuthService) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
@@ -44,6 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
             { label: 'Remove', icon: 'pi pi-fw pi-minus' }
         ];
+        // this.connectWebsocket();
 
         
     
@@ -132,4 +141,25 @@ export class DashboardComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         )
     }
+
+    // connectWebsocket() {
+    //     console.log("Initialize WebSocket Connection");
+    //     let topic = "/user/"+this.authService.getUsername() + "/queue/reply";
+    //     let ws = new SockJS(this.webSocketEndPoint);
+    //     this.stompClient = Stomp.over(ws);
+    //     const _this = this;
+    //     _this.stompClient.connect({}, function (frame:any) {
+    //         _this.stompClient.subscribe(topic, function (sdkEvent:any) {
+    //            console.log(sdkEvent);
+    //         });
+    //         //_this.stompClient.reconnect_delay = 2000;
+    //     }, this.errorCallBack);
+
+    // }
+    // errorCallBack(error:any) {
+    //     console.log("errorCallBack -> " + error)
+    //     setTimeout(() => {
+    //         this.connectWebsocket();
+    //     }, 5000);
+    // }  
 }

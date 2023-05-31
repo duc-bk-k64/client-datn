@@ -81,6 +81,8 @@ export class LoginComponent implements OnInit {
                     {
                     //   console.log(data.data)
                       this.authService.setToken(data.data);
+                      this.authService.setUsername(this.email)
+                      this.authService.setRole("ROLE_USER");
                       this.router.navigate([this.authService.getRedirectUrl()]).then(() => {
                         window.location.reload();
                       });
@@ -112,7 +114,10 @@ export class LoginComponent implements OnInit {
            data => {
             if(data.resultCode == "0")
               {
-                this.authService.setToken(data.data);
+                this.authService.setToken(data.data.token);
+                this.authService.setUsername(data.data.username)
+                // console.log(this.authService.getUsername())
+                this.authService.setRole(data.data.role);
                 this.router.navigate([this.authService.getRedirectUrl()])
                 // console.log(data)
               }
@@ -159,6 +164,8 @@ export class LoginComponent implements OnInit {
                  if(data.resultCode == "0")
                    {
                      this.authService.setToken(data.data);
+                     this.authService.setUsername(this.socialUser.id)
+                     this.authService.setRole("ROLE_USER");
                      this.router.navigate([this.authService.getRedirectUrl()])
                    }
                  else 

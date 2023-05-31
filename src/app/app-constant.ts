@@ -23,10 +23,16 @@ export const storageKey: any = {
         messagingSenderId: "633929248521",
         appId: "1:633929248521:web:e55eae22a825d05780add8",
         measurementId: "G-CKZ57LLKT1"
-      }
+      },
+    USER_NAME : 'username',
+    ROLE : 'role'
 };
 export const name: any = {
     App: 'APPLICATION',
     Group: 'GROUP',
     User: 'USER'
+}
+export const STATUS: any = {
+    UNREAD: 'unread',
+    READED: 'readed'
 }

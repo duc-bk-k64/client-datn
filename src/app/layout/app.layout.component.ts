@@ -1,15 +1,22 @@
-import { Component, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./service/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
-
+// import * as Stomp from 'stompjs';
+// import * as SockJS from 'sockjs-client';
+import { AuthService } from '../app-management/service/auth.service';
 @Component({
     selector: 'app-layout',
     templateUrl: './app.layout.component.html'
 })
-export class AppLayoutComponent implements OnDestroy {
+export class AppLayoutComponent implements OnDestroy, OnInit {
+    
+    // //websocket
+    // webSocketEndPoint: string = 'http://localhost:8080/ws';
+
+    // stompClient: any;
 
     overlayMenuOpenSubscription: Subscription;
 
@@ -21,7 +28,7 @@ export class AppLayoutComponent implements OnDestroy {
 
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
-    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router) {
+    constructor(public layoutService: LayoutService, public renderer: Renderer2, public router: Router, private authService: AuthService) {
         this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
             if (!this.menuOutsideClickListener) {
                 this.menuOutsideClickListener = this.renderer.listen('document', 'click', event => {
@@ -55,6 +62,10 @@ export class AppLayoutComponent implements OnDestroy {
                 this.hideMenu();
                 this.hideProfileMenu();
             });
+    }
+    ngOnInit() {
+        // this.connectWebsocket();
+       
     }
 
     hideMenu() {
@@ -120,4 +131,24 @@ export class AppLayoutComponent implements OnDestroy {
             this.menuOutsideClickListener();
         }
     }
+    // connectWebsocket() {
+    //     console.log("Initialize WebSocket Connection");
+    //     let topic = "/user/"+this.authService.getUsername() + "/queue/reply";
+    //     let ws = new SockJS(this.webSocketEndPoint);
+    //     this.stompClient = Stomp.over(ws);
+    //     const _this = this;
+    //     _this.stompClient.connect({}, function (frame:any) {
+    //         _this.stompClient.subscribe(topic, function (sdkEvent:any) {
+    //            console.log(sdkEvent);
+    //         });
+    //         //_this.stompClient.reconnect_delay = 2000;
+    //     }, this.errorCallBack);
+
+    // }
+    // errorCallBack(error:any) {
+    //     console.log("errorCallBack -> " + error)
+    //     setTimeout(() => {
+    //         this.connectWebsocket();
+    //     }, 5000);
+    // }  
 }
