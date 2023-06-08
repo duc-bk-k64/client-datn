@@ -1,0 +1,108 @@
+<div class="card">
+    <app-loading *ngIf="loading"></app-loading>
+    <div class="grid">
+        <div class="col-12  mb-2" style="font-weight: bold;">Thông tin tour</div>
+        <!-- Thông tin tour -->
+        <div class="field col-12 lg:col-3">
+            <label for="name" style="font-weight: bold;">Tên tour</label>
+            <p id="name">{{tour.name}}</p>
+        </div>
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">Mã tour</label>
+            <p id="code">{{tour.code}}</p>
+        </div>
+        <div class="field col-12 lg:col-3">
+            <label for="time" style="font-weight: bold;">Thời gian</label>
+            <p id="time">{{tour.numberOfDay}} ngày {{tour.numberOfNight}} đêm</p>
+        </div>
+        <div class="field col-12 lg:col-3">
+            <label for="departure" style="font-weight: bold;">Nơi xuất phát</label>
+            <p id="departure">{{tour.departure}}</p>
+        </div>
+
+        <!-- Thông tin chuyến đi -->
+        <div class="col-12 mt-2 mb-2" style="font-weight: bold;">Thông tin chuyến đi</div>
+
+
+        <div class="field col-12 lg:col-3">
+            <label for="name" style="font-weight: bold;">Mã chuyến đi</label>
+            <p id="name">{{trip.code}}</p>
+        </div>
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">Ngày khởi hành</label>
+            <p id="code">{{trip.departureDay}}</p>
+        </div>
+        <div class="field col-12 lg:col-3">
+            <label for="time" style="font-weight: bold;">Giá người lớn</label>
+            <p id="time">{{trip.price}}</p>
+        </div>
+        <div class="field col-12 lg:col-3">
+            <label for="departure" style="font-weight: bold;">Giá cho trẻ em</label>
+            <p id="departure">{{trip.priceForChidren}}</p>
+        </div>
+        <div class="field col-12">
+            <label for="note" style="font-weight: bold;">Lưu ý</label>
+            <p id="note">{{trip.note}}</p>
+        </div>
+
+        <!-- Thông tin đặt tour -->
+        <div class="col-3">
+            <div class="field">
+                <label for="username" style="font-weight: bold;">Tài khoản đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <input id="username" pTooltip="Tên đăng nhập của tài khoản đặt tour" tooltipPosition="bottom" pInputText
+                    [(ngModel)]="username" required autofocus placeholder="Tên đăng nhập" />
+            </div>
+            
+        </div>
+        <div class=" col-3">
+            <div class="field">
+                <label for="adjust" style="font-weight: bold;">Số lượng người lớn (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <p-inputNumber id="adjust" 
+                    [(ngModel)]="booktour.numberOfAdjust" placeholder="Số lượng người lớn" [min]="0" [max]="20"  [showButtons]="true" (onInput)="caculatePrice()"> </p-inputNumber>
+            </div>
+            
+        </div>
+        <div class=" col-3">
+            <div class="field">
+                <label for="children" style="font-weight: bold;">Số lượng trẻ em (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <p-inputNumber id="children"  
+                    [(ngModel)]="booktour.numberOfChildren" placeholder="Số lượng trẻ em" [min]="0" [max]="20"  [showButtons]="true" (onInput)="caculatePrice()"> </p-inputNumber>
+            </div>
+            
+        </div>
+        <div class=" col-3">
+            <div class="field">
+                <label for="name" style="font-weight: bold;">Tên người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <input id="name" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
+                [(ngModel)]="booktour.name"required autofocus placeholder="Vũ Văn A" />
+            </div>
+            
+        </div>
+        <div class=" col-3">
+            <div class="field">
+                <label for="email" style="font-weight: bold;">Email người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <input id="email" pTooltip="Email người đặt tour" tooltipPosition="bottom" pInputText
+                [(ngModel)]="booktour.email" required autofocus placeholder="abcd@gmail.com" />
+            </div>
+            
+        </div>
+        <div class=" col-3">
+            <div class="field">
+                <label for="total" style="font-weight: bold;">Tạm tính (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <p-inputNumber id="total"  
+                    [(ngModel)]="booktour.moneyToPay" placeholder="Tạm tính" > </p-inputNumber>
+            </div>
+            
+        </div>
+        <!-- <div class="col-12"> -->
+            <!-- <button id="btn" pButton pRipple label="Đặt tour" pTooltip="Đặt tour" style="margin-left: auto;margin-right: auto; display: block;" class="p-button-success mt-6" ></button> -->
+        <!-- </div> -->
+       
+       
+
+        
+
+
+    </div>
+    <button id="btn" pButton pRipple label="Đặt tour" pTooltip="Đặt tour" style="margin-left: auto;margin-right: auto; display: block;" class="p-button-success mt-6" (click)="bookTourFunc()" ></button>
+</div>

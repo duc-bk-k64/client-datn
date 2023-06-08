@@ -2,6 +2,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LayoutService } from './service/app.layout.service';
+import { AuthService } from '../app-management/service/auth.service';
 
 @Component({
     selector: 'app-menu',
@@ -11,7 +12,7 @@ export class AppMenuComponent implements OnInit {
 
     model: any[] = [];
 
-    constructor(public layoutService: LayoutService,private router: Router) { }
+    constructor(public layoutService: LayoutService,private router: Router, private authService: AuthService) { }
 
     ngOnInit() {
         this.loadModel();
@@ -19,7 +20,8 @@ export class AppMenuComponent implements OnInit {
        
     }
     loadModel() {
-        let role = localStorage.getItem("role");
+        let role = this.authService.getRole();
+        if(role == "ROLE_ADMIN") {
             this.model = [
                 {
                     label: 'Home',
@@ -35,24 +37,97 @@ export class AppMenuComponent implements OnInit {
                     items: [
                        
                         {
-                            label: 'Account Management',
+                            label: 'Quản lý tour',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/tour']
+                        },
+                        {
+                            label: 'Quản lý bài viết',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/post']
+                        },
+                        {
+                            label: 'Quản lý tài khoản',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/account']
-                        },
-                        {
-                            label: 'Exam List',
-                            icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/pages/examclass']
-                        },
-                        {
-                            label: 'Subject management',
-                            icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/pages/subject']
                         }
                       
                     ]
                 },
              
             ];
+
+        } else if(role == "ROLE_STAFF") {
+            this.model = [
+              
+               
+                {
+                    label: 'Nhân viên',
+                    icon: 'pi pi-fw pi-briefcase',
+                    // routerLink: ['/pages'],
+                    items: [
+                       
+                        {
+                            label: 'Quản lý tour',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/tour']
+                        },
+                        {
+                            label: 'Quản lý bài viết',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/post']
+                        },
+                       
+                      
+                    ]
+                },
+             
+            ];
+        } else if (role == "ROLE_TOURGUIDE") {
+            this.model = [
+              
+               
+                {
+                    label: 'Hướng dẫn viên',
+                    icon: 'pi pi-fw pi-briefcase',
+                    // routerLink: ['/pages'],
+                    items: [
+                       
+                        {
+                            label: 'Danh sách  tour',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/tour']
+                        }
+                       
+                      
+                    ]
+                },
+             
+            ];
+
+        } else if(role == "ROLE_USER") {
+            this.model = [
+              
+               
+                {
+                    label: "Khách hàng",
+                    icon: 'pi pi-fw pi-briefcase',
+                    // routerLink: ['/pages'],
+                    items: [
+                       
+                        {
+                            label: 'Danh sách  tour',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/home-user']
+                        }
+                       
+                      
+                    ]
+                },
+             
+            ];
+           
+        }
+          
     }
 }

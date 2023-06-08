@@ -1,0 +1,153 @@
+<div class="surface-0 flex justify-content-center">
+    <p-toast></p-toast>
+    <app-loading *ngIf="loading"></app-loading>
+    <div id="home" class="landing-wrapper overflow-hidden">
+        <div class="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3">
+            <a class="flex align-items-center" href="#">
+                <img src="assets/layout/images/images.png" alt="TravelLogo" height="50" class="mr-0 lg:mr-2"><span class="text-900 font-medium text-2xl line-height-3 mr-8">Travel</span>
+            </a>
+            <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden" leaveToClass="hidden" [hideOnOutsideClick]="true">
+                <i class="pi pi-bars text-4xl"></i>
+            </a>
+            <div class="align-items-center surface-0 flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full left-0 px-6 lg:px-0 z-2" style="top:85%">
+                
+                <div class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
+                    <button pButton pRipple label="Login" (click)="login()" class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
+                    <button pButton pRipple label="Register" (click)="register()" class="p-button-rounded border-none ml-5 font-light line-height-2 bg-blue-500 text-white"></button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="hero" class="grid py-4 px-4 lg:px-8 relative">
+            <div class="mx-4 md:mx-8 mt-0 md:mt-4">
+                <h1 class="text-6xl font-bold text-gray-900 line-height-2"><span class="font-light block">Chào mừng đến với Travel</span>Hệ thống đặt tour du lịch online</h1>
+            </div>
+        </div>
+        <div class="text-center" style="font-weight: bold; font-size: large;"> Thông tin chi tiết  tour</div>
+        <div class="grid py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
+            <div class="col-12">
+                <img [src]="tour.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;" alt="Image" width="100%" >
+            </div>
+            <div class="field col-12 lg:col-3">
+                <label for="name" style="font-weight: bold;">Tên tour</label>
+                <p id="name">{{tour.name}}</p>
+            </div>
+            <div class="field col-12 lg:col-3">
+                <label for="code" style="font-weight: bold;">Mã tour</label>
+                <p id="code">{{tour.code}}</p>
+            </div>
+            <div class="field col-12 lg:col-3">
+                <label for="time" style="font-weight: bold;">Thời gian</label>
+                <p id="time">{{tour.numberOfDay}}  ngày  {{tour.numberOfNight}} đêm</p>
+            </div>
+            <div class="field col-12 lg:col-3">
+                <label for="departure" style="font-weight: bold;">Nơi xuất phát</label>
+                <p id="departure">{{tour.departure}}</p>
+            </div>
+        </div>
+        <div class="text-center" style="font-weight: bold; font-size: large;"> Lịch trình  tour</div>
+        <div class="grid py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
+            <div class="col-12" *ngFor="let pitstop of listPitstop">
+                <h3 style="font-weight: bold;">{{pitstop.name}}</h3>
+                <img [src]="pitstop.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;" alt="Image" width="100%" >
+                <p class="mt-1">{{pitstop.content}}</p>
+            </div>
+            
+            <div class = "col-12 mt-1">
+                <h3 style="font-weight: bold;">Địa điểm thăm quan</h3>
+            </div>
+            <div class="col-12 grid">
+                <p *ngFor="let item of listTourDestination" class="col-3 mt-1">{{item.name}}</p>
+     
+             </div>
+             <div class = "col-12 mt-1">
+                <h3 style="font-weight: bold;">Danh sách chuyến đi</h3>
+            </div>
+            <div class="col-12">
+                <p-table #dt1 [value]="listTrip" [globalFilterFields]="['price','priceForChildren','code','note']"  responsiveLayout="scroll" [rows]="10"  [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"  [rowHover]="true" dataKey="id">
+                    <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <span class="p-input-icon-left ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text"   (input)="applyFilterGlobal($event, 'contains')" placeholder="Search keyword" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                                
+                            <th>
+                                <div >
+                                   Mã chuyến đi
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                   Ngày khởi hành
+                                </div>
+                            </th>
+                            <th>
+                                <div >
+                                    Giá chuyến đi
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    Giá cho trẻ em
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    Note
+                                </div>
+                            </th>
+                            <th style="width: 5rem">
+                            </th>
+                           
+                        </tr>
+            
+                    </ng-template>
+                    <ng-template pTemplate="body" let-obj>
+                        <tr >
+                            <td>{{obj.code}}</td>
+                            <td>{{obj.departureDay}}</td>
+                            <td>{{obj.price}} đồng</td>
+                            <td>{{obj.priceForChidren}}  đồng</td>
+                            <td>{{obj.note}}</td>
+                            <td>
+                                <button pButton pRipple label="Đặt tour" (click)="bookTour(obj)" class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
+                            </td>
+                           
+                        </tr>
+            
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="4">No data to display</td>
+                        </tr>
+                    </ng-template>
+                    </p-table>
+            </div>
+            <div class = "col-12 mt-1">
+                <h3 style="font-weight: bold;">Phản hồi của khách hàng</h3>
+            </div>
+            <div class="col-12" *ngFor="let obj of listFeedback">
+                
+                  <p-rating [(ngModel)]="obj.rating" [readonly]="true" [cancel]="false"></p-rating>
+                  <p>{{obj.content}}</p>
+
+            </div>
+        </div>
+
+
+
+        
+       
+        <div class="grid py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8" >
+           <div class="text-center col-12">Địa điểm du lịch có thể bạn quan tâm</div>
+           <p *ngFor="let item of listDestination" class="col-2 mt-2" style="font-weight: bold;">{{item.name}}</p>
+        </div>
+            
+      
+    </div>
+</div>

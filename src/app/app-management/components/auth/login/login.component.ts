@@ -57,13 +57,14 @@ export class LoginComponent implements OnInit {
         google.accounts.id.initialize({
             client_id: '447143817673-kakprgbhain4331qff59tra446bfqd90.apps.googleusercontent.com',
             callback: async (response:any) => {
-            // console.log(response)
+            console.log(response)
             this.loading = true;
             await this.httpClient.post<any>('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='+response.credential,null).toPromise().then(
             data => {
             this.isError = false;
             this.email = data.email;
             this.name = data.name;
+            // console.log(data);
             },
             error => {
                 this.isError = true;
@@ -76,14 +77,14 @@ export class LoginComponent implements OnInit {
         if(!this.isError) {
             await this.httpClient.post<any>("/api/v1/project/auth/loginGoogle", {"credential":response.credential,"email":this.email,"name":this.name}).toPromise().then(
                 data => {
-                    // console.log(data)
+                    console.log(data)
                     if(data.resultCode == "0")
                     {
                     //   console.log(data.data)
                       this.authService.setToken(data.data);
                       this.authService.setUsername(this.email)
                       this.authService.setRole("ROLE_USER");
-                      this.router.navigate([this.authService.getRedirectUrl()]).then(() => {
+                      this.router.navigate(['pages/home-user']).then(() => {
                         window.location.reload();
                       });
                     }
@@ -118,7 +119,11 @@ export class LoginComponent implements OnInit {
                 this.authService.setUsername(data.data.username)
                 // console.log(this.authService.getUsername())
                 this.authService.setRole(data.data.role);
-                this.router.navigate([this.authService.getRedirectUrl()])
+                if(data.data.role == "ROLE_USER") {
+                    this.router.navigate(['pages/home-user']);
+
+                } else
+                      this.router.navigate([this.authService.getRedirectUrl()])
                 // console.log(data)
               }
             else 
@@ -150,7 +155,7 @@ export class LoginComponent implements OnInit {
             data => {
                 this.socialUser= data;
                 this.isError  = false;
-                // console.log(data)
+                console.log(data)
             },
             error => {
                 this.isError  = true;
@@ -166,7 +171,7 @@ export class LoginComponent implements OnInit {
                      this.authService.setToken(data.data);
                      this.authService.setUsername(this.socialUser.id)
                      this.authService.setRole("ROLE_USER");
-                     this.router.navigate([this.authService.getRedirectUrl()])
+                     this.router.navigate(['pages/home-user'])
                    }
                  else 
                       this.messageService.add({severity:"error", summary:data.message});

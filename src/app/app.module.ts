@@ -1,5 +1,3 @@
-import { AuthGuardTeacher } from './app-management/service/authGuard-Teacher';
-import { AuthGuardStudent } from './app-management/service/authGuard-Student';
 import { AuthGuardAdmin } from './app-management/service/authGuard-Admin';
 import { PagesModule } from './app-management/components/pages/pages.module';
 import { AuthGuard } from './app-management/service/auth-guard';
@@ -28,6 +26,8 @@ import { ToastModule } from 'primeng/toast';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig,SocialLoginModule } from 'angularx-social-login';
+import { AuthGuardStaff } from './app-management/service/authGuard-Staff';
+import { AuthGuardTourGuide } from './app-management/service/authGuard-Tourguide';
 
 @NgModule({
     declarations: [
@@ -57,7 +57,7 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig,Soc
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-      AuthGuard,AuthGuardAdmin,AuthGuardStudent,AuthGuardTeacher,JwtHelperService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+      AuthGuard,AuthGuardAdmin,AuthGuardStaff,AuthGuardTourGuide,JwtHelperService,{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         MessageService,ConfirmationService, {
             provide: DynamicDialogRef,
             useValue: {}

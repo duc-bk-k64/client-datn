@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './app-management/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AuthGuard } from './app-management/service/auth-guard';
+import { BookTourComponent } from './app-management/components/landing/book-tour/book-tour.component';
+import { AuthGuardStaff } from './app-management/service/authGuard-Staff';
 
 @NgModule({
     imports: [
@@ -11,8 +13,9 @@ import { AuthGuard } from './app-management/service/auth-guard';
             {
                 path: '', component: AppLayoutComponent,
                 children: [
-                    { path: '', loadChildren: () => import('./app-management/components/dashboard/dashboard.module').then(m => m.DashboardModule),canActivate:[AuthGuard] },
+                    { path: '', loadChildren: () => import('./app-management/components/dashboard/dashboard.module').then(m => m.DashboardModule),canActivate:[AuthGuard,AuthGuardStaff] },
                     { path: 'pages', loadChildren: () => import('./app-management/components/pages/pages.module').then(m => m.PagesModule) ,canActivate:[AuthGuard]},
+                    { path: 'bookTour/:tourId/:tripCode', component:BookTourComponent, canActivate:[AuthGuard]}
                 ],
                 canActivate:[AuthGuard]
             },

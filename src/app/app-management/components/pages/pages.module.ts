@@ -1,3 +1,4 @@
+
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ImageModule } from 'primeng/image';
 import { NgModule } from '@angular/core';
@@ -29,9 +30,19 @@ import {ChartModule} from 'primeng/chart';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { LoadingComponent } from './loading/loading.component';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import { environment } from 'src/environments/environment';
+import {
+    AngularFireStorageModule,
+    AngularFireStorageReference,
+    AngularFireUploadTask
+} from "@angular/fire/compat/storage";
+import  {AngularFireModule} from "@angular/fire/compat";
+import { ListTourUserComponent } from './list-tour-user/list-tour-user.component';
+import { TagModule } from 'primeng/tag';
 @NgModule({
     declarations: [
             LoadingComponent,
+            ListTourUserComponent,
   ],
     imports: [
         CommonModule,
@@ -64,6 +75,10 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
         ToggleButtonModule,
         ImageModule,
         RadioButtonModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireStorageModule,
+        TagModule
+
     ],
     exports: [LoadingComponent]
 })

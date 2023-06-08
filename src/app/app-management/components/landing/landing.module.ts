@@ -7,7 +7,20 @@ import { DividerModule } from 'primeng/divider';
 import { ChartModule } from 'primeng/chart';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
-
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ImageModule } from 'primeng/image';
+import { DetailTourComponent } from './detail-tour/detail-tour.component';
+import { PagesModule } from '../pages/pages.module';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { BookTourComponent } from './book-tour/book-tour.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { RatingModule } from 'primeng/rating';
 @NgModule({
     imports: [
         CommonModule,
@@ -16,8 +29,20 @@ import { ButtonModule } from 'primeng/button';
         StyleClassModule,
         ChartModule,
         PanelModule,
-        ButtonModule
+        ButtonModule,
+        ToastModule,
+        ImageModule,
+        PagesModule,
+        DropdownModule,
+        FormsModule,
+        DialogModule,
+        InputTextModule,
+        TableModule,
+        TooltipModule,
+        InputNumberModule,
+        RatingModule
     ],
-    declarations: [LandingComponent]
+    declarations: [LandingComponent, DetailTourComponent, BookTourComponent],
+    providers:[MessageService]
 })
 export class LandingModule { }

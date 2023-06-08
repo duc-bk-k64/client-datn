@@ -1,6 +1,15 @@
-import { Component } from '@angular/core';
+import { async } from 'rxjs';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { AuthService } from '../../service/auth.service';
+import { DEPARTURE, PRICE, TIME, storageKey } from 'src/app/app-constant';
+import { ResponseMessage } from '../../Model/ResponseMessage';
+import { Tour } from '../../Model/Tour';
+
 
 @Component({
     selector: 'app-landing',
@@ -58,6 +67,130 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
         }
     `]
 })
-export class LandingComponent {
-    constructor(public layoutService: LayoutService, public router: Router) { }
+export class LandingComponent implements OnInit {
+    header:any;
+    listTour: Tour[] = [];
+    listResultTour: Tour[] = [];
+    isFindTour: boolean = false;
+    loading: boolean = false;
+    departure: string = '';
+    destination: number = -1;
+    time: string ='';
+    price: string ='';
+    listDeparture: any[] = [];
+    listDestination: any[] = [];
+    listPrice: any[] = [];
+    listTime: any[] = [];
+    showDetailTour: boolean = false;
+    selectedTour:  Tour ={};
+    listPitstop: any[] = [];
+    listTourDestination: any[] = [];
+
+
+    constructor(public layoutService: LayoutService, public router: Router,private messageService: MessageService, private http: HttpClient, private  authService: AuthService) {
+    
+     }
+    ngOnInit() {
+        this.header = new HttpHeaders().set(storageKey.AUTHORIZATION,this.authService.getToken());
+        this.loadTour();
+        this.findDestination();
+        this.listDeparture =  DEPARTURE;
+        this.listPrice = PRICE;
+        this.listTime = TIME;
+    }
+     login() {
+        this.router.navigate(['/auth/login']);
+    }
+    register() {
+        this.router.navigate(['/auth/signup']);
+    }
+    loadTour() {
+        this.http.get<ResponseMessage>("/api/v1/project/auth/tour/findAlls",{headers:this.header}).subscribe(
+            data => {
+                if(data.resultCode == 0 ) {
+                    this.listTour = data.data;
+                    // console.log(this.listTour)
+                }
+                else {
+                    this.messageService.add({severity:'error', summary:data.message});
+                }
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
+    }
+
+    async findTour() {
+        this.loading = true;
+        await this.http.get<ResponseMessage>("/api/v1/project/auth/tour/findAlls",{headers:this.header}).toPromise().then(
+            data => {
+                if(data?.resultCode == 0 ) {
+                    this.listResultTour = data.data;
+                    this.isFindTour = true;
+                    // console.log(this.listResultTour)
+                }
+                else {
+                    this.messageService.add({severity:'error', summary:data?.message});
+                }
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
+        this.loading = false;
+    }
+    findDestination() {
+        this.http.get<ResponseMessage>("/api/v1/project/auth/des/findAll").subscribe(
+            data => {
+                if(data.resultCode == 0 ) {
+                    this.listDestination = data.data;
+                    // console.log(this.listDestination)
+                }
+                else {
+                    this.messageService.add({severity:'error', summary:data.message});
+                }
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
+
+    }
+    detailTour(object: any) {
+        this.router.navigate(['landing/detailTour/'+object.id+'/'+object.code]);
+    }
+    showDialogDetailTour(object: any) {
+        this.showDetailTour = true;
+        this.selectedTour = object;
+        this.http.get<ResponseMessage>("/api/v1/project/auth/pitstop/findByTourId?tourId="+this.selectedTour.id).subscribe(
+            data => {
+                if(data.resultCode == 0) {
+                    this.listPitstop = data.data;
+                    console.log(this.listPitstop);
+                }  else {
+                    this.messageService.add({severity:'error', summary:data.message});
+                }
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
+        this.http.get<ResponseMessage>("/api/v1/project/auth/des/findByTourId?tourId="+this.selectedTour.id).subscribe(
+            data => {
+                if(data.resultCode == 0 ) {
+                    this.listTourDestination = data.data;
+                    console.log(this.listTourDestination)
+                }
+                else {
+                    this.messageService.add({severity:'error', summary:data.message});
+                }
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
+
+        // console.log(this.selectedTour);
+    }
 }
