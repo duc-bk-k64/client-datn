@@ -21,7 +21,7 @@
                 <i class="pi pi-fw pi-bell"></i>
                 <span> Notifications</span>
         </button>
-        <p-badge *ngIf =  "newNotifi" value = "New notification" severity="warning" styleClass="mr-2"> </p-badge>
+        <p-badge *ngIf =  "newNotifi" value = "Thông báo mới" severity="warning" styleClass="mr-2"> </p-badge>
         <button class="p-link layout-topbar-button " [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
             <span>Settings</span>
@@ -62,7 +62,7 @@
 </p-dialog>
 
 <p-dialog [(visible)]="isShowNotification" [position]="position" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Notifications" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'20vw', height: '25vw'}" [modal]="true">
-    <div *ngFor = "let notification of notifications">
+    <div *ngFor = "let notification of notifications" class="mt-2">
         <!-- <div> -->
             <p *ngIf = "notification.status == 'unread'" style="font-weight: bold;" (click) = " detailNotification(notification)">{{notification.title}}</p>
             <p *ngIf = "notification.status == 'readed'" (click) = " detailNotification(notification)" >{{notification.title}}</p>
@@ -87,14 +87,14 @@
             </div> -->
             <div class = "col-12 ">
                 <div class="field">
-                    <label for="content">Content</label>
+                    <label for="content">Nội dung</label>
                     <h4 id="content">{{selectedNotifi.content}}</h4>
                 </div>
 
             </div>
             <div class = "col-12 ">
                 <div class="field">
-                    <label for="time">Time</label>
+                    <label for="time">Thời gian</label>
                     <h5 id="time">{{selectedNotifi.timeCreated}}</h5>
 
                 </div>

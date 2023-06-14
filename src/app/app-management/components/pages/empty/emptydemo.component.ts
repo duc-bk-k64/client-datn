@@ -21,9 +21,9 @@ export class EmptyDemoComponent {
         task
             .snapshotChanges()
             .pipe(
-                finalize(() => {
+                finalize(async () => {
                     this.downloadURL = fileRef.getDownloadURL();
-                    this.downloadURL.subscribe(url => {
+                    await this.downloadURL.toPromise().then(url => {
                         if (url) {
                             this.fb = url;
                             console.log(this.fb)
@@ -34,9 +34,10 @@ export class EmptyDemoComponent {
             )
             .subscribe(url => {
                 if (url) {
-                    // console.log(url);
+                    // console.log();
                 }
             });
+            console.log("done");
     }
     log() {
         console.log(this.fb)

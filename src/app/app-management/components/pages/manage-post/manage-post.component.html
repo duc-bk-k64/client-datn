@@ -1,0 +1,245 @@
+<div class="card">
+    <div class="grid">
+        <p-toast></p-toast>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+        <app-loading *ngIf="loading"></app-loading>
+        <p-toolbar styleClass="mb-4" class="col-12">
+            <ng-template pTemplate="left">
+                <div class="my-2">
+                    <button pButton pRipple label="Tạo mới bài viết" (click)="showCreatePost()" pTooltip="Tạo mới bài viết" icon="pi pi-plus"
+                        class="p-button-success mr-2"></button>
+                    <button pButton pRipple label="Hiển thị bài viết"  
+                    class="p-button-warning mr-2" (click)="availablePost()" pTooltip="Hiển thị bài viết được chọn"></button>
+                    <button pButton pRipple  label="Ẩn bài viết" (click)="unavailablePost()" pTooltip="Ẩn bài viết được chọn" 
+                    class="p-button-warning mr-2"></button>
+                    <button pButton pRipple label="Xóa bài viết" (click)="confirmDelete()" icon="pi pi-trash" class="p-button-danger mr-2"></button>
+
+                </div>
+            </ng-template>
+
+        </p-toolbar>
+
+        <div class="col-12">
+            <p-table #dt1 [value]="listPost" [(selection)]="listPostSelected"
+                [globalFilterFields]="['id','code','title','status']" responsiveLayout="scroll" [rows]="10" [rows]="10"
+                [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
+                selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                                placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th>
+                            <div>
+                                ID
+                                <p-columnFilter type="number" field="id" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Tiêu đề
+                                <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Người tạo
+                                <p-columnFilter type="text" field="createdBy" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Thời gian tạo
+                                <p-columnFilter type="text" field="timeCreated" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Trạng thái
+                                <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                       
+                        <th style="width: 3rem">
+                        </th>
+
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-obj>
+                    <tr [class]="obj.hightlightClass">
+                        <td>
+                            <p-tableCheckbox [value]="obj"></p-tableCheckbox>
+                        </td>
+                        <td>{{obj.id}}</td>
+                        <td>{{obj.title}}</td>
+                        <td>{{obj.createdBy}}</td>
+                        <td>{{obj.timeCreated}}</td>
+                        <td>
+                            <p-tag [value]="obj.status" severity="success"></p-tag>
+                        </td>
+                        <td>
+                           
+                            <button pButton pTooltip="Cập nhật bài viết" (click)="showDetailPost(obj)" tooltipPosition="left" pRipple type="button"
+                                label="Cập nhật"
+                                class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
+                        </td>
+                    
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="4">Không có dữ liệu</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+
+    </div>
+</div>
+
+<p-dialog [(visible)]="isShowDetailPost" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" [header]="label"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '45vw'}"
+    [modal]="true">
+
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin bài viết</div>
+            <p-toolbar styleClass="mb-4" class="col-12">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Thêm đoạn mô tả" (click)="showCreateParagraph()"  pTooltip="Thêm đoạn mô tả bài viết" icon="pi pi-plus"
+                            class="p-button-success mr-2"></button>
+                       
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <div class="col-12" *ngFor="let paragraph of listParagraph">
+                <h3 style="font-weight: bold; display: inline-block;">{{paragraph.title}}</h3>
+                <button style="font-weight: bold;background: none;"
+                    class=" ml-2 p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500" (click)="showUpdateParagraph(paragraph)" >Cập
+                    nhật</button>
+                <img [src]="paragraph.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;"
+                    alt="Image" width="100%">
+                <p class="mt-1">{{paragraph.content}}</p>
+            </div>
+            <div class="col-12" style="font-style: oblique;">
+                <h4> Tác giả: {{postSelected.createdBy}}</h4>
+                <p>{{postSelected.timeCreated}}</p>
+            </div>
+       
+        </div>
+
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Xong" (click)="isShowDetailPost = false" icon="pi pi-comments" class="p-button-text"></button>
+       
+    </ng-template>
+
+
+</p-dialog>
+
+<p-dialog [(visible)]="isShowUpdateParagraph" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin đoạn mô tả"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
+    [modal]="true">
+    <div class="grid">
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">ID</label>
+            <p id="code">{{paragraphSelected.id}}</p>
+        </div>
+       
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">Thứ tự</label>
+            <p-inputNumber id="code"  [min]="0" [max]="20"  [showButtons]="true"  [(ngModel)]="paragraphSelected.order"> </p-inputNumber>
+
+        </div>
+        <div class="field col-12 lg:col-6 grid">
+            <label for="code" style="font-weight: bold;" class="col-12">Hình ảnh</label>
+            <input type="file" id="code" class="col-12" (change)="onFileSelected($event)" />
+        </div>
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Link hình ảnh</label>
+            <p id="code">{{paragraphSelected.imageUrl}}</p>
+        </div>
+        <div class="field col-12">
+            <label for="name" style="font-weight: bold;">Tiêu đề</label>
+            <input id="name" pTooltip="Tiêu đề" tooltipPosition="bottom" pInputText
+            [(ngModel)]="paragraphSelected.title" required autofocus placeholder="Du  lịch Quảng Bình" />
+        </div>
+       
+       
+
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Nội dung</label>
+            <textarea id="code" rows="5" cols="30" pInputTextarea [(ngModel)]="paragraphSelected.content"></textarea>
+
+        </div>
+
+
+
+
+
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" icon="pi pi-comments"  (click)="updateParagraph()" class="p-button-text"></button>
+        <button pButton pRipple label="Xóa" icon="pi pi-trash" *ngIf="!isCreate" (click) = "deleteParagraph()" pTooltip="Xóa điểm dừng"  class="p-button-text"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="isShowCreatePost" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Tạo mới bài viết"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
+    [modal]="true">
+    <div class="grid">
+      
+        <div class="field col-6">
+            <label for="name" style="font-weight: bold;">Tiêu đề</label>
+            <input id="name" pTooltip="Tiêu đề" tooltipPosition="bottom" pInputText
+            [(ngModel)]="postSelected.title" required autofocus placeholder="Du  lịch Quảng Bình" />
+        </div>
+        <div class="field col-12 lg:col-6 grid">
+            <label for="code" style="font-weight: bold;" class="col-12">Hình ảnh</label>
+            <input type="file" id="code" class="col-12" (change)="onFileSelectedPost($event)" />
+        </div>
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Link hình ảnh</label>
+            <p id="code">{{postSelected.imageUrl}}</p>
+        </div>
+        <div class="field col-4">
+            <label for="name" style="font-weight: bold;">Người tạo</label>
+            <input id="name" pTooltip="Tên người tạo bài viết" tooltipPosition="bottom" pInputText
+            [(ngModel)]="postSelected.createdBy" required autofocus placeholder="Vũ Văn A" />
+        </div>
+        <div class = "col-12 lg:col-8 ">
+            <div class="field">
+                <label for="des">Địa điểm du lịch</label>
+                <p-dropdown id="des" [options]="listDestination" [(ngModel)]="desSelected" placeholder="Địa điểm du lịch bài viết mô tả" optionLabel="name" optionValue = "id"></p-dropdown>
+            </div>
+
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" icon="pi pi-comments"  (click)="createPost()" class="p-button-text"></button>
+    </ng-template>
+
+</p-dialog>
+

@@ -1,0 +1,451 @@
+<div class="card">
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+    <app-loading *ngIf="loading"></app-loading>
+    <div class="grid">
+        <p-toolbar styleClass="mb-4" class="col-12">
+            <ng-template pTemplate="left">
+                <div class="my-2">
+                    <button pButton pRipple label="Tạo mới tour" (click)="showCreateTour()" pTooltip="Tạo mới tour" icon="pi pi-plus"
+                        class="p-button-success mr-2"></button>
+                    <button pButton pRipple label="Mở tour"  
+                    class="p-button-warning mr-2" (click)="openTour()" pTooltip="Mở tour được chọn"></button>
+                    <button pButton pRipple (click)="closeTour()" label="Đóng tour" pTooltip="Đóng tour được chọn" 
+                    class="p-button-warning mr-2"></button>
+                    <button pButton pRipple label="Xóa tour" (click)="confirmDelete()" icon="pi pi-trash" class="p-button-danger mr-2"></button>
+
+                </div>
+            </ng-template>
+
+        </p-toolbar>
+        <div class="col-12">
+            <p-table #dt1 [value]="listTour" [(selection)]="listTourSelected"
+                [globalFilterFields]="['id','code','name','status']" responsiveLayout="scroll" [rows]="10" [rows]="10"
+                [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
+                selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                                placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th>
+                            <div>
+                                ID
+                                <p-columnFilter type="text" field="id" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Mã tour
+                                <p-columnFilter type="text" field="code" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Tên tour
+                                <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Địa điểm khởi hành
+                                <!-- <p-columnFilter type="text" field="roles" display="menu"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Trạng thái
+                                <p-columnFilter type="text" field="note" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Thời gian
+                            </div>
+                        </th>
+                        <th style="width: 3rem">
+                        </th>
+
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-obj>
+                    <tr [class]="obj.hightlightClass">
+                        <td>
+                            <p-tableCheckbox [value]="obj"></p-tableCheckbox>
+                        </td>
+                        <td>{{obj.id}}</td>
+                        <td>{{obj.code}}</td>
+                        <td>{{obj.name}}</td>
+                        <td>{{obj.departure}}</td>
+                        <td>
+                            <p-tag [value]="obj.status" severity="success"></p-tag>
+                        </td>
+                        <td>{{obj.numberOfDay}} ngày {{obj.numberOfNight}} đêm</td>
+                        <td>
+                            <!-- <p-menu #menu [model]="items" [popup]="true"></p-menu>
+                            <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" ></button> -->
+                            <button pButton pTooltip="Cập nhật tour" tooltipPosition="left" pRipple type="button"
+                                label="Cập nhật" (click)="showDetailTour(obj)"
+                                class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
+                        </td>
+                        <!-- <td>
+                            <button pButton pRipple pTooltip="Xóa tài khoản" tooltipPosition="left" type="button" icon="pi pi-times" class="p-button-rounded p-button-danger"></button>
+                        </td> -->
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="4">Không có dữ liệu</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<p-dialog [(visible)]="isShowDetailTour" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin tour"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '45vw'}"
+    [modal]="true">
+
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin tour</div>
+            <div class = "col-12 lg:col-3 ">
+                <div class="field">
+                    <label for="name">Tên tour</label>
+                    <input id="name" pTooltip="Tên tour"  tooltipPosition="bottom"  pInputText [(ngModel)]="tourSelected.name" required autofocus placeholder="Tên tour" />
+                   
+                </div>
+
+            </div>
+            <div class = "col-12 lg:col-2 ">
+                <div class="field">
+                    <label for="password">Mã tour</label>
+                    <input id="password" pTooltip="Mã tour"  tooltipPosition="bottom"  pInputText [(ngModel)]="tourSelected.code" disabled="true" required autofocus placeholder="Mã tour" />
+                </div>
+
+            </div>
+            <div class = "col-12 lg:col-2">
+                <div class="field">
+                    <label for="time">Số ngày</label>
+                    <p-inputNumber id="children"  
+                    [(ngModel)]="tourSelected.numberOfDay" [min]="0" [max]="20"  [showButtons]="true"> </p-inputNumber>
+                </div>
+
+            </div>
+            <div class = "col-12 lg:col-2">
+                <div class="field">
+                    <label for="time">Số đêm</label>
+                    <p-inputNumber id="children"  
+                    [(ngModel)]="tourSelected.numberOfNight" [min]="0" [max]="20"  [showButtons]="true"> </p-inputNumber>
+                </div>
+
+            </div>
+            <div class="col-12 lg:col-3">
+                <label for="time"></label>
+                <button id="time" pButton pRipple label="Cập nhật"
+                            class="p-button-success mr-2 mt-2" (click)="updateTour()"></button>
+
+            </div>
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Lịch trình tour</div>
+            <p-toolbar styleClass="mb-4" class="col-12">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Thêm điểm dừng" (click)="showCreatePitstop()" pTooltip="Thêm điểm dừng" icon="pi pi-plus"
+                            class="p-button-success mr-2"></button>
+                        <!-- <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-warning mr-2" ></button> -->
+                        <!-- <button pButton pRipple label="Xóa tour" icon="pi pi-trash" class="p-button-danger"></button> -->
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <div class="col-12" *ngFor="let pitstop of listPitstop">
+                <h3 style="font-weight: bold; display: inline-block;">{{pitstop.name}}</h3>
+                <button style="font-weight: bold;background: none;"
+                    class=" ml-2 p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500" (click)="showUpdatePitstop(pitstop)">Cập
+                    nhật</button>
+                <img [src]="pitstop.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;"
+                    alt="Image" width="100%">
+                <p class="mt-1">{{pitstop.content}}</p>
+            </div>
+            <div class="col-12 mt-1">
+                <h3 style="font-weight: bold;">Danh sách chuyến đi</h3>
+            </div>
+            <p-toolbar styleClass="mb-4" class="col-12">
+                <!-- <div class="p-toolbar-group-start">
+                    <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
+                    <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
+
+                </div> -->
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Thêm chuyến đi" pTooltip="Tạo mới tour" icon="pi pi-plus"
+                            class="p-button-success mr-2" (click)="showCreateTrip()"></button>
+                        <!-- <button pButton pRipple   icon="pi pi-trash" class="p-button-danger"></button> -->
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <div class="col-12">
+                <p-table [value]="listTrip" [(selection)]="listTripDelete" responsiveLayout="scroll" [rows]="10"
+                    [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                    selectionMode="multiple"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowHover]="true"
+                    dataKey="id">
+                    <!-- <ng-template pTemplate="caption">
+                        <div class="flex">
+                            <span class="p-input-icon-left ml-auto">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text"   (input)="applyFilterGlobal($event, 'contains')" placeholder="Search keyword" />
+                            </span>
+                        </div>
+                    </ng-template> -->
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 3rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th>
+                                <div>
+                                    Mã chuyến đi
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    Ngày khởi hành
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    Giá chuyến đi
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    Giá cho trẻ em
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    Lưu ý
+                                </div>
+                            </th>
+                            <th style="width: 5rem">
+                                <button pButton pRipple pTooltip="Xóa tour" (click)="deleteTrip()"  icon="pi pi-trash" class="p-button-danger"></button>
+                            </th>
+
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-obj>
+                        <tr>
+                            <td>
+                                <p-tableCheckbox [value]="obj"></p-tableCheckbox>
+                            </td>
+                            <td>{{obj.code}}</td>
+                            <td>{{obj.departureDay}}</td>
+                            <td>{{obj.price}} đồng</td>
+                            <td>{{obj.priceForChidren}} đồng</td>
+                            <td>{{obj.note}}</td>
+                            <td>
+                                <button pButton pRipple label="Cập nhật"
+                                    class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"
+                                    (click)="showUpdateTrip(obj)"></button>
+                            </td>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="4">No data to display</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Xong" (click)="isShowDetailTour = false" icon="pi pi-comments" class="p-button-text"></button>
+        <!-- <button pButton pRipple type="button" label="Create" icon="pi pi-check" class="p-button-text" [disabled]="!this.groupModel.group_code" *ngIf="!isUpdate" (click)="createGroup()" ></button>
+        <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" *ngIf="isUpdate" [disabled]="!this.groupModel.group_code" (click)="updateGroup()" ></button> -->
+    </ng-template>
+
+
+</p-dialog>
+
+<p-dialog [(visible)]="isShowUpdateTrip" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin chuyến đi"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
+    [modal]="true">
+    <div class="grid">
+        <div class="field col-12 lg:col-4">
+            <label for="code" style="font-weight: bold;">ID chuyến đi</label>
+            <p id="code">{{tripSelected.id}}</p>
+        </div>
+        <div class="field col-12 lg:col-4">
+            <label for="code" style="font-weight: bold;">Mã chuyến đi</label>
+            <p id="code">{{tripSelected.code}}</p>
+        </div>
+        <div class="field col-12 lg:col-4">
+            <label for="code" style="font-weight: bold;">Giá vé</label>
+            <p-inputNumber id="code" [(ngModel)]="tripSelected.price"> </p-inputNumber>
+
+        </div>
+        <div class="field col-12 lg:col-4">
+            <label for="code" style="font-weight: bold;">Giá cho trẻ em</label>
+            <p-inputNumber id="code" [(ngModel)]="tripSelected.priceForChidren"> </p-inputNumber>
+        </div>
+        <div class="field col-12 lg:col-4">
+            <label for="code" style="font-weight: bold;">Ngày khởi hành</label>
+            <input pInputText id="code" placeholder="YYYY-mm-DD 2023-08-29" [(ngModel)]="tripSelected.departureDay" />
+        </div>
+        <div class="field col-12 lg:col-4">
+            <label for="code" style="font-weight: bold;">Trạng thái</label>
+            <p-dropdown id="code" [options]="status" [(ngModel)]="tripSelected.status" placeholder="Chọn trạng thái"
+                optionLabel="name" optionValue="value"></p-dropdown>
+        </div>
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Hướng dẫn viên</label>
+            <p-dropdown id="code" [options]="tourGuide" [disabled]="isCreate" (onChange)="addTourguide()" [(ngModel)]="tripSelected.tourGuide"
+                placeholder="Chọn hướng dẫn viên" optionLabel="username" optionValue="username"></p-dropdown>
+        </div>
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Lưu ý</label>
+            <textarea id="code" rows="5" cols="30" pInputTextarea [(ngModel)]="tripSelected.note"></textarea>
+
+        </div>
+
+
+
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" icon="pi pi-comments" (click)="updateTrip()" class="p-button-text"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="isShowUpdatePitstop" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin điểm dừng"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
+    [modal]="true">
+    <div class="grid">
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">ID</label>
+            <p id="code">{{pitstopSelected.id}}</p>
+        </div>
+       
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">Thứ tự</label>
+            <p-inputNumber id="code"  [min]="0" [max]="20"  [showButtons]="true"  [(ngModel)]="pitstopSelected.order"> </p-inputNumber>
+
+        </div>
+        <div class="field col-12 lg:col-6 grid">
+            <label for="code" style="font-weight: bold;" class="col-12">Hình ảnh</label>
+            <input type="file" id="code" class="col-12" (change)="onFileSelected($event)" />
+            <!-- <p-fileUpload mode="basic" [auto]="true"  chooseLabel="Chọn ảnh" name="demo[]"  (change)="onFileSelected($event)"  ></p-fileUpload> -->
+        </div>
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Link hình ảnh</label>
+            <p id="code">{{pitstopSelected.imageUrl}}</p>
+        </div>
+        <div class="field col-12">
+            <label for="name" style="font-weight: bold;">Tên điểm dừng</label>
+            <input id="name" pTooltip="Tên điểm dừng" tooltipPosition="bottom" pInputText
+            [(ngModel)]="pitstopSelected.name" required autofocus placeholder="Đèo Hải Vân" />
+        </div>
+       
+
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Giới thiệu điểm dừng</label>
+            <textarea id="code" rows="5" cols="30" pInputTextarea [(ngModel)]="pitstopSelected.content"></textarea>
+
+        </div>
+
+
+
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" icon="pi pi-comments" (click)="updatePitstop()" class="p-button-text"></button>
+        <button pButton pRipple label="Xóa" icon="pi pi-trash" *ngIf="!isCreate" (click) = "deletePitstop()" pTooltip="Xóa điểm dừng"  class="p-button-text"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-dialog [(visible)]="isShowCreateTour" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Tạo mới tour"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '35vw'}"
+    [modal]="true">
+    <div class="grid">
+        <div class="field col-12 lg:col-6">
+            <label for="name" style="font-weight: bold;">Tên tour</label>
+            <input id="name" pTooltip="Tên tour" tooltipPosition="bottom" pInputText
+            [(ngModel)]="tourSelected.name" required autofocus placeholder="Du  lịch Quảng Bình" />
+        </div>
+       
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">Số ngày</label>
+            <p-inputNumber id="code"  [min]="0" pTooltip="Số ngày đi tour" [max]="20"  [showButtons]="true"  [(ngModel)]="tourSelected.numberOfDay"></p-inputNumber>
+
+        </div>
+        <div class="field col-12 lg:col-3">
+            <label for="code" style="font-weight: bold;">Số đêm</label>
+            <p-inputNumber id="code"  [min]="0" [max]="20" pTooltip="Số đêm đi tour"  [showButtons]="true"  [(ngModel)]="tourSelected.numberOfNight"></p-inputNumber> 
+
+        </div>
+        <div class="field col-12 lg:col-4">
+            <label for="departure">Địa điểm khởi hành</label>
+            <p-dropdown id ="departure" [options]="listDeparture" [(ngModel)]="tourSelected.departure" placeholder="Chọn nơi đi" optionLabel="name" optionValue = "value"></p-dropdown>
+        </div>
+        <div class="field col-12 lg:col-8 grid">
+            <label for="code" style="font-weight: bold;" class="col-12">Hình ảnh</label>
+            <input type="file" id="code" class="col-12" (change)="onFileSelectedTour($event)" />
+            <!-- <p-fileUpload mode="basic" [auto]="true"  chooseLabel="Chọn ảnh" name="demo[]"  (change)="onFileSelected($event)"  ></p-fileUpload> -->
+        </div>
+        <div class="field col-12">
+            <label for="code" style="font-weight: bold;">Link hình ảnh</label>
+            <p id="code">{{tourSelected.imageUrl}}</p>
+        </div>
+        <div class="field col-12 lg:col-4">
+            <label for="name" style="font-weight: bold;">Người tạo</label>
+            <input id="name" pTooltip="Username người tạo tour" disabled="true" tooltipPosition="bottom" pInputText
+            [(ngModel)]="tourSelected.createdBy" required autofocus placeholder="Du  lịch Quảng Bình" />
+        </div>
+        <div class="field col-12 lg:col-8">
+            <label for="name" style="font-weight: bold;">Địa điểm thăm quan</label>
+            <p-multiSelect [options]="listDestination" [(ngModel)]="listDesSelected" defaultLabel="Chọn địa điểm" optionLabel="name"
+                display="chip" optionValue="id"></p-multiSelect>
+           
+        </div>
+       
+
+
+
+
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Lưu" icon="pi pi-comments" (click)="createTour()" class="p-button-text"></button>
+    </ng-template>
+
+</p-dialog>

@@ -46,6 +46,9 @@ export class AppTopBarComponent implements OnInit {
     //    this.username=this.authService.getUsername();
        this.header = new HttpHeaders().set(storageKey.AUTHORIZATION,this.authService.getToken());
        this.connectWebsocket();
+       if(this.authService.getRole() =='ROLE_STAFF'||this.authService.getRole() =='ROLE_ADMIN') {
+        this.connectWebsocketStaff();
+       }
        this.loadNotification();
     }
     isShowDialog: boolean = false;
@@ -87,7 +90,7 @@ export class AppTopBarComponent implements OnInit {
                 // console.log(sdkEvent)
                 // console.log("abcd")
                _this.newNotifi = 1;
-               _this.messageService.add({severity:'success', summary:"New notification", detail:sdkEvent.body});
+               _this.messageService.add({severity:'success', summary:"Thông báo mới", detail:sdkEvent.body});
                _this.loadNotification();
             });
             //_this.stompClient.reconnect_delay = 2000;
@@ -100,11 +103,57 @@ export class AppTopBarComponent implements OnInit {
             this.connectWebsocket();
         }, 5000);
     } 
-    loadNotification() {
-        this.http.get<ResponseMessage>("/api/v1/project/notifi/findByUsername?username="+this.authService.getUsername(),{headers:this.header}).subscribe(
+
+    connectWebsocketStaff() {
+        // console.log("Initialize WebSocket Connection");
+        let topic = "/topic/staff";
+        let ws = new SockJS(this.webSocketEndPoint);
+        this.stompClient = Stomp.over(ws);
+        const _this = this;
+        _this.stompClient.connect({}, function (frame:any) {
+            _this.stompClient.subscribe(topic, function (sdkEvent:any) {
+                // console.log(sdkEvent)
+                // console.log("abcd")
+               _this.newNotifi = 1;
+               _this.messageService.add({severity:'success', summary:"Thông báo mới", detail:sdkEvent.body});
+               _this.loadNotification();
+            });
+            //_this.stompClient.reconnect_delay = 2000;
+        }, this.errorCallBack);
+
+    }
+  
+
+    async loadNotification() {
+        if(this.authService.getRole() == 'ROLE_STAFF' || this.authService.getRole() == 'ROLE_ADMIN') {
+            await this.http.get<ResponseMessage>("/api/v1/project/notifi/findByUsername?username=SYSTEM",{headers:this.header}).toPromise().then(
+                data => {
+                    if(data?.resultCode == 0) {
+                        this.notifications = data.data;
+                    //  for(let i = 0;i<this.notifications.length;i++) {
+                    //     if(this.notifications[i].status == STATUS.UNREAD) {
+                    //         this.newNotifi = 1;
+                    //         break;
+                    //     }
+                    //  }
+    
+                    } else {
+                        this.messageService.add({severity:'error', summary:data?.message});
+                    }
+                
+    
+                },
+                error => {
+                    this.messageService.add({severity:'error', summary:'Error occur'});
+                }
+            )
+        }
+        await this.http.get<ResponseMessage>("/api/v1/project/notifi/findByUsername?username="+this.authService.getUsername(),{headers:this.header}).toPromise().then(
             data => {
-                if(data.resultCode == 0) {
-                    this.notifications = data.data;
+                if(data?.resultCode == 0) {
+                   this.notifications= this.notifications.concat(data.data);
+                    // console.log(data)
+                    // console.log(this.notifications)
                  for(let i = 0;i<this.notifications.length;i++) {
                     if(this.notifications[i].status == STATUS.UNREAD) {
                         this.newNotifi = 1;
@@ -113,7 +162,7 @@ export class AppTopBarComponent implements OnInit {
                  }
 
                 } else {
-                    this.messageService.add({severity:'error', summary:data.message});
+                    this.messageService.add({severity:'error', summary:data?.message});
                 }
             
 

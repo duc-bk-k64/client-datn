@@ -37,6 +37,22 @@ export const STATUS: any = {
     READED: 'readed'
 }
 
+export const BOOKTOUR_STATUS: any= [
+    {
+        name: 'Chưa xác nhận',
+        value: 'unconfimred'
+    },
+    {
+        name: 'Đã xác nhận',
+        value: 'confimred'
+    },
+    {
+        name: 'Đã thanh toán',
+        value: 'paid'
+    }
+]
+
+
 export const DEPARTURE : any = [
     {
         name: 'Hà Nội',
@@ -59,19 +75,19 @@ export const DEPARTURE : any = [
 export const PRICE : any = [
     {
         name: 'Nhỏ hơn 3 triệu',
-        value: '0-3'
+        value: '0-3000000'
     },
     {
         name: '3 đến 5 triệu',
-        value: '3-5'
+        value: '3000000-5000000'
     },
     {
         name: '5 đến 10 triệu',
-        value: '5-10'
+        value: '5000000-10000000'
     },
     {
         name: ' Lớn hơn 10 triệu',
-        value: '10-'
+        value: '10000000-100000000'
     }
 ]
 
@@ -86,6 +102,25 @@ export const TIME : any = [
     },
     {
         name: ' Lớn hơn 5 ngày',
-        value: '5-'
+        value: '5-30'
+    }
+]
+
+export const STATUS_TRIP :any = [
+    {
+        name: 'Mở',
+        value: 'available'
+    },
+    {
+        name: ' Đóng',
+        value: 'unavailable'
+    },
+    {
+        name: 'Hoàn thành',
+        value: 'finish'
+    },
+    {
+        name: ' Đang thực hiện',
+        value: 'ontrip'
     }
 ]

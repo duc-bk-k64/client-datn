@@ -21,6 +21,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { BookTourComponent } from './book-tour/book-tour.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { RatingModule } from 'primeng/rating';
+import { PostUserComponent } from './post-user/post-user.component';
+import { DetailPostComponent } from './detail-post/detail-post.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -42,7 +44,7 @@ import { RatingModule } from 'primeng/rating';
         InputNumberModule,
         RatingModule
     ],
-    declarations: [LandingComponent, DetailTourComponent, BookTourComponent],
+    declarations: [LandingComponent, DetailTourComponent, BookTourComponent, PostUserComponent, DetailPostComponent],
     providers:[MessageService]
 })
 export class LandingModule { }

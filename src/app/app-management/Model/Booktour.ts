@@ -9,5 +9,6 @@ export interface Booktour {
     moneyToPay:number;
     detail?:string;
     numberOfAdjust:number;
-    numberOfChildren:number
+    numberOfChildren:number;
+    phoneNumber?:string;
 }

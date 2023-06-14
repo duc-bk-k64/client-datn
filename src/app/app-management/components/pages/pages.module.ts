@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 import {InputTextModule} from 'primeng/inputtext';
 import {TooltipModule} from 'primeng/tooltip';
 import {MultiSelectModule} from 'primeng/multiselect';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {DropdownModule} from 'primeng/dropdown';
 import { CheckboxModule } from 'primeng/checkbox';
 import {PasswordModule} from 'primeng/password';
@@ -39,10 +38,24 @@ import {
 import  {AngularFireModule} from "@angular/fire/compat";
 import { ListTourUserComponent } from './list-tour-user/list-tour-user.component';
 import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ManageTourComponent } from './manage-tour/manage-tour.component';
+import { ManagePostComponent } from './manage-post/manage-post.component';
+import { ManageAccountComponent } from './manage-account/manage-account.component';
+import { MenuModule } from 'primeng/menu';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ManageBooktourComponent } from './manage-booktour/manage-booktour.component';
 @NgModule({
     declarations: [
             LoadingComponent,
             ListTourUserComponent,
+            ManageTourComponent,
+            ManagePostComponent,
+            ManageAccountComponent,
+            ManageBooktourComponent,
   ],
     imports: [
         CommonModule,
@@ -77,9 +90,14 @@ import { TagModule } from 'primeng/tag';
         RadioButtonModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFireStorageModule,
-        TagModule
+        TagModule,
+        RatingModule,
+        InputTextareaModule,
+        MenuModule,
+        FileUploadModule
 
     ],
+    providers:[ConfirmationService],
     exports: [LoadingComponent]
 })
 export class PagesModule { }

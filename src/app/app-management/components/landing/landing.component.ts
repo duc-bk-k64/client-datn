@@ -9,6 +9,7 @@ import { AuthService } from '../../service/auth.service';
 import { DEPARTURE, PRICE, TIME, storageKey } from 'src/app/app-constant';
 import { ResponseMessage } from '../../Model/ResponseMessage';
 import { Tour } from '../../Model/Tour';
+import { FindTourModel } from '../../Model/FindtourModel';
 
 
 @Component({
@@ -85,6 +86,12 @@ export class LandingComponent implements OnInit {
     selectedTour:  Tour ={};
     listPitstop: any[] = [];
     listTourDestination: any[] = [];
+    findtour: FindTourModel = {
+        departure:'hanoi',
+        destination:2,
+        time:'0-5',
+        price:'0-3000000'
+    };
 
 
     constructor(public layoutService: LayoutService, public router: Router,private messageService: MessageService, private http: HttpClient, private  authService: AuthService) {
@@ -123,12 +130,16 @@ export class LandingComponent implements OnInit {
 
     async findTour() {
         this.loading = true;
-        await this.http.get<ResponseMessage>("/api/v1/project/auth/tour/findAlls",{headers:this.header}).toPromise().then(
+        this.findtour.departure = this.departure;
+        this.findtour.destination = this.destination;
+        this.findtour.price = this.price;
+        this.findtour.time = this.time;
+        await this.http.post<ResponseMessage>("/api/v1/project/auth/tour/findTour",this.findtour).toPromise().then(
             data => {
                 if(data?.resultCode == 0 ) {
                     this.listResultTour = data.data;
                     this.isFindTour = true;
-                    // console.log(this.listResultTour)
+                    console.log(this.listResultTour)
                 }
                 else {
                     this.messageService.add({severity:'error', summary:data?.message});
@@ -138,6 +149,7 @@ export class LandingComponent implements OnInit {
                 this.messageService.add({severity:'error', summary:'Error occur'});
             }
         )
+        // console.log(this.findtour);
         this.loading = false;
     }
     findDestination() {
@@ -192,5 +204,10 @@ export class LandingComponent implements OnInit {
         )
 
         // console.log(this.selectedTour);
+    }
+
+    post(object: any) {
+        this.router.navigate(['/landing/post/'+object.id]);
+        localStorage.setItem("desName",object.name);
     }
 }

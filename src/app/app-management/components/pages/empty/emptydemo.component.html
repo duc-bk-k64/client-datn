@@ -3,7 +3,7 @@
         <div class="card">
             <h4>Empty Page</h4>
             <p>This is your empty page template to start building beautiful applications.</p>
-            <button (click)="log()">abcd</button>
+            <!-- <button (click)="log()">abcd</button> -->
         </div>
         <div class="form-group col-12">
             <input type="file"
@@ -14,6 +14,8 @@
                    autocomplete="off"
             />
         </div>
+        
+<p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]"  (change)="onFileSelected($event)"  ></p-fileUpload>
     </div>
 </div>
 <!-- <a [routerLink]="['/onlineExam']" routerLinkActive="router-link-active">onlineExam</a> -->

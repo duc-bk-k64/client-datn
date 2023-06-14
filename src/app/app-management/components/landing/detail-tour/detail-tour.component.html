@@ -26,15 +26,15 @@
         <div class="text-center" style="font-weight: bold; font-size: large;"> Thông tin chi tiết  tour</div>
         <div class="grid py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
             <div class="col-12">
-                <img [src]="tour.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;" alt="Image" width="100%" >
+                <img [src]="tour.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%; height: 30vw;" alt="Image">
             </div>
             <div class="field col-12 lg:col-3">
                 <label for="name" style="font-weight: bold;">Tên tour</label>
                 <p id="name">{{tour.name}}</p>
             </div>
             <div class="field col-12 lg:col-3">
-                <label for="code" style="font-weight: bold;">Mã tour</label>
-                <p id="code">{{tour.code}}</p>
+                <label for="code" style="font-weight: bold;">ID tour / Mã tour</label>
+                <p id="code"> {{tour.id}} / {{tour.code}}</p>
             </div>
             <div class="field col-12 lg:col-3">
                 <label for="time" style="font-weight: bold;">Thời gian</label>
@@ -145,7 +145,7 @@
        
         <div class="grid py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8" >
            <div class="text-center col-12">Địa điểm du lịch có thể bạn quan tâm</div>
-           <p *ngFor="let item of listDestination" class="col-2 mt-2" style="font-weight: bold;">{{item.name}}</p>
+           <p *ngFor="let item of listDestination"  (click) = "post(item)"  class="col-2 mt-2" style="font-weight: bold;">{{item.name}}</p>
         </div>
             
       
