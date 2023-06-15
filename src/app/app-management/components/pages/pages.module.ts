@@ -48,6 +48,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ManageBooktourComponent } from './manage-booktour/manage-booktour.component';
+import { ManageRefundComponent } from './manage-refund/manage-refund.component';
+import { RefundUserComponent } from './refund-user/refund-user.component';
 @NgModule({
     declarations: [
             LoadingComponent,
@@ -56,6 +58,8 @@ import { ManageBooktourComponent } from './manage-booktour/manage-booktour.compo
             ManagePostComponent,
             ManageAccountComponent,
             ManageBooktourComponent,
+            ManageRefundComponent,
+            RefundUserComponent,
   ],
     imports: [
         CommonModule,

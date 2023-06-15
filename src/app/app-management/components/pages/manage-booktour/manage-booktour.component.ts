@@ -112,24 +112,24 @@ export class ManageBooktourComponent implements OnInit {
             header: 'Xác nhận cập nhật trạng thái',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-              this.updateBookTourStatus();
+                this.updateBookTourStatus();
             },
             reject: () => {
-              this.showBooktourDetail(this.booktourSelected);
-            }
+                this.showBooktourDetail(this.booktourSelected);
+            },
         });
     }
     confirmDelete() {
-      // console.log("delete")
-      this.confirmationService.confirm({
-          message: 'Xác nhận xóa đơn đặt tour?',
-          header: 'Xác nhận xóa',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-            this.deleteBooktour();
-          }
-      });
-  }
+        // console.log("delete")
+        this.confirmationService.confirm({
+            message: 'Xác nhận xóa đơn đặt tour?',
+            header: 'Xác nhận xóa',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.deleteBooktour();
+            },
+        });
+    }
     async updateBookTourStatus() {
         this.loading = true;
         if (this.booktourSelected.status == 'confimred') {
@@ -196,73 +196,73 @@ export class ManageBooktourComponent implements OnInit {
         this.loading = false;
     }
     async updateBooktour() {
-      this.loading = true;
-          await this.http
-              .put<ResponseMessage>(
-                  '/api/v1/project/booktour/update?id=' +
-                      this.booktourSelected.id,
-                  this.booktourSelected,
-                  { headers: this.header }
-              )
-              .toPromise()
-              .then(
-                  (data) => {
-                      if (data?.resultCode == 0) {
-                          this.messageService.add({
-                              severity: 'success',
-                              summary: 'Cập nhật thành công',
-                          });
-                          this.loadData();
-                      } else {
-                          this.messageService.add({
-                              severity: 'error',
-                              summary: data?.message,
-                          });
-                      }
-                  },
-                  (error) => {
-                      this.messageService.add({
-                          severity: 'error',
-                          summary: 'Error occur',
-                      });
-                  }
-              );
-              this.loading =false;
-              this.isShowDetailBooktour = false;
+        this.loading = true;
+        await this.http
+            .put<ResponseMessage>(
+                '/api/v1/project/booktour/update?id=' +
+                    this.booktourSelected.id,
+                this.booktourSelected,
+                { headers: this.header }
+            )
+            .toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Cập nhật thành công',
+                        });
+                        this.loadData();
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+        this.loading = false;
+        this.isShowDetailBooktour = false;
     }
 
     async deleteBooktour() {
-      this.loading = true;
-          await this.http
-              .delete<ResponseMessage>(
-                  '/api/v1/project/booktour/deleteById?id=' +
-                      this.booktourSelected.id,
-                  { headers: this.header }
-              )
-              .toPromise()
-              .then(
-                  (data) => {
-                      if (data?.resultCode == 0) {
-                          this.messageService.add({
-                              severity: 'success',
-                              summary: 'Xóa đơn đặt tour thành công',
-                          });
-                          this.loadData();
-                      } else {
-                          this.messageService.add({
-                              severity: 'error',
-                              summary: data?.message,
-                          });
-                      }
-                  },
-                  (error) => {
-                      this.messageService.add({
-                          severity: 'error',
-                          summary: 'Error occur',
-                      });
-                  }
-              );
-              this.loading = false;
-              this.isShowDetailBooktour = false;
+        this.loading = true;
+        await this.http
+            .delete<ResponseMessage>(
+                '/api/v1/project/booktour/deleteById?id=' +
+                    this.booktourSelected.id,
+                { headers: this.header }
+            )
+            .toPromise()
+            .then(
+                (data) => {
+                    if (data?.resultCode == 0) {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Xóa đơn đặt tour thành công',
+                        });
+                        this.loadData();
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data?.message,
+                        });
+                    }
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+        this.loading = false;
+        this.isShowDetailBooktour = false;
     }
 }

@@ -126,6 +126,7 @@ export class LoginComponent implements OnInit {
                                                 window.location.reload();
                                             });
                                     else
+                                    // console.log(this.authService.getRedirectUrl())
                                         this.router
                                             .navigate(['pages/home-user'])
                                             .then(() => {

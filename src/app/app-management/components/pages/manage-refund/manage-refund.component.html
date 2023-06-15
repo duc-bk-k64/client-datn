@@ -1,0 +1,170 @@
+<div class = "card">
+    <div class="grid">
+        <p-toast></p-toast>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+        <app-loading *ngIf="loading"></app-loading>
+        <div class="text-center col-12" style="font-weight: bold; font-size: large;">Danh sách hoàn tiền</div>
+        <!-- <p-toolbar styleClass="mb-4" class="col-12">
+            <ng-template pTemplate="left">
+                <div class="my-2">
+                    <button pButton pRipple label="Tạo  tài khoản" (click)="showCreateAccount()"  pTooltip="Tạo tài khoản" icon="pi pi-plus"
+                        class="p-button-success mr-2"></button>
+                   
+
+                </div>
+            </ng-template>
+
+        </p-toolbar> -->
+        <div class="col-12">
+            <p-table #dt1 [value]="listRefund" 
+                [globalFilterFields]="['id','code','content','status','timeCreated']" responsiveLayout="scroll" [rows]="10" [rows]="10"
+                [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
+                [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                                placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div>
+                                Mã hoàn tiền
+                                <p-columnFilter type="number" field="id" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <!-- <th>
+                            <div>
+                                Mã tài khoản
+                                <p-columnFilter type="text" field="code" display="menu"></p-columnFilter>
+                            </div>
+                        </th> -->
+                        <th>
+                            <div>
+                               Tiền hoàn
+                                <p-columnFilter type="number" field="totalMoney" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Nội dung
+                                <p-columnFilter type="text" field="content" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Tên khách hàng
+                                <!-- <p-columnFilter type="text" field="role" display="menu"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Email khách hàng
+                                <!-- <p-columnFilter type="text" field="provider" display="menu"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Trạng thái
+                                <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                       
+                       
+                        <th style="width: 3rem">
+                        </th>
+
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-obj>
+                    <tr [class]="obj.hightlightClass">
+                       
+                        <td>{{obj.code}}</td>
+                        <!-- <td>{{obj.code}}</td> -->
+                        <td>{{obj.totalMoney}} đồng</td>
+                        <td>{{obj.content}}</td>
+                        <td> {{obj.account.name}}</td>
+                        <td>{{obj.account.email}}</td>
+                        <td>
+                            <p-tag value="Đã hoàn tiền" *ngIf = "obj.status == 'confimred'" severity="success"></p-tag>
+                            <p-tag value="Chờ hoản tiền" *ngIf = "obj.status == 'unconfimred'" severity="warning"></p-tag>
+                        </td>
+                        <td>
+                           
+                            <button pButton pTooltip="Chi tiết"  tooltipPosition="left" pRipple type="button"
+                                label="Chi tiết" (click)="showDetailRefund(obj)"
+                                class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
+                        </td>
+                    
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="4">Không có dữ liệu</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+
+    </div>
+</div>
+
+<p-dialog [(visible)]="isShowRefundDetail" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Thông tin hoàn tiền"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'50vw', height: '30vw'}"
+    [modal]="true">
+
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin hoàn tiền</div>
+            <!-- <div class="field col-12 lg:col-4">
+                <label for="name" style="font-weight: bold;">ID</label>
+                <p id="name">{{accountSelected.id}}</p>
+            </div> -->
+            <div class="field col-12 lg:col-3">
+                <label for="code" style="font-weight: bold;">Mã hoàn tiền</label>
+                <p id="code">{{refundSelected.code}}</p>
+            </div>
+            <div class="field col-12 lg:col-3">
+                <label for="time" style="font-weight: bold;">Tiền hoàn</label>
+                <p id="time">{{refundSelected.totalMoney}} đồng</p>
+            </div>
+            <div class="field col-12 lg:col-6">
+                <label for="departure" style="font-weight: bold;">Nội dung</label>
+                <p id="departure">{{refundSelected.content}}</p>
+            </div>
+            <div class="field col-12 lg:col-4">
+                <label for="code" style="font-weight: bold;">Email khách hàng</label>
+                <p id="code">{{refundSelected.account.email}}</p>
+            </div>
+            <div class="field col-12 lg:col-4">
+                <label for="code" style="font-weight: bold;">Số điện thoại</label>
+                <p id="code">{{profile.phoneNumber}}</p>
+            </div>
+            <div class="field col-12 lg:col-4">
+                <label for="code" style="font-weight: bold;">Thời gian tạo</label>
+                <p id="code">{{refundSelected.timeCreated}}</p>
+            </div>
+            
+        </div>
+            
+
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <!-- <button pButton pRipple label="Cập nhật"  icon="pi pi-comments" class="p-button-text"></button> -->
+        <button pButton pRipple label="Xác nhận đã hoàn" (click)="showConfirmRefund()" pTooltip ="Xác nhận đã hoàn tiền"  class="p-button-text"></button>
+        <button pButton pRipple label="Xong" (click)="isShowRefundDetail = false"  class="p-button-text"></button>
+       
+    </ng-template>
+
+
+</p-dialog>

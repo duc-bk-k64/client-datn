@@ -248,6 +248,11 @@
                                     Lưu ý
                                 </div>
                             </th>
+                            <th>
+                                <div>
+                                    Trạng thái
+                                </div>
+                            </th>
                             <th style="width: 5rem">
                                 <button pButton pRipple pTooltip="Xóa tour" (click)="deleteTrip()"  icon="pi pi-trash" class="p-button-danger"></button>
                             </th>
@@ -265,6 +270,9 @@
                             <td>{{obj.price}} đồng</td>
                             <td>{{obj.priceForChidren}} đồng</td>
                             <td>{{obj.note}}</td>
+                            <td>
+                                <p-tag [value]="obj.status" severity="success"></p-tag>
+                            </td>
                             <td>
                                 <button pButton pRipple label="Cập nhật"
                                     class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"
@@ -321,7 +329,7 @@
         </div>
         <div class="field col-12 lg:col-4">
             <label for="code" style="font-weight: bold;">Trạng thái</label>
-            <p-dropdown id="code" [options]="status" [(ngModel)]="tripSelected.status" placeholder="Chọn trạng thái"
+            <p-dropdown id="code" [options]="status" [disabled]="tripSelected.status == 'confimred' ||tripSelected.status == 'cancel' " [(ngModel)]="tripSelected.status" placeholder="Chọn trạng thái"
                 optionLabel="name" optionValue="value"></p-dropdown>
         </div>
         <div class="field col-12">
@@ -340,6 +348,8 @@
 
     </div>
     <ng-template pTemplate="footer">
+        <button pButton pRipple label="Chốt chuyến đi" *ngIf="!isCreate" icon="pi pi-comments" (click)="showConfirmTrip()" class="p-button-text"></button>
+        <button pButton pRipple label="Hủy chuyến đi" *ngIf="!isCreate" icon="pi pi-comments" (click)="showConfirmCancelTrip()" class="p-button-text"></button>
         <button pButton pRipple label="Lưu" icon="pi pi-comments" (click)="updateTrip()" class="p-button-text"></button>
     </ng-template>
 

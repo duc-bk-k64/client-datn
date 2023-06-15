@@ -20,6 +20,7 @@ import { AppLayoutComponent } from "./app.layout.component";
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 // import { BadgeModule } from "primeng/badge";
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { ButtonModule } from 'primeng/button';
         AppConfigModule,
         DialogModule,
         ToastModule,
-        ButtonModule
+        ButtonModule,
+        DropdownModule
     ],
     exports: [AppLayoutComponent]
 })

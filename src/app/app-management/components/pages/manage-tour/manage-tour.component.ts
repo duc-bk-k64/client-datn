@@ -707,5 +707,100 @@ export class ManageTourComponent implements OnInit {
         });
     }
 
+    showConfirmTrip() {
+        // console.log("delete")
+        this.confirmationService.confirm({
+            message: 'Xác nhận thực hiện chuyến đi?',
+            header: 'Xác nhận',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.confirmTrip();
+            }
+        });
+    }
+
+    showConfirmCancelTrip() {
+        // console.log("delete")
+        this.confirmationService.confirm({
+            message: 'Xác nhận hủy thực hiện chuyến đi?',
+            header: 'Xác nhận',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.cancelTrip();
+            }
+        });
+    }
+    async confirmTrip() {
+        await this.http
+        .get<ResponseMessage>(
+            '/api/v1/project/trip/confirmTrip?tripId=' +
+                this.tripSelected.id,
+            { headers: this.header }
+        )
+        .toPromise()
+        .then(
+            (data) => {
+                if (data?.resultCode == 0) {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary:
+                            'Xác nhận thành công chuyến đi ' +
+                            this.tripSelected.code,
+                    });
+                    this.showDetailTour(this.tourSelected);
+                    this.isShowUpdateTrip = false;
+                } else {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: data?.message,
+                    });
+                    // console.log(data)
+                }
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error occur',
+                });
+            }
+        );
+    }
+
+    async cancelTrip() {
+        await this.http
+        .get<ResponseMessage>(
+            '/api/v1/project/trip/cancelTrip?tripId=' +
+                this.tripSelected.id,
+            { headers: this.header }
+        )
+        .toPromise()
+        .then(
+            (data) => {
+                if (data?.resultCode == 0) {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary:
+                            'Hủy thành công chuyến đi ' +
+                            this.tripSelected.code,
+                    });
+                    this.showDetailTour(this.tourSelected);
+                    this.isShowUpdateTrip = false;
+                } else {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: data?.message,
+                    });
+                    // console.log(data)
+                }
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error occur',
+                });
+            }
+        );
+    }
+
    
 }

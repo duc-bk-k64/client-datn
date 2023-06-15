@@ -52,6 +52,11 @@ export class AppMenuComponent implements OnInit {
                             routerLink: ['/pages/manageBooktour']
                         },
                         {
+                            label: 'Quản lý hoàn tiền',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/manageRefund']
+                        },
+                        {
                             label: 'Quản lý tài khoản',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/manageAccount']
@@ -82,6 +87,16 @@ export class AppMenuComponent implements OnInit {
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/managePost']
                         },
+                        {
+                            label: 'Quản lý đặt tour',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/manageBooktour']
+                        },
+                        {
+                            label: 'Quản lý hoàn tiền',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/manageRefund']
+                        }
                        
                       
                     ]
@@ -124,6 +139,11 @@ export class AppMenuComponent implements OnInit {
                             label: 'Danh sách  tour',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/home-user']
+                        },
+                        {
+                            label: 'Hóa đơn và hoàn tiền',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/refund']
                         }
                        
                       

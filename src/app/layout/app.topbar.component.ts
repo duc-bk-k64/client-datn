@@ -60,12 +60,24 @@ export class AppTopBarComponent implements OnInit {
     selectedNotifi: Notification = {};
     profile: Profile = {};
     username: String = this.authService.getUsername();
+    isShowUpdateProfile: boolean = false;
+    sex: any = [
+        {
+            name: 'Nam',
+            value: 'male'
+        },
+        {
+            name: 'Nữ',
+            value: 'female'
+        }
+    ]
     showDialog() {
         this.isShowDialog=true;
         this.http.get<ResponseMessage>("/api/v1/project/getProfile?username="+this.authService.getUsername(),{headers:this.header}).subscribe(
             data => {
                 if(data.resultCode == 0) {
                    this.profile = data.data;
+                //    console.log(this.profile)
 
                 } else {
                     this.messageService.add({severity:'error', summary:"Error occur"});
@@ -199,5 +211,29 @@ export class AppTopBarComponent implements OnInit {
                 
             }
         );
+    }
+
+    showUpdateProfile() {
+        this.isShowUpdateProfile = true;
+    }
+    async updateProfile() {
+        await this.http.put<ResponseMessage>("/api/v1/project/updateProfile?username="+this.authService.getUsername(),this.profile,{headers:this.header}).toPromise().then(
+            data => {
+                if(data?.resultCode == 0) {
+                    this.messageService.add({severity:'success', summary:'Cập nhật thành công'});
+                    this.isShowUpdateProfile = false;
+                 }
+
+                else {
+                    this.messageService.add({severity:'error', summary:data?.message});
+                }
+            
+
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
+
     }
 }

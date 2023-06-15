@@ -36,15 +36,16 @@
             </div>
             <div class = "col-12 ">
                 <div class="field">
-                    <label for="content">Phone number</label>
+                    <label for="content">Số điện thoại</label>
                     <h4 id="content">{{profile.phoneNumber}}</h4>
                 </div>
                 <div class="field">
-                    <label for="sex">Sex</label>
-                    <h4 id="sex">{{profile.sex}}</h4>
+                    <label for="sex">Giới tính</label>
+                    <h4 id="sex" *ngIf="profile.sex == 'male'">Nam</h4>
+                    <h4 id="sex" *ngIf="profile.sex == 'female'">Nữ</h4>
                 </div>
                 <div class="field">
-                    <label for="date">Date of birth</label>
+                    <label for="date">Ngày sinh</label>
                     <h4 id="date">{{profile.dateOfBirth}}</h4>
                 </div>
             </div>
@@ -55,11 +56,14 @@
       
     </ng-template>
     <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cập nhật" (click)="showUpdateProfile()"  class="p-button-text"  ></button>
         <button pButton pRipple label="Logout"  class="p-button-text" (click)="logout()"  ></button>
         <!-- <button pButton pRipple  label="Cancel" icon="pi pi-times" class="p-button-text" (click) ="cancelUpdateDialog()"></button> -->
     </ng-template>
    
 </p-dialog>
+
+
 
 <p-dialog [(visible)]="isShowNotification" [position]="position" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Notifications" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'20vw', height: '25vw'}" [modal]="true">
     <div *ngFor = "let notification of notifications" class="mt-2">
@@ -115,6 +119,43 @@
       
     </ng-template>
     
+   
+</p-dialog>
+
+<p-dialog [(visible)]="isShowUpdateProfile" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Cập nhật thông tin cá nhân" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'40vw', height: '20vw'}" [modal]="true">
+    <ng-template pTemplate="content">
+        <div class = "grid">
+         
+          
+                <div class="field col-12 lg:col-4">
+                    <label for="name" style="font-weight: bold;">Số điện thoại</label>
+                    <input id="name" pTooltip="Số điện thoại" tooltipPosition="bottom" pInputText
+                    [(ngModel)]="profile.phoneNumber"required autofocus placeholder="0336218967" />
+                    
+                </div>
+                <div class="field col-12 lg:col-4">
+                    <label for="sex">Giới tính</label>
+                    <p-dropdown id="sex" [options]="sex" [(ngModel)]="profile.sex"
+                    placeholder="Chọn giới tính"  optionLabel="name" optionValue="value"></p-dropdown>
+                    
+                </div>
+                <div class="field col-12 lg:col-4">
+                    <label for="name" style="font-weight: bold;">Ngày sinh</label>
+                    <input id="name" pTooltip="Ngày tháng năm sinh" tooltipPosition="bottom" pInputText
+                    [(ngModel)]="profile.dateOfBirth"required autofocus placeholder="2001-01-05" />
+                </div>
+           
+          
+            
+        </div>
+       
+      
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cập nhật" (click)="updateProfile()"  class="p-button-text"  ></button>
+        <button pButton pRipple label="Logout"  class="p-button-text" (click)="logout()"  ></button>
+        <!-- <button pButton pRipple  label="Cancel" icon="pi pi-times" class="p-button-text" (click) ="cancelUpdateDialog()"></button> -->
+    </ng-template>
    
 </p-dialog>
 
