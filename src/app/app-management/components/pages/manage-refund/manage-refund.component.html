@@ -87,7 +87,7 @@
                        
                         <td>{{obj.code}}</td>
                         <!-- <td>{{obj.code}}</td> -->
-                        <td>{{obj.totalMoney}} đồng</td>
+                        <td>{{obj.totalMoney.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
                         <td>{{obj.content}}</td>
                         <td> {{obj.account.name}}</td>
                         <td>{{obj.account.email}}</td>
@@ -135,7 +135,7 @@
             </div>
             <div class="field col-12 lg:col-3">
                 <label for="time" style="font-weight: bold;">Tiền hoàn</label>
-                <p id="time">{{refundSelected.totalMoney}} đồng</p>
+                <p id="time">{{refundSelected.totalMoney.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</p>
             </div>
             <div class="field col-12 lg:col-6">
                 <label for="departure" style="font-weight: bold;">Nội dung</label>

@@ -160,7 +160,7 @@
             </div>
             <div class="field col-12 lg:col-3">
                 <label for="code" style="font-weight: bold;">Tổng tiền thanh toán</label>
-                <p id="code">{{booktourSelected.moneyToPay}} đồng</p>
+                <p id="code">{{booktourSelected.moneyToPay.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</p>
             </div>
             <div class="field col-12 lg:col-3 grid">
                 <label for="code" style="font-weight: bold;" class="col-12">Trạng thái</label>

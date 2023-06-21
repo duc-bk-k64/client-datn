@@ -13,9 +13,16 @@ import {ToastModule} from 'primeng/toast';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { MessageService } from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
 // import {AngularFireStorageModule} from '@angular/fire/storage'
 // import {AngularFireModule} from '@angular/fire'
 import {  storageKey } from 'src/app/app-constant';
+import { TagModule } from 'primeng/tag';
+import {InputTextModule} from 'primeng/inputtext';
+import {DialogModule} from 'primeng/dialog';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
 @NgModule({
     imports: [
         CommonModule,
@@ -30,6 +37,13 @@ import {  storageKey } from 'src/app/app-constant';
         ToastModule,
         MessageModule,
         MessagesModule,
+        DropdownModule,
+        TagModule,
+        InputTextModule,
+        DialogModule,
+        ToolbarModule,
+        InputTextareaModule,
+        InputNumberModule
         // AngularFireModule.initializeApp(storageKey.firebaseConfig),
         // AngularFireStorageModule 
     ],

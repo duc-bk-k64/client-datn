@@ -28,6 +28,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig,SocialLoginModule } from 'angularx-social-login';
 import { AuthGuardStaff } from './app-management/service/authGuard-Staff';
 import { AuthGuardTourGuide } from './app-management/service/authGuard-Tourguide';
+import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
     declarations: [
@@ -53,6 +55,9 @@ import { AuthGuardTourGuide } from './app-management/service/authGuard-Tourguide
         ToastModule,
         ProgressSpinnerModule,
         PagesModule,
+        NbThemeModule.forRoot({ name: 'default' }),
+        NbLayoutModule,
+        NbEvaIconsModule,
         // SocialLoginModule
     ],
     providers: [

@@ -267,8 +267,8 @@
                             </td>
                             <td>{{obj.code}}</td>
                             <td>{{obj.departureDay}}</td>
-                            <td>{{obj.price}} đồng</td>
-                            <td>{{obj.priceForChidren}} đồng</td>
+                            <td>{{obj.price.toLocaleString('en-us', {minimumFractionDigits: 2})}} đồng</td>
+                            <td>{{obj.priceForChidren.toLocaleString('en-us', {minimumFractionDigits: 2})}} đồng</td>
                             <td>{{obj.note}}</td>
                             <td>
                                 <p-tag [value]="obj.status" severity="success"></p-tag>

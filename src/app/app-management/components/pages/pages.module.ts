@@ -50,6 +50,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ManageBooktourComponent } from './manage-booktour/manage-booktour.component';
 import { ManageRefundComponent } from './manage-refund/manage-refund.component';
 import { RefundUserComponent } from './refund-user/refund-user.component';
+import { NbChatModule } from '@nebular/theme';
+import { QuestionUserComponent } from './question-user/question-user.component';
+import { ReplyStaffComponent } from './reply-staff/reply-staff.component';
 @NgModule({
     declarations: [
             LoadingComponent,
@@ -60,6 +63,8 @@ import { RefundUserComponent } from './refund-user/refund-user.component';
             ManageBooktourComponent,
             ManageRefundComponent,
             RefundUserComponent,
+            QuestionUserComponent,
+            ReplyStaffComponent,
   ],
     imports: [
         CommonModule,
@@ -98,7 +103,8 @@ import { RefundUserComponent } from './refund-user/refund-user.component';
         RatingModule,
         InputTextareaModule,
         MenuModule,
-        FileUploadModule
+        FileUploadModule,
+        NbChatModule.forRoot({ messageGoogleMapKey: 'MAP_KEY' })
 
     ],
     providers:[ConfirmationService],

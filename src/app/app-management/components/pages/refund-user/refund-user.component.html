@@ -71,7 +71,7 @@
                        
                         <td>{{obj.code}}</td>
                         <!-- <td>{{obj.code}}</td> -->
-                        <td>{{obj.totalMoney}} đồng</td>
+                        <td>{{obj.totalMoney.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
                         <td>{{obj.content}}</td>
                         <td>{{obj.timeCreated}}</td>
                         <td>
@@ -159,7 +159,7 @@
                        
                         <td>{{obj.code}}</td>
                         <!-- <td>{{obj.code}}</td> -->
-                        <td>{{obj.totalMoney}} đồng</td>
+                        <td>{{obj.totalMoney.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
                         <td>{{obj.content}}</td>
                         <td>{{obj.timeCreated}}</td>
                         <td>

@@ -69,7 +69,12 @@ export class AppMenuComponent implements OnInit {
 
         } else if(role == "ROLE_STAFF") {
             this.model = [
-              
+                {
+                    label: 'Home',
+                    items: [
+                        { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                    ]
+                },
                
                 {
                     label: 'Nhân viên',

@@ -111,13 +111,15 @@ export class LoginComponent implements OnInit {
                         .toPromise()
                         .then(
                             (data) => {
-                                console.log(data);
+                                // console.log(data);
                                 if (data.resultCode == '0') {
                                     //   console.log(data.data)
                                     this.authService.setToken(data.data);
                                     this.authService.setUsername(this.email);
                                     this.authService.setRole('ROLE_USER');
-                                    if (this.authService.getRedirectUrl())
+                                    // console.log("abcd")
+                                    // console.log(this.authService.getRedirectUrl())
+                                    if (this.authService.getRedirectUrl().includes('bookTour'))
                                         this.router
                                             .navigate([
                                                 this.authService.getRedirectUrl(),
@@ -176,7 +178,7 @@ export class LoginComponent implements OnInit {
                         // console.log(this.authService.getUsername())
                         this.authService.setRole(data.data.role);
                         if (data.data.role == 'ROLE_USER') {
-                            if (this.authService.getRedirectUrl())
+                            if (this.authService.getRedirectUrl().includes('bookTour'))
                                 this.router.navigate([
                                     this.authService.getRedirectUrl(),
                                 ]);
@@ -241,7 +243,7 @@ export class LoginComponent implements OnInit {
                             this.authService.setToken(data.data);
                             this.authService.setUsername(this.socialUser.id);
                             this.authService.setRole('ROLE_USER');
-                            if (this.authService.getRedirectUrl())
+                            if (this.authService.getRedirectUrl().includes('bookTour'))
                                 this.router.navigate([
                                     this.authService.getRedirectUrl(),
                                 ]);

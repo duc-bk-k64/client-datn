@@ -23,6 +23,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { RatingModule } from 'primeng/rating';
 import { PostUserComponent } from './post-user/post-user.component';
 import { DetailPostComponent } from './detail-post/detail-post.component';
+
 @NgModule({
     imports: [
         CommonModule,

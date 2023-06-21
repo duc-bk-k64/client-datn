@@ -111,8 +111,8 @@
                         <tr >
                             <td>{{obj.code}}</td>
                             <td>{{obj.departureDay}}</td>
-                            <td>{{obj.price}} đồng</td>
-                            <td>{{obj.priceForChidren}}  đồng</td>
+                            <td>{{obj.price.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
+                            <td>{{obj.priceForChidren.toLocaleString('en-us', {minimumFractionDigits: 0})}}  đồng</td>
                             <td>{{obj.note}}</td>
                             <td>
                                 <button pButton pRipple label="Đặt tour" (click)="bookTour(obj)" class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>

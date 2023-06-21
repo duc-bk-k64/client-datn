@@ -130,14 +130,14 @@
             <div class = "col-12 lg:col-3 ">
                 <div class="field">
                     <label for="password">ID</label>
-                    <input id="password" pTooltip="Mã tour"  tooltipPosition="bottom"  pInputText [(ngModel)]="selectedTour.id" required autofocus placeholder="Mã tour" />
+                    <p id="password">{{selectedTour.id}}</p>
                 </div>
 
             </div>
             <div class = "col-12 lg:col-3 ">
                 <div class="field">
                     <label for="name">Tên tour</label>
-                    <input id="name" pTooltip="Tên tour"  tooltipPosition="bottom"  pInputText [(ngModel)]="selectedTour.name" required autofocus placeholder="Tên tour" />
+                    <p id="name">{{selectedTour.name}}</p>
                    
                 </div>
 
@@ -145,15 +145,14 @@
             <div class = "col-12 lg:col-3 ">
                 <div class="field">
                     <label for="password">Mã tour</label>
-                    <input id="password" pTooltip="Mã tour"  tooltipPosition="bottom"  pInputText [(ngModel)]="selectedTour.code" required autofocus placeholder="Mã tour" />
+                    <p id="password">{{selectedTour.code}}</p>
                 </div>
 
             </div>
             <div class = "col-12 lg:col-3">
                 <div class="field">
                     <label for="time">Ngày đi tour</label>
-                    <input id="time" pTooltip="Ngày đi tour"  tooltipPosition="bottom"  pInputText [(ngModel)]="selectedTour.numberOfDay" required autofocus placeholder="Ngày đi tour" />
-
+                    <p id="time">{{selectedTour.numberOfDay}} ngày {{selectedTour.numberOfNight}} đêm</p>
                 </div>
 
             </div>

@@ -61,8 +61,8 @@
                         <td>{{obj.id}}</td>
                         <td>{{obj.code}}</td>
                         <td>{{obj.departureDay}}</td>
-                        <td>{{obj.price}} đồng</td>
-                        <td>{{obj.priceForChidren}}  đồng</td>
+                        <td>{{obj.price.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
+                        <td>{{obj.priceForChidren.toLocaleString('en-us', {minimumFractionDigits: 0})}}  đồng</td>
                         <td>{{obj.note}}</td>
                         <td>
                             
@@ -157,10 +157,10 @@
                         <td>{{obj.id}}</td>
                         <td>{{obj.code}}</td>
                         <td>{{obj.name}}</td>
-                        <td>{{obj.email}} đồng</td>
+                        <td>{{obj.email}}</td>
                         <td>{{obj.numberOfAdjust}}</td>
                         <td>{{obj.numberOfChildren}}</td>
-                        <td>{{obj.moneyToPay}} đồng</td>
+                        <td>{{obj.moneyToPay.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
                         <td>{{obj.timeCreate}}</td>
                         <td>{{obj.tourTripCode}}</td>
                         <td>

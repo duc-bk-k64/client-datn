@@ -11,6 +11,8 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
 import { ManageBooktourComponent } from './manage-booktour/manage-booktour.component';
 import { ManageRefundComponent } from './manage-refund/manage-refund.component';
 import { RefundUserComponent } from './refund-user/refund-user.component';
+import { QuestionUserComponent } from './question-user/question-user.component';
+import { ReplyStaffComponent } from './reply-staff/reply-staff.component';
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'empty', loadChildren: () => import('./empty/emptydemo.module').then(m => m.EmptyDemoModule) },
@@ -20,7 +22,9 @@ import { RefundUserComponent } from './refund-user/refund-user.component';
         { path: 'manageAccount', component: ManageAccountComponent, canActivate:[AuthGuard,AuthGuardAdmin]},
         { path: 'manageBooktour', component: ManageBooktourComponent, canActivate:[AuthGuard,AuthGuardStaff]},
         { path: 'manageRefund', component: ManageRefundComponent, canActivate:[AuthGuard,AuthGuardStaff]},
-        { path: 'refund', component:RefundUserComponent, canActivate: [AuthGuard]}
+        { path: 'refund', component:RefundUserComponent, canActivate: [AuthGuard]},
+        { path: 'question', component:QuestionUserComponent, canActivate: [AuthGuard]},
+        { path: 'reply' ,component:ReplyStaffComponent, canActivate: [AuthGuard,AuthGuardStaff]}
     ])],
     exports: [RouterModule]
 })
