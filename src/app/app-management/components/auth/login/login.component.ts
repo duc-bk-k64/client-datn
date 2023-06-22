@@ -183,7 +183,10 @@ export class LoginComponent implements OnInit {
                                     this.authService.getRedirectUrl(),
                                 ]);
                             else this.router.navigate(['pages/home-user']);
-                        } else
+                        } if(data.data.role == 'ROLE_TOURGUIDE') {
+                            this.router.navigate(['pages/home-tourguide']);
+                        }
+                         else
                             this.router.navigate([
                                 this.authService.getRedirectUrl(),
                             ]);

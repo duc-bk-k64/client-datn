@@ -171,7 +171,7 @@ export class DashboardComponent implements OnInit {
                          summary: data.message,
                      });
                  }
-                 console.log(data);
+                //  console.log(data);
              },
              (error) => {
                  this.messageService.add({
@@ -196,7 +196,7 @@ export class DashboardComponent implements OnInit {
                         summary: data.message,
                     });
                 }
-                console.log(data);
+                // console.log(data);
             },
             (error) => {
                 this.messageService.add({
@@ -221,7 +221,7 @@ export class DashboardComponent implements OnInit {
                           summary: data.message,
                       });
                   }
-                  console.log(data);
+                //   console.log(data);
               },
               (error) => {
                   this.messageService.add({

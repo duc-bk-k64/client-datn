@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { Account } from 'src/app/app-management/Model/Account';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { PitstopStatus } from 'src/app/app-management/Model/PitstopStatus';
 
 @Component({
     selector: 'app-manage-tour',
@@ -53,6 +54,8 @@ export class ManageTourComponent implements OnInit {
     listDeparture: any[] = [];
     listDesSelected: number[] = [];
     listDestination: any[] = [];
+
+    listPitstopStatus: PitstopStatus[] = [];
 
 
     constructor(
@@ -189,13 +192,47 @@ export class ManageTourComponent implements OnInit {
                     });
                 }
             );
+            
         this.isShowDetailTour = true;
         this.loading = false;
     }
-    showUpdateTrip(object: any) {
+    async showUpdateTrip(object: any) {
         this.isCreate = false;
         this.tripSelected = object;
         this.isShowUpdateTrip = true;
+         // find status
+         await this.http
+         .get<ResponseMessage>(
+             '/api/v1/project/trip/findPitstopStatus?tripCode=' + this.tripSelected.code,{headers: this.header}
+         )
+         .toPromise()
+         .then(
+             (data) => {
+                 if (data?.resultCode == 0) {
+                     this.listPitstopStatus = data.data;
+                     // console.log(this.listPitstopStatus)
+                 } else {
+                     this.messageService.add({
+                         severity: 'error',
+                         summary: data?.message,
+                     });
+                 }
+             },
+             (error) => {
+                 this.messageService.add({
+                     severity: 'error',
+                     summary: 'Error occur',
+                 });
+             }
+         );
+         for (let i = 0; i < this.listPitstopStatus.length; i++) {
+             let data = this.listPitstop.filter((x) => {
+                return x.id == this.listPitstopStatus[i].pitstopId;
+             })[0];
+             // console.log(data)
+             data.status = this.listPitstopStatus[i].status;
+             data.note = this.listPitstopStatus[i].note;
+         }
         // console.log(object)
     }
     showCreateTrip() {

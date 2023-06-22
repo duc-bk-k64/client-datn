@@ -4,5 +4,5 @@ export interface Notification {
     content?:string;
     username?:string;
     status?:string;
-    timeCreated?:string;
+    timeCreated:string;
 }

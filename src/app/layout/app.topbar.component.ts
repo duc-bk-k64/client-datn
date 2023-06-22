@@ -57,7 +57,9 @@ export class AppTopBarComponent implements OnInit {
     position: string ='top-right';
     newNotifi: number = 0;
     notifications : Notification[] = [];
-    selectedNotifi: Notification = {};
+    selectedNotifi: Notification = {
+        timeCreated:''
+    };
     profile: Profile = {};
     username: String = this.authService.getUsername();
     isShowUpdateProfile: boolean = false;
@@ -183,6 +185,7 @@ export class AppTopBarComponent implements OnInit {
                 this.messageService.add({severity:'error', summary:'Error occur'});
             }
         )
+        this.notifications.sort((a, b) => (a.timeCreated > b.timeCreated ? -1 : 1));
 
     } 
     detailNotification(object: any) {

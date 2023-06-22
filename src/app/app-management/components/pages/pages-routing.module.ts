@@ -13,6 +13,9 @@ import { ManageRefundComponent } from './manage-refund/manage-refund.component';
 import { RefundUserComponent } from './refund-user/refund-user.component';
 import { QuestionUserComponent } from './question-user/question-user.component';
 import { ReplyStaffComponent } from './reply-staff/reply-staff.component';
+import { HomeTourguideComponent } from './home-tourguide/home-tourguide.component';
+import { AuthGuardTourGuide } from '../../service/authGuard-Tourguide';
+import { ListBooktourComponent } from './list-booktour/list-booktour.component';
 @NgModule({
     imports: [RouterModule.forChild([
         { path: 'empty', loadChildren: () => import('./empty/emptydemo.module').then(m => m.EmptyDemoModule) },
@@ -24,7 +27,9 @@ import { ReplyStaffComponent } from './reply-staff/reply-staff.component';
         { path: 'manageRefund', component: ManageRefundComponent, canActivate:[AuthGuard,AuthGuardStaff]},
         { path: 'refund', component:RefundUserComponent, canActivate: [AuthGuard]},
         { path: 'question', component:QuestionUserComponent, canActivate: [AuthGuard]},
-        { path: 'reply' ,component:ReplyStaffComponent, canActivate: [AuthGuard,AuthGuardStaff]}
+        { path: 'reply' ,component:ReplyStaffComponent, canActivate: [AuthGuard,AuthGuardStaff]},
+        { path: 'home-tourguide',component:HomeTourguideComponent, canActivate:[AuthGuard,AuthGuardTourGuide]},
+        { path: 'list-booktour/:code',component:ListBooktourComponent,canActivate:[AuthGuard]}
     ])],
     exports: [RouterModule]
 })

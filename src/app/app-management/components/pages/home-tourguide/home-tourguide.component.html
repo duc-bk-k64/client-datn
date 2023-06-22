@@ -1,5 +1,7 @@
 <div class="card">
     <app-loading *ngIf="loading"></app-loading>
+    <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+    <p-toast></p-toast>
     <div class="grid">
         <div class = "col-12 mt-1">
             <h3 style="font-weight: bold;">Danh sách chuyến đi của bạn</h3>
@@ -42,11 +44,11 @@
                                 Giá cho trẻ em
                             </div>
                         </th>
-                        <th>
+                        <!-- <th>
                             <div>
                                 Lưu ý
                             </div>
-                        </th>
+                        </th> -->
                         <th>
                             <div>
                                 Trạng thái
@@ -63,7 +65,7 @@
                         <td>{{obj.departureDay}}</td>
                         <td>{{obj.price.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
                         <td>{{obj.priceForChidren.toLocaleString('en-us', {minimumFractionDigits: 0})}}  đồng</td>
-                        <td>{{obj.note}}</td>
+                        <!-- <td>{{obj.note}}</td> -->
                         <td>
                             <p-tag *ngIf="obj.status == 'available'" value="Mở bán" severity="success"></p-tag>
                             <p-tag *ngIf="obj.status == 'confimred'" value="Đã chốt" severity="warning"></p-tag>
@@ -88,147 +90,66 @@
                 </p-table>
 
         </div>
-        <div class = "col-12 mt-1">
-            <h3 style="font-weight: bold;">Danh sách đặt tour của bạn</h3>
-        </div>
-        <div class="col-12">
-            <p-table #dt1 [value]="listBookTour" responsiveLayout="scroll" [rows]="10"  [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"  [rowHover]="true" dataKey="id">
-                <!-- <ng-template pTemplate="caption">
-                    <div class="flex">
-                        <span class="p-input-icon-left ml-auto">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text"   (input)="applyFilterGlobal($event, 'contains')" placeholder="Search keyword" />
-                        </span>
-                    </div>
-                </ng-template> -->
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>
-                            <div>ID</div>
-                        </th>
-                            
-                        <th>
-                            <div >
-                               Mã đặt tour
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                               Tên người đặt
-                            </div>
-                        </th>
-                        <th>
-                            <div >
-                                Email
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                Số người lớn
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                Số trẻ em
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                Tổng tiền thanh toán
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                Thời gian tạo
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                Mã chuyến đi
-                            </div>
-                        </th>
-                        <th>
-                            <div>
-                                Trạng thái
-                            </div>
-                        </th>
-                       
-                    </tr>
-        
-                </ng-template>
-                <ng-template pTemplate="body" let-obj>
-                    <tr (click)="detail(obj)" >
-                        <td>{{obj.id}}</td>
-                        <td>{{obj.code}}</td>
-                        <td>{{obj.name}}</td>
-                        <td>{{obj.email}}</td>
-                        <td>{{obj.numberOfAdjust}}</td>
-                        <td>{{obj.numberOfChildren}}</td>
-                        <td>{{obj.moneyToPay.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
-                        <td>{{obj.timeCreate}}</td>
-                        <td>{{obj.tourTripCode}}</td>
-                        <td>
-                            <p-tag *ngIf="obj.status == 'unconfimred'" value="Chưa xác nhận" severity="warning"></p-tag>
-                            <p-tag *ngIf="obj.status == 'confimred'" value="Đã xác nhận" severity="success"></p-tag>
-                            <p-tag *ngIf="obj.status == 'paid'" value="Đã thanh toán" severity="success"></p-tag>
-                            <!-- <p-tag [value]="obj.status" severity="success" ></p-tag> -->
-
-                        </td>
-                        <!-- <td>
-                            <button pButton pRipple label="Đặt tour" (click)="bookTour(obj)" class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
-                        </td> -->
-                       
-                    </tr>
-        
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <td colspan="4">No data to display</td>
-                    </tr>
-                </ng-template>
-                </p-table>
-
-        </div>
+       
 
     </div>
 </div>
-<p-dialog [(visible)]="showDetailTour" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Thông tin tour" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'50vw', height: '40vw'}" [modal]="true">
+<p-dialog [(visible)]="showDetailTour" [maximizable]="true" [resizable]="true"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Thông tin chuyến đi" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'50vw', height: '40vw'}" [modal]="true">
 
     <ng-template pTemplate="content">
         <div class = "grid">
             <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin chi tiết  tour</div>
-            <div class="field col-12 lg:col-3">
+            <div class="field col-6 lg:col-3">
                 <label for="name" style="font-weight: bold;">Tên tour</label>
                 <p id="name">{{tourTripInfor.tourModel.name}}</p>
             </div>
-            <div class="field col-12 lg:col-3">
+            <div class="field col-6 lg:col-3">
                 <label for="code" style="font-weight: bold;">Mã tour</label>
                 <p id="code">{{tourTripInfor.tourModel.code}}</p>
             </div>
-            <div class="field col-12 lg:col-3">
+            <div class="field col-6 lg:col-3">
                 <label for="time" style="font-weight: bold;">Thời gian</label>
                 <p id="time">{{tourTripInfor.tourModel.numberOfDay}}  ngày  {{tourTripInfor.tourModel.numberOfNight}} đêm</p>
             </div>
-            <div class="field col-12 lg:col-3">
+            <div class="field col-6 lg:col-3">
                 <label for="departure" style="font-weight: bold;">Nơi xuất phát</label>
                 <p id="departure">{{tourTripInfor.tourModel.departure}}</p>
             </div>
             <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin chuyến đi</div>
-            <div class="field col-12 lg:col-3">
+            <!-- <div class="field col-4 lg:col-3">
                 <label for="code" style="font-weight: bold;">ID chuyến đi</label>
                 <p id="code">{{tourTripInfor.id}}</p>
-            </div>
-            <div class="field col-12 lg:col-3">
+            </div> -->
+            <div class="field col-4 ">
                 <label for="code" style="font-weight: bold;">Mã chuyến đi</label>
                 <p id="code">{{tourTripInfor.code}}</p>
             </div>
-            <div class="field col-12 lg:col-3">
+            <div class="field col-4 ">
                 <label for="code" style="font-weight: bold;">Ngày xuất phát</label>
                 <p id="code">{{tourTripInfor.departureDay}}</p>
             </div>
-            <div class="field col-12 lg:col-3">
+            <div class="field col-4 ">
+                <!-- <label for="time"></label> -->
+                <button  pButton pRipple label="Danh sách KH"
+                            class="p-button-success mr-2 mt-2" (click)="listBooktour()" ></button>
+            </div>
+            <!-- <div class="field col-12 lg:col-3">
                 <label for="code" style="font-weight: bold;">Lưu ý</label>
                 <p id="code">{{tourTripInfor.note}}</p>
+            </div> -->
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Lịch trình tour</div>
+            <div class="col-12" *ngFor="let pitstop of listPitstop">
+                <h3 style="font-weight: bold; display: inline-block;">{{pitstop.name}} - <p-tag *ngIf="pitstop.status == 'unconfimred'"
+                        value="Chưa xác nhận" severity="warning"></p-tag>
+                    <p-tag *ngIf="pitstop.status == 'confimred'" value="Đã xác nhận" severity="success"></p-tag>
+                    <p-tag *ngIf="pitstop.status == 'cancel'" value="Đã hủy" severity="danger"></p-tag>
+                </h3>
+                <button style="font-weight: bold;background: none;" (click) = "showConfirm(pitstop)"
+                class=" ml-2 p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500">Xác nhận</button>
+                <p style="font-weight: bold; display: block;" *ngIf = "pitstop.note !=null">Lưu ý: {{pitstop.note}}</p>
+                <img [src]="pitstop.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;"
+                    alt="Image" width="100%">
+                <p class="mt-1">{{pitstop.content}}</p>
             </div>
             
           
@@ -238,7 +159,8 @@
       
     </ng-template>
     <ng-template  pTemplate="footer">
-        <button pButton pRipple  label="Đánh giá tour" [disabled]="!canFeedback" (click)="showFeedbackDialog()" icon="pi pi-comments" class="p-button-text"></button>
+        <button pButton pRipple  label="Bắt đầu chuyến đi"  (click)="confirmStart()" [disabled]="!canStart" icon="pi pi-comments" class="p-button-text"></button>
+        <button pButton pRipple  label="Kết thúc chuyến đi"(click)="confirmFinish()" [disabled]="!canFinish" icon="pi pi-comments" class="p-button-text"></button>
         <!-- <button pButton pRipple type="button" label="Create" icon="pi pi-check" class="p-button-text" [disabled]="!this.groupModel.group_code" *ngIf="!isUpdate" (click)="createGroup()" ></button>
         <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" *ngIf="isUpdate" [disabled]="!this.groupModel.group_code" (click)="updateGroup()" ></button> -->
     </ng-template>
@@ -246,29 +168,46 @@
    
 </p-dialog>
 
-<p-dialog [(visible)]="showFeedback" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Đánh giá tour" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'50vw', height: '30vw'}" [modal]="true">
+<p-dialog [(visible)]="isShowConfirm" [maximizable]="true" [resizable]="true"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Xác nhận điểm dừng" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'50vw', height: '40vw'}" [modal]="true">
 
     <ng-template pTemplate="content">
         <div class = "grid">
-            <div class="field col-12">
-                <label for="name" style="font-weight: bold;">Đánh giá</label>
-                <p-rating  for ="name" [(ngModel)]="rating" [cancel]="false"></p-rating>
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin điểm dừng</div>
+           
+            <div class="col-12">
+                <h3 style="font-weight: bold; display: inline-block;">{{pitstopSelected.name}} - <p-tag *ngIf="pitstopSelected.status == 'unconfimred'"
+                        value="Chưa xác nhận" severity="warning"></p-tag>
+                    <p-tag *ngIf="pitstopSelected.status == 'confimred'" value="Đã xác nhận" severity="success"></p-tag>
+                    <p-tag *ngIf="pitstopSelected.status == 'cancel'" value="Đã hủy" severity="danger"></p-tag>
+                </h3>
+                <!-- <button style="font-weight: bold;background: none;"
+                class=" ml-2 p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500">Xác nhận</button> -->
+                <p style="font-weight: bold; display: block;" *ngIf = "pitstopSelected.note !=null">Lưu ý: {{pitstopSelected.note}}</p>
+                <img [src]="pitstopSelected.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;"
+                    alt="Image" width="100%">
+                <p class="mt-1">{{pitstopSelected.content}}</p>
             </div>
+
             <div class="field col-12">
-                <label for="comment" style="font-weight: bold;">Bình luận</label>
-                <textarea id="comment" rows="5" cols="30" pInputTextarea [(ngModel)] ="comment"></textarea>
+                <label for="code" style="font-weight: bold;">Lưu ý</label>
+                <textarea id="code" rows="5" cols="30" pInputTextarea [(ngModel)]="pitstopSelected.note"></textarea>
+    
             </div>
+            
+          
             
         </div>
        
       
     </ng-template>
     <ng-template  pTemplate="footer">
-        <button pButton pRipple  label="Đánh giá tour" (click)="feedback()" [disabled]="!canFeedback" icon="pi pi-comments" class="p-button-text"></button>
+        <button pButton pRipple  label="Xác nhận điểm dừng" (click)="confirmPitstop()" [disabled] = "pitstopSelected.status!= 'unconfimred' ||this.tourTripInfor.status != 'ontrip'"  icon="pi pi-comments" class="p-button-text"></button>
+        <button pButton pRipple  label="Hủy điểm dừng" (click)="cancelPitstop()" [disabled] = "pitstopSelected.status!= 'unconfimred' ||this.tourTripInfor.status != 'ontrip'"  icon="pi pi-comments" class="p-button-text"></button>
         <!-- <button pButton pRipple type="button" label="Create" icon="pi pi-check" class="p-button-text" [disabled]="!this.groupModel.group_code" *ngIf="!isUpdate" (click)="createGroup()" ></button>
         <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" *ngIf="isUpdate" [disabled]="!this.groupModel.group_code" (click)="updateGroup()" ></button> -->
     </ng-template>
 
    
 </p-dialog>
+
 

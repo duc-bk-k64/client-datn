@@ -1,1 +1,118 @@
-<p>reply-staff works!</p>
+<div class="card">
+    <div class="grid">
+        <p-toast></p-toast>
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+        <app-loading *ngIf="loading"></app-loading>
+        <div class="text-center col-12" style="font-weight: bold; font-size: large;">Danh sách yêu cầu hỗ trợ</div>
+        <div class="col-12">
+            <p-table #dt1 [value]="listThread" 
+                [globalFilterFields]="['id','title','status']" responsiveLayout="scroll" [rows]="10" [rows]="10"
+                [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
+                [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                                placeholder="Search keyword" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>
+                            <div>
+                                ID
+                                <p-columnFilter type="number" field="id" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Tiêu đề
+                                <p-columnFilter type="text" field="title" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                       
+                        <th>
+                            <div >
+                                Trạng thái
+                                <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+                       
+                        <th style="width: 3rem">
+                        </th>
+
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-obj>
+                    <tr [class]="obj.hightlightClass" [style.background]="obj.status == 'unhandled' ? 'rgb(244, 224, 199)' : ''">
+                       
+                        <td>{{obj.id}}</td>
+                        <td>{{obj.title}}</td>
+                        <td>
+                            <p-tag value="Đã xử lý" *ngIf="obj.status == 'handled'" severity="success"></p-tag>
+                            <p-tag value="Chưa xử lý" *ngIf="obj.status != 'handled'" severity="warning"></p-tag>
+                        </td>
+                        <td>
+                           
+                            <button pButton pTooltip="Phản hồi" tooltipPosition="left" pRipple type="button"
+                                label="Phản hồi" (click)="showChatDialog(obj)"
+                                class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
+                        </td>
+                    
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="4">Không có dữ liệu</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+        
+    </div>
+
+</div>
+
+<p-dialog [(visible)]="showChat" [maximizable]="true" [resizable]="false"
+    [contentStyle]="{'overflow': 'scroll'}" [responsive]="true" [draggable]="false" header="Hỗ trợ khách hàng"
+    [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'60vw', height: '45vw'}"
+    [modal]="true">
+
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <nb-chat size="large" status="success" class="col-12">
+                <ng-template nbChatTitle >
+                  <div>{{threadSelected.title}}</div>
+                </ng-template>
+              
+                <nb-chat-message
+                  *ngFor="let msg of chatData"
+                  [message]="msg.text"
+                  [reply]="msg.reply"
+                  [sender]="msg.name"
+                  [avatar]="msg.user.avatar"
+                >
+                </nb-chat-message>
+                <nb-chat-form  (send)="reply($event)" [dropFiles]="true"> </nb-chat-form>
+              </nb-chat>
+            
+
+        </div>
+            
+
+
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Xong" (click)="showChat = false"  class="p-button-text"></button>
+       
+    </ng-template>
+
+
+</p-dialog>

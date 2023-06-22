@@ -60,7 +60,12 @@ export class AppMenuComponent implements OnInit {
                             label: 'Quản lý tài khoản',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/manageAccount']
-                        }
+                        },
+                        {
+                            label: 'Hỗ trợ khách hàng',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/reply']
+                        },
                       
                     ]
                 },
@@ -101,7 +106,12 @@ export class AppMenuComponent implements OnInit {
                             label: 'Quản lý hoàn tiền',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/manageRefund']
-                        }
+                        },
+                        {
+                            label: 'Hỗ trợ khách hàng',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/reply']
+                        },
                        
                       
                     ]
@@ -119,9 +129,9 @@ export class AppMenuComponent implements OnInit {
                     items: [
                        
                         {
-                            label: 'Danh sách  tour',
+                            label: 'Danh sách chuyến đi',
                             icon: 'pi pi-fw pi-sign-in',
-                            routerLink: ['/pages/tour']
+                            routerLink: ['/pages/home-tourguide']
                         }
                        
                       
@@ -149,7 +159,12 @@ export class AppMenuComponent implements OnInit {
                             label: 'Hóa đơn và hoàn tiền',
                             icon: 'pi pi-fw pi-sign-in',
                             routerLink: ['/pages/refund']
-                        }
+                        },
+                        {
+                            label: 'Hỗ trợ',
+                            icon: 'pi pi-fw pi-sign-in',
+                            routerLink: ['/pages/question']
+                        },
                        
                       
                     ]

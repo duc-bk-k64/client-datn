@@ -9,7 +9,7 @@ export class AuthGuardTourGuide implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (this.authService.getRole() == "ROLE-TOURGUIDE") {
+        if (this.authService.getRole() == "ROLE_TOURGUIDE") {
             return true;
         }
         else {

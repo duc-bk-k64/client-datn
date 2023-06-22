@@ -53,6 +53,8 @@ import { RefundUserComponent } from './refund-user/refund-user.component';
 import { NbChatModule } from '@nebular/theme';
 import { QuestionUserComponent } from './question-user/question-user.component';
 import { ReplyStaffComponent } from './reply-staff/reply-staff.component';
+import { HomeTourguideComponent } from './home-tourguide/home-tourguide.component';
+import { ListBooktourComponent } from './list-booktour/list-booktour.component';
 @NgModule({
     declarations: [
             LoadingComponent,
@@ -65,6 +67,8 @@ import { ReplyStaffComponent } from './reply-staff/reply-staff.component';
             RefundUserComponent,
             QuestionUserComponent,
             ReplyStaffComponent,
+            HomeTourguideComponent,
+            ListBooktourComponent,
   ],
     imports: [
         CommonModule,
