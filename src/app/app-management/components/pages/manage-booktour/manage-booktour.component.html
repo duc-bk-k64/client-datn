@@ -81,7 +81,9 @@
                         <td> {{obj.phoneNumber}}</td>
                         <td>{{obj.tourTripCode}}</td>
                         <td>
-                            <p-tag [value]="obj.status" severity="success"></p-tag>
+                            <p-tag value="Đã thanh toán" *ngIf="obj.status == 'paid'" severity="success"></p-tag>
+                            <p-tag value="Đã xác nhận" *ngIf="obj.status == 'confimred'" severity="warning"></p-tag>
+                            <p-tag value="Chưa xác nhận" *ngIf="obj.status == 'unconfimred'" severity="danger"></p-tag>
                         </td>
                         <td>
                            
@@ -155,7 +157,7 @@
                 <p id="code">{{booktourSelected.numberOfAdjust}}</p>
             </div>
             <div class="field col-12 lg:col-3">
-                <label for="code" style="font-weight: bold;">Số người lớn</label>
+                <label for="code" style="font-weight: bold;">Số trẻ em</label>
                 <p id="code">{{booktourSelected.numberOfChildren}}</p>
             </div>
             <div class="field col-12 lg:col-3">

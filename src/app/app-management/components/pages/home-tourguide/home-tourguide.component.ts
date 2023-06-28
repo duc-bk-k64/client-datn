@@ -290,7 +290,7 @@ export class HomeTourguideComponent implements OnInit {
             .post<ResponseMessage>(
                 '/api/v1/project/trip/pitstop/confirm?tripPitstopId=' +
                     this.pitstopSelected.tripPitstopId,
-                this.pitstopSelected.note,
+                this.pitstopSelected.note||'',
                 { headers: this.header }
             )
             .toPromise()

@@ -397,7 +397,7 @@ export class DashboardComponent implements OnInit {
         this.transaction = {
             totalMoney: 0,
             createdBy:this.authService.getUsername(),
-            type: '',
+            type: 'in',
             content:''
         }
     }

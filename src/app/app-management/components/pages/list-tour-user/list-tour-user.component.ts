@@ -9,6 +9,8 @@ import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { Tour } from 'src/app/app-management/Model/Tour';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { Pitstop } from 'src/app/app-management/Model/Pitstop';
+import { PitstopStatus } from 'src/app/app-management/Model/PitstopStatus';
 
 @Component({
     selector: 'app-list-tour-user',
@@ -34,6 +36,8 @@ export class ListTourUserComponent implements OnInit {
     rating: number = 0;
     comment: string  = '';
     loading: boolean = false;
+    listPitstop: Pitstop[] = [];
+    listPitstopStatus: PitstopStatus[] = [];
     ngOnInit() {
         this.header = new HttpHeaders().set(
             storageKey.AUTHORIZATION,
@@ -123,6 +127,68 @@ export class ListTourUserComponent implements OnInit {
                     });
                 }
             );
+              // find list pitstop
+        await this.http
+        .get<ResponseMessage>(
+            '/api/v1/project/auth/pitstop/findByTourId?tourId=' +
+                this.tourTripInfor.tourModel.id
+        )
+        .toPromise()
+        .then(
+            (data) => {
+                if (data?.resultCode == 0) {
+                    this.listPitstop = data.data;
+                    // console.log(this.listPitstop)
+                } else {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: data?.message,
+                    });
+                }
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error occur',
+                });
+            }
+        );
+    // find status
+    await this.http
+        .get<ResponseMessage>(
+            '/api/v1/project/trip/findPitstopStatus?tripCode=' +
+                this.tourTripInfor.code,
+            { headers: this.header }
+        )
+        .toPromise()
+        .then(
+            (data) => {
+                if (data?.resultCode == 0) {
+                    this.listPitstopStatus = data.data;
+                    // console.log(this.listPitstopStatus)
+                } else {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: data?.message,
+                    });
+                }
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error occur',
+                });
+            }
+        );
+    for (let i = 0; i < this.listPitstopStatus.length; i++) {
+        let data = this.listPitstop.filter((x) => {
+            return x.id == this.listPitstopStatus[i].pitstopId;
+        })[0];
+        // console.log(data)
+        data.status = this.listPitstopStatus[i].status;
+        data.note = this.listPitstopStatus[i].note;
+        data.tripPitstopId = this.listPitstopStatus[i].id;
+    }
         this.canFeedback = this.tourTripInfor.status == 'finish' ? true : false;
     }
     showFeedbackDialog() {
@@ -153,6 +219,7 @@ export class ListTourUserComponent implements OnInit {
                       summary: data?.message,
                   });
               }
+            //   console.log(data)
           },
           (error) => {
               this.messageService.add({

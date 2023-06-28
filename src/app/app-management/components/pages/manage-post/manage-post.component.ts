@@ -124,12 +124,14 @@ export class ManagePostComponent implements OnInit {
                             summary: data?.message,
                         });
                     }
+
                 },
                 (error) => {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Error occur',
                     });
+                    // console.log(error)
                 }
             );
         await this.http
@@ -142,7 +144,7 @@ export class ManagePostComponent implements OnInit {
                 (data) => {
                     if (data?.resultCode == 0) {
                         this.desSelected = data.data;
-                        console.log(this.desSelected);
+                        // console.log(this.desSelected);
                     } else {
                         this.messageService.add({
                             severity: 'error',
@@ -246,7 +248,7 @@ export class ManagePostComponent implements OnInit {
                     } else {
                         this.messageService.add({
                             severity: 'error',
-                            summary: data?.message,
+                            summary: "Có lỗi xảy ra",
                         });
                     }
                 },
@@ -411,7 +413,7 @@ export class ManagePostComponent implements OnInit {
                       } else {
                           this.messageService.add({
                               severity: 'error',
-                              summary: data?.message,
+                              summary: "Có lỗi xảy ra",
                           });
                       }
                   },

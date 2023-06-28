@@ -70,8 +70,8 @@
                             <p-tag *ngIf="obj.status == 'available'" value="Mở bán" severity="success"></p-tag>
                             <p-tag *ngIf="obj.status == 'confimred'" value="Đã chốt" severity="warning"></p-tag>
                             <p-tag *ngIf="obj.status == 'cancel'" value="Đã hủy" severity="danger"></p-tag>
-                            <p-tag *ngIf="obj.status == 'ontrip'" value="Đang thực hiện" severity="success"></p-tag>
-                            <p-tag *ngIf="obj.status == 'finish'" value="Đã kết thúc" severity="success"></p-tag>
+                            <p-tag *ngIf="obj.status == 'ontrip'" value="Đang thực hiện" severity="warning"></p-tag>
+                            <p-tag *ngIf="obj.status == 'finish'" value="Đã kết thúc" ></p-tag>
                             <!-- <p-tag [value]="obj.status" severity="success" ></p-tag> -->
 
                         </td>
@@ -130,7 +130,7 @@
             </div>
             <div class="field col-4 ">
                 <!-- <label for="time"></label> -->
-                <button  pButton pRipple label="Danh sách KH"
+                <button id="time" pButton pRipple label="Danh sách KH"
                             class="p-button-success mr-2 mt-2" (click)="listBooktour()" ></button>
             </div>
             <!-- <div class="field col-12 lg:col-3">
@@ -201,8 +201,8 @@
       
     </ng-template>
     <ng-template  pTemplate="footer">
-        <button pButton pRipple  label="Xác nhận điểm dừng" (click)="confirmPitstop()" [disabled] = "pitstopSelected.status!= 'unconfimred' ||this.tourTripInfor.status != 'ontrip'"  icon="pi pi-comments" class="p-button-text"></button>
-        <button pButton pRipple  label="Hủy điểm dừng" (click)="cancelPitstop()" [disabled] = "pitstopSelected.status!= 'unconfimred' ||this.tourTripInfor.status != 'ontrip'"  icon="pi pi-comments" class="p-button-text"></button>
+        <button pButton pRipple  label="Xác nhận điểm dừng" (click)="confirmPitstop()" [disabled] = "this.tourTripInfor.status != 'ontrip'"  icon="pi pi-comments" class="p-button-text"></button>
+        <button pButton pRipple  label="Hủy điểm dừng" (click)="cancelPitstop()" [disabled] = "this.tourTripInfor.status != 'ontrip'"  icon="pi pi-comments" class="p-button-text"></button>
         <!-- <button pButton pRipple type="button" label="Create" icon="pi pi-check" class="p-button-text" [disabled]="!this.groupModel.group_code" *ngIf="!isUpdate" (click)="createGroup()" ></button>
         <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" *ngIf="isUpdate" [disabled]="!this.groupModel.group_code" (click)="updateGroup()" ></button> -->
     </ng-template>

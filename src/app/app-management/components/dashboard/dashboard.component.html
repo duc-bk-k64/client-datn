@@ -4,7 +4,7 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
                 <div>
-                    <span class="block text-500 font-medium mb-3">  Số đơn đặt tour</span>
+                    <span class="block text-500 font-medium mb-3">  Số đơn đặt tour trong 24h</span>
                     <div class="text-900 font-medium text-xl">{{totalBooktour}}</div>
                 </div>
                 <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
@@ -89,7 +89,7 @@
 
             <h5>Danh sách  giao dịch</h5>
             <p-table #dt1 [value]="listTransaction" 
-            [globalFilterFields]="['id','code','content','status','timeCreated']" responsiveLayout="scroll" [rows]="10" [rows]="10"
+            [globalFilterFields]="['id','code','content','status','timeCreated','type','createdBy']" responsiveLayout="scroll" [rows]="10" [rows]="10"
             [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
             currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
             [rowHover]="true" dataKey="id">
@@ -107,7 +107,7 @@
                     <th>
                         <div>
                             Mã giao dịch
-                            <p-columnFilter type="number" field="code" display="menu"></p-columnFilter>
+                            <!-- <p-columnFilter type="number" field="code" display="menu"></p-columnFilter> -->
                         </div>
                     </th>
                     <!-- <th>
@@ -119,13 +119,13 @@
                     <th>
                         <div>
                            Số tiền
-                            <p-columnFilter type="number" field="totalMoney" display="menu"></p-columnFilter>
+                            <!-- <p-columnFilter type="number" field="totalMoney" display="menu"></p-columnFilter> -->
                         </div>
                     </th>
                     <th>
                         <div>
                             Nội dung
-                            <p-columnFilter type="text" field="content" display="menu"></p-columnFilter>
+                            <!-- <p-columnFilter type="text" field="content" display="menu"></p-columnFilter> -->
                         </div>
                     </th>
                     <th>
@@ -136,14 +136,19 @@
                     </th>
                     <th>
                         <div>
+                            Người tạo
+                        </div>
+                    </th>
+                    <th>
+                        <div>
                             Loại giao dịch
-                            <p-columnFilter type="text" field="type" display="menu"></p-columnFilter>
+                            <!-- <p-columnFilter type="text" field="type" display="menu"></p-columnFilter> -->
                         </div>
                     </th>
                     <th>
                         <div>
                             Trạng thái
-                            <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                            <!-- <p-columnFilter type="text" field="status" display="menu"></p-columnFilter> -->
                         </div>
                     </th>
                    
@@ -162,7 +167,7 @@
                     <td>{{obj.totalMoney.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</td>
                     <td>{{obj.content}}</td>
                     <td> {{obj.timeCreated}}</td>
-                    <!-- <td>{{obj.account.email}}</td> -->
+                    <td>{{obj.createdBy}}</td>
                     <td>
                         <p-tag value="Thu" *ngIf = "obj.type == 'in'" severity="success"></p-tag>
                         <p-tag value="Chi" *ngIf = "obj.type == 'out'" severity="warning"></p-tag>

@@ -68,8 +68,8 @@
                             <p-tag *ngIf="obj.status == 'available'" value="Mở bán" severity="success"></p-tag>
                             <p-tag *ngIf="obj.status == 'confimred'" value="Đã chốt" severity="warning"></p-tag>
                             <p-tag *ngIf="obj.status == 'cancel'" value="Đã hủy" severity="danger"></p-tag>
-                            <p-tag *ngIf="obj.status == 'ontrip'" value="Đang thực hiện" severity="success"></p-tag>
-                            <p-tag *ngIf="obj.status == 'finish'" value="Đã kết thúc" severity="success"></p-tag>
+                            <p-tag *ngIf="obj.status == 'ontrip'" value="Đang thực hiện" severity="warning"></p-tag>
+                            <p-tag *ngIf="obj.status == 'finish'" value="Đã kết thúc" ></p-tag>
                             <!-- <p-tag [value]="obj.status" severity="success" ></p-tag> -->
 
                         </td>
@@ -168,8 +168,8 @@
                         <td>{{obj.timeCreate}}</td>
                         <td>{{obj.tourTripCode}}</td>
                         <td>
-                            <p-tag *ngIf="obj.status == 'unconfimred'" value="Chưa xác nhận" severity="warning"></p-tag>
-                            <p-tag *ngIf="obj.status == 'confimred'" value="Đã xác nhận" severity="success"></p-tag>
+                            <p-tag *ngIf="obj.status == 'unconfimred'" value="Chưa xác nhận" severity="danger"></p-tag>
+                            <p-tag *ngIf="obj.status == 'confimred'" value="Đã xác nhận" severity="warning"></p-tag>
                             <p-tag *ngIf="obj.status == 'paid'" value="Đã thanh toán" severity="success"></p-tag>
                             <!-- <p-tag [value]="obj.status" severity="success" ></p-tag> -->
 
@@ -229,6 +229,19 @@
             <div class="field col-12 lg:col-3">
                 <label for="code" style="font-weight: bold;">Lưu ý</label>
                 <p id="code">{{tourTripInfor.note}}</p>
+            </div>
+
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Lịch trình tour</div>
+            <div class="col-12" *ngFor="let pitstop of listPitstop">
+                <h3 style="font-weight: bold; display: inline-block;">{{pitstop.name}} - <p-tag *ngIf="pitstop.status == 'unconfimred'"
+                        value="Chưa xác nhận" severity="warning"></p-tag>
+                    <p-tag *ngIf="pitstop.status == 'confimred'" value="Đã xác nhận" severity="success"></p-tag>
+                    <p-tag *ngIf="pitstop.status == 'cancel'" value="Đã hủy" severity="danger"></p-tag>
+                </h3>
+                <p style="font-weight: bold; display: block;" *ngIf = "pitstop.note !=null">Lưu ý: {{pitstop.note}}</p>
+                <img [src]="pitstop.imageUrl" style=" display: block;margin-left: auto;margin-right: auto; width: 60%;"
+                    alt="Image" width="100%">
+                <p class="mt-1">{{pitstop.content}}</p>
             </div>
             
           

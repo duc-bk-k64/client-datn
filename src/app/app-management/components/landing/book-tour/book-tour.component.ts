@@ -91,7 +91,7 @@ export class BookTourComponent implements OnInit {
           }
         }
         else {
-          this.messageService.add({severity:'error', summary:data?.message});
+          this.messageService.add({severity:'error', summary:"Vui lòng điền đầy đủ thông tin"});
 
         }
 

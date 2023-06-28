@@ -30,10 +30,11 @@
 
                     <div class="flex align-items-center justify-content-between mb-5">
                         <div class="flex align-items-center">
-                            <p-checkbox id="rememberme1" [binary]="true" [(ngModel)]="rememberMe" styleClass="mr-2"></p-checkbox>
-                            <label for="rememberme1">Remember me</label>
+                            <!-- <p-checkbox id="rememberme1" [binary]="true" [(ngModel)]="rememberMe" styleClass="mr-2"></p-checkbox>
+                            <label for="rememberme1">Remember me</label> -->
+                            <a class="font-medium no-underline ml-2 text-right cursor-pointer"[routerLink]="['/auth/signup']" routerLinkActive="router-link-active" style="color: var(--primary-color)">Bạn chưa có tài khoản?</a>
                         </div>
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer"[routerLink]="['/auth/forgot-password']" routerLinkActive="router-link-active" style="color: var(--primary-color)">Forgot password?</a>
+                        <a class="font-medium no-underline ml-2 text-right cursor-pointer"[routerLink]="['/auth/forgot-password']" routerLinkActive="router-link-active" style="color: var(--primary-color)">Quên mật khẩu?</a>
                     </div>
                     <button pButton pRipple label="Sign In" (click)="login()" class="w-full p-3 mb-2 text-xl"></button>
                     <!-- <input  type="text" placeholder="Token" (change)="signInWithGoogle()" [(ngModel)] ="access_token" pInputText class="w-full mb-3" style="padding:1rem;"> -->

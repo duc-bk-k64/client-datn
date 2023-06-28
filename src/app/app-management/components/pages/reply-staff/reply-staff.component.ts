@@ -60,7 +60,7 @@ export class ReplyStaffComponent implements OnInit {
                 (data) => {
                     if (data.resultCode == 0) {
                         this.listThread = data.data;
-                        console.log(this.listThread);
+                        // console.log(this.listThread);
                     } else {
                         this.messageService.add({
                             severity: 'error',

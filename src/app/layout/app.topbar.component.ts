@@ -35,7 +35,7 @@ export class AppTopBarComponent implements OnInit {
 
       
     //websocket
-    webSocketEndPoint: string = 'http://localhost:8080/ws';
+    webSocketEndPoint: string = 'http://3.1.24.204:8080/ws';
 
     stompClient: any;
 
@@ -118,6 +118,13 @@ export class AppTopBarComponent implements OnInit {
         }, 5000);
     } 
 
+    errorCallBackStaff(error:any) {
+        console.log("errorCallBack Staff -> " + error)
+        setTimeout(() => {
+            this.connectWebsocketStaff();
+        }, 5000);
+    } 
+
     connectWebsocketStaff() {
         // console.log("Initialize WebSocket Connection");
         let topic = "/topic/staff";
@@ -133,7 +140,7 @@ export class AppTopBarComponent implements OnInit {
                _this.loadNotification();
             });
             //_this.stompClient.reconnect_delay = 2000;
-        }, this.errorCallBack);
+        }, this.errorCallBackStaff);
 
     }
   

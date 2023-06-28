@@ -324,7 +324,7 @@ export class ManageTourComponent implements OnInit {
                         } else {
                             this.messageService.add({
                                 severity: 'error',
-                                summary: data?.message,
+                                summary: "Có lỗi xảy ra",
                             });
                         }
                     },
@@ -564,7 +564,7 @@ export class ManageTourComponent implements OnInit {
                     } else {
                         this.messageService.add({
                             severity: 'error',
-                            summary: data?.message,
+                            summary: "Có lỗi xảy ra",
                         });
                     }
                 },
@@ -837,6 +837,9 @@ export class ManageTourComponent implements OnInit {
                 });
             }
         );
+    }
+    listBooktour() {
+        this.router.navigate(['pages/list-booktour/'+this.tripSelected.code])
     }
 
    
