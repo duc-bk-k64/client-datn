@@ -273,6 +273,7 @@
                             <td>{{obj.note}}</td>
                             <td>
                                 <p-tag *ngIf="obj.status == 'available'" value="Mở bán" severity="success"></p-tag>
+                                <p-tag *ngIf="obj.status == 'unavailable'" value="Đóng" severity="danger"></p-tag>
                                 <p-tag *ngIf="obj.status == 'confimred'" value="Đã chốt" severity="warning"></p-tag>
                                 <p-tag *ngIf="obj.status == 'cancel'" value="Đã hủy" severity="danger"></p-tag>
                                 <p-tag *ngIf="obj.status == 'ontrip'" value="Đang thực hiện" severity="warning"></p-tag>
