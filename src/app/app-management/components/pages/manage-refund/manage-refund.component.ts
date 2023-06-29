@@ -9,6 +9,7 @@ import { Profile } from 'src/app/app-management/Model/Profile';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-manage-refund',
@@ -47,7 +48,7 @@ export class ManageRefundComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>('/api/v1/project/refund/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/refund/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -75,7 +76,7 @@ export class ManageRefundComponent implements OnInit {
       this.isShowRefundDetail = true;
       this.refundSelected = object;
       this.profile = {};
-      this.http.get<ResponseMessage>("/api/v1/project/getProfile?username="+object.account.username,{headers:this.header}).subscribe(
+      this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/getProfile?username="+object.account.username,{headers:this.header}).subscribe(
         data => {
             if(data.resultCode == 0) {
                this.profile = data.data;
@@ -103,7 +104,7 @@ export class ManageRefundComponent implements OnInit {
       this.loading =true;
       this.isShowRefundDetail = false;
       await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/refund/confirm?code='+this.refundSelected.code
                     ,
                 { headers: this.header }

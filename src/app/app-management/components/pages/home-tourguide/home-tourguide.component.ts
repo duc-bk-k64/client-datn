@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { Pitstop } from 'src/app/app-management/Model/Pitstop';
 import { PitstopStatus } from 'src/app/app-management/Model/PitstopStatus';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-home-tourguide',
@@ -51,7 +52,7 @@ export class HomeTourguideComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/findByTourGuide?username=' +
                     this.authService.getUsername(),
                 { headers: this.header }
@@ -84,7 +85,7 @@ export class HomeTourguideComponent implements OnInit {
         let code = object.tourTripCode;
         if (code == undefined) code = object.code;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/trip/findTourTripInfor?code=' + code
             )
             .toPromise()
@@ -109,7 +110,7 @@ export class HomeTourguideComponent implements OnInit {
             );
         // find list pitstop
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/pitstop/findByTourId?tourId=' +
                     this.tourTripInfor.tourModel.id
             )
@@ -135,7 +136,7 @@ export class HomeTourguideComponent implements OnInit {
             );
         // find status
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/findPitstopStatus?tripCode=' +
                     this.tourTripInfor.code,
                 { headers: this.header }
@@ -187,7 +188,7 @@ export class HomeTourguideComponent implements OnInit {
         this.loading = true;
         this.showDetailTour = false;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/start?id=' + this.tourTripInfor.id,
                 { headers: this.header }
             )
@@ -223,7 +224,7 @@ export class HomeTourguideComponent implements OnInit {
         this.loading = true;
         this.showDetailTour = false;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/finish?id=' + this.tourTripInfor.id,
                 { headers: this.header }
             )
@@ -287,7 +288,7 @@ export class HomeTourguideComponent implements OnInit {
         this.isShowConfirm = false;
         this.loading = true;
         await this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/pitstop/confirm?tripPitstopId=' +
                     this.pitstopSelected.tripPitstopId,
                 this.pitstopSelected.note||'',
@@ -327,7 +328,7 @@ export class HomeTourguideComponent implements OnInit {
         this.isShowConfirm = false;
         this.loading = true;
         await this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/pitstop/cancel?tripPitstopId=' +
                     this.pitstopSelected.tripPitstopId,
                 this.pitstopSelected.note,

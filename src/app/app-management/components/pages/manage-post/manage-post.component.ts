@@ -11,6 +11,7 @@ import { Post } from 'src/app/app-management/Model/Post';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-manage-post',
@@ -80,7 +81,7 @@ export class ManagePostComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>('/api/v1/project/post/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/post/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -107,7 +108,7 @@ export class ManagePostComponent implements OnInit {
         this.loading = true;
         this.postSelected = object;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/paragraph/findByPostId?postId=' + object.id,
                 { headers: this.header }
             )
@@ -135,7 +136,7 @@ export class ManagePostComponent implements OnInit {
                 }
             );
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/post/findDes?id=' + object.id,
                 { headers: this.header }
             )
@@ -229,7 +230,7 @@ export class ManagePostComponent implements OnInit {
     updateParagraph() {
         this.loading = true;
         this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/paragraph/update?postId=' +
                     this.postSelected.id,
                 { update: [this.paragraphSelected], deleteId: [] },
@@ -264,7 +265,7 @@ export class ManagePostComponent implements OnInit {
     deleteParagraph() {
         this.loading = true;
         this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/paragraph/update?postId=' +
                     this.postSelected.id,
                 { update: [], deleteId: [this.paragraphSelected.id] },
@@ -300,7 +301,7 @@ export class ManagePostComponent implements OnInit {
       this.loading = true;
       for (let i = 0; i < this.listPostSelected.length; i++) {
           await this.http
-              .get<ResponseMessage>(
+              .get<ResponseMessage>(environment.backendApiUrl+
                   '/api/v1/project/post/available?id=' +
                       this.listPostSelected[i].id,
                   { headers: this.header }
@@ -339,7 +340,7 @@ export class ManagePostComponent implements OnInit {
       this.loading = true;
       for (let i = 0; i < this.listPostSelected.length; i++) {
           await this.http
-              .get<ResponseMessage>(
+              .get<ResponseMessage>(environment.backendApiUrl+
                   '/api/v1/project/post/unavailable?id=' +
                       this.listPostSelected[i].id,
                   { headers: this.header }
@@ -377,7 +378,7 @@ export class ManagePostComponent implements OnInit {
     showCreatePost() {
       this.isShowCreatePost = true;
       this.postSelected = {};
-      this.http.get<ResponseMessage>("/api/v1/project/auth/des/findAll").subscribe(
+      this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/des/findAll").subscribe(
         data => {
             if(data.resultCode == 0 ) {
                 this.listDestination = data.data;
@@ -397,7 +398,7 @@ export class ManagePostComponent implements OnInit {
     async createPost() {
       this.loading = true;
           await this.http
-              .post<ResponseMessage>(
+              .post<ResponseMessage>(environment.backendApiUrl+
                   '/api/v1/project/post/create?desId='+this.desSelected,this.postSelected,
                   { headers: this.header }
               )
@@ -433,7 +434,7 @@ export class ManagePostComponent implements OnInit {
       this.loading = true;
       for (let i = 0; i < this.listPostSelected.length; i++) {
         await this.http
-            .delete<ResponseMessage>(
+            .delete<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/post/delete?id=' +
                     this.listPostSelected[i].id,
                 { headers: this.header }

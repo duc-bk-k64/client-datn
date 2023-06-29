@@ -9,6 +9,7 @@ import { Tour } from 'src/app/app-management/Model/Tour';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { storageKey } from 'src/app/app-constant';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-book-tour',
@@ -42,7 +43,7 @@ export class BookTourComponent implements OnInit {
     this.booktour.tourTripCode = this.tripCode;
   }
   loadData() {
-    this.http.get<ResponseMessage>("/api/v1/project/auth/tour/findTourId?tourId="+this.tourId).subscribe(
+    this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/tour/findTourId?tourId="+this.tourId).subscribe(
       data => {
           if(data.resultCode == 0 ) {
               this.tour = data.data;
@@ -56,7 +57,7 @@ export class BookTourComponent implements OnInit {
           this.messageService.add({severity:'error', summary:'Error occur'});
       }
   )
-  this.http.get<ResponseMessage>("/api/v1/project/auth/trip/findTripByTripCode?code="+this.tripCode).subscribe(
+  this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/trip/findTripByTripCode?code="+this.tripCode).subscribe(
     data => {
         if(data.resultCode == 0 ) {
             this.trip = data.data;
@@ -79,7 +80,7 @@ export class BookTourComponent implements OnInit {
   async bookTourFunc() {
     // console.log(this.booktour)
     this.loading = true
-    await this.http.post<ResponseMessage>("/api/v1/project/booktour/create?username="+this.username,this.booktour,{headers: this.header}).toPromise().then(
+    await this.http.post<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/booktour/create?username="+this.username,this.booktour,{headers: this.header}).toPromise().then(
       data => {
         if(data?.resultCode == 0) {
           this.messageService.add({severity:'success', summary:'Đặt tour thành công'});

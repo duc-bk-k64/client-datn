@@ -9,6 +9,7 @@ import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import * as FileSaver from 'file-saver';
+import { environment } from 'src/environments/environment.prod';
 @Component({
     selector: 'app-list-booktour',
     templateUrl: './list-booktour.component.html',
@@ -43,7 +44,7 @@ export class ListBooktourComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/booktour/findByTourTripCode?tourTripCode=' +
                     this.tripCode,
                 {

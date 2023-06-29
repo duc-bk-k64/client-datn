@@ -8,6 +8,7 @@ import { storageKey, DEPARTURE, PRICE, TIME } from 'src/app/app-constant';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { Tour } from 'src/app/app-management/Model/Tour';
 import { AuthService } from 'src/app/app-management/service/auth.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-detail-tour',
@@ -119,7 +120,7 @@ export class DetailTourComponent implements OnInit {
     }
     loadTour() {
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/tour/findTourId?tourId=' + this.tourId
             )
             .subscribe(
@@ -144,7 +145,7 @@ export class DetailTourComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>('/api/v1/project/auth/des/findAll')
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/auth/des/findAll')
             .subscribe(
                 (data) => {
                     if (data.resultCode == 0) {
@@ -165,7 +166,7 @@ export class DetailTourComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/pitstop/findByTourId?tourId=' +
                     this.tourId
             )
@@ -189,7 +190,7 @@ export class DetailTourComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/des/findByTourId?tourId=' + this.tourId
             )
             .subscribe(
@@ -212,7 +213,7 @@ export class DetailTourComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/trip/findByTourId?tourId=' + this.tourId
             )
             .subscribe(
@@ -235,7 +236,7 @@ export class DetailTourComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/feedback/findByTourId?tourId=' +
                     this.tourId
             )

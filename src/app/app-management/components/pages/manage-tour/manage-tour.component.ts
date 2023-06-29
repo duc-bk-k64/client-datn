@@ -14,6 +14,7 @@ import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { Account } from 'src/app/app-management/Model/Account';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { PitstopStatus } from 'src/app/app-management/Model/PitstopStatus';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-manage-tour',
@@ -93,7 +94,7 @@ export class ManageTourComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>('/api/v1/project/tour/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/tour/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -116,7 +117,7 @@ export class ManageTourComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>('/api/v1/project/account/tourguide', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/account/tourguide', {
                 headers: this.header,
             })
             .subscribe(
@@ -144,7 +145,7 @@ export class ManageTourComponent implements OnInit {
         this.loading = true;
         this.tourSelected = object;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/pitstop/findByTourId?tourId=' + object.id
             )
             .toPromise()
@@ -168,7 +169,7 @@ export class ManageTourComponent implements OnInit {
                 }
             );
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/findByTourId?tourId=' + object.id,
                 { headers: this.header }
             )
@@ -202,7 +203,7 @@ export class ManageTourComponent implements OnInit {
         this.isShowUpdateTrip = true;
          // find status
          await this.http
-         .get<ResponseMessage>(
+         .get<ResponseMessage>(environment.backendApiUrl+
              '/api/v1/project/trip/findPitstopStatus?tripCode=' + this.tripSelected.code,{headers: this.header}
          )
          .toPromise()
@@ -254,7 +255,7 @@ export class ManageTourComponent implements OnInit {
         this.tourSelected = {};
         this.tourSelected.createdBy = this.authService.getUsername();
         this.isShowCreateTour= true;
-        this.http.get<ResponseMessage>("/api/v1/project/auth/des/findAll").subscribe(
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/des/findAll").subscribe(
             data => {
                 if(data.resultCode == 0 ) {
                     this.listDestination = data.data;
@@ -274,7 +275,7 @@ export class ManageTourComponent implements OnInit {
         this.loading = true;
         if (!this.isCreate) {
             await this.http
-                .put<ResponseMessage>(
+                .put<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/trip/update?id=' + this.tripSelected.id,
                     this.tripSelected,
                     { headers: this.header }
@@ -305,7 +306,7 @@ export class ManageTourComponent implements OnInit {
                 );
         } else {
             await this.http
-                .post<ResponseMessage>(
+                .post<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/trip/create?tourId=' +
                         this.tourSelected.id,
                     [this.tripSelected],
@@ -341,7 +342,7 @@ export class ManageTourComponent implements OnInit {
     }
     addTourguide() {
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/addTourguide?tripId=' +
                     this.tripSelected.id +
                     '&username=' +
@@ -376,7 +377,7 @@ export class ManageTourComponent implements OnInit {
         this.loading = true;
         for (let i = 0; i < this.listTripDelete.length; i++) {
             await this.http
-                .delete<ResponseMessage>(
+                .delete<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/trip/delete?id=' +
                         this.listTripDelete[i].id,
                     { headers: this.header }
@@ -467,7 +468,7 @@ export class ManageTourComponent implements OnInit {
     updatePitstop() {
         this.loading = true;
         this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/pitstop/updateList?tourId='+
                     this.tourSelected.id,
                 { "pitStopModels":[this.pitstopSelected],
@@ -505,7 +506,7 @@ export class ManageTourComponent implements OnInit {
     deletePitstop() {
         this.loading = true;
         this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/pitstop/updateList?tourId=' +
                     this.tourSelected.id,
                 { 'deletePitstopId': [this.pitstopSelected.id],
@@ -543,7 +544,7 @@ export class ManageTourComponent implements OnInit {
     createTour() {
         this.loading = true;
         this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/tour/create', {
                     'desId' :this.listDesSelected,
                     'tour': this.tourSelected
@@ -580,7 +581,7 @@ export class ManageTourComponent implements OnInit {
     updateTour() {
         this.loading = true;
         this.http
-            .put<ResponseMessage>(
+            .put<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/tour/update?tourId='+this.tourSelected.id,this.tourSelected
               ,
                 { headers: this.header }
@@ -615,7 +616,7 @@ export class ManageTourComponent implements OnInit {
         this.loading = true;
         for (let i = 0; i < this.listTourSelected.length; i++) {
             await this.http
-                .put<ResponseMessage>(
+                .put<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/tour/open?tourId=' +
                         this.listTourSelected[i].id,null,
                     { headers: this.header }
@@ -655,7 +656,7 @@ export class ManageTourComponent implements OnInit {
         this.loading = true;
         for (let i = 0; i < this.listTourSelected.length; i++) {
             await this.http
-                .put<ResponseMessage>(
+                .put<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/tour/close?tourId=' +
                         this.listTourSelected[i].id,null,
                     { headers: this.header }
@@ -694,7 +695,7 @@ export class ManageTourComponent implements OnInit {
         this.loading = true;
         for (let i = 0; i < this.listTourSelected.length; i++) {
             await this.http
-                .delete<ResponseMessage>(
+                .delete<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/tour/delete?tourId=' +
                         this.listTourSelected[i].id,
                     { headers: this.header }
@@ -769,7 +770,7 @@ export class ManageTourComponent implements OnInit {
     }
     async confirmTrip() {
         await this.http
-        .get<ResponseMessage>(
+        .get<ResponseMessage>(environment.backendApiUrl+
             '/api/v1/project/trip/confirmTrip?tripId=' +
                 this.tripSelected.id,
             { headers: this.header }
@@ -805,7 +806,7 @@ export class ManageTourComponent implements OnInit {
 
     async cancelTrip() {
         await this.http
-        .get<ResponseMessage>(
+        .get<ResponseMessage>(environment.backendApiUrl+
             '/api/v1/project/trip/cancelTrip?tripId=' +
                 this.tripSelected.id,
             { headers: this.header }

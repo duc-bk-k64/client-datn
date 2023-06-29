@@ -9,6 +9,7 @@ import { Booktour } from 'src/app/app-management/Model/Booktour';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-manage-booktour',
@@ -51,7 +52,7 @@ export class ManageBooktourComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>('/api/v1/project/booktour/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/booktour/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -79,7 +80,7 @@ export class ManageBooktourComponent implements OnInit {
         this.loading = true;
         this.booktourSelected = object;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/trip/findTourTripInfor?code=' +
                     object.tourTripCode
             )
@@ -134,7 +135,7 @@ export class ManageBooktourComponent implements OnInit {
         this.loading = true;
         if (this.booktourSelected.status == 'confimred') {
             await this.http
-                .put<ResponseMessage>(
+                .put<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/booktour/confirm?id=' +
                         this.booktourSelected.id,
                     null,
@@ -164,7 +165,7 @@ export class ManageBooktourComponent implements OnInit {
                 );
         } else if (this.booktourSelected.status == 'paid') {
             await this.http
-                .put<ResponseMessage>(
+                .put<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/booktour/paid?id=' +
                         this.booktourSelected.id,
                     null,
@@ -198,7 +199,7 @@ export class ManageBooktourComponent implements OnInit {
     async updateBooktour() {
         this.loading = true;
         await this.http
-            .put<ResponseMessage>(
+            .put<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/booktour/update?id=' +
                     this.booktourSelected.id,
                 this.booktourSelected,
@@ -234,7 +235,7 @@ export class ManageBooktourComponent implements OnInit {
     async deleteBooktour() {
         this.loading = true;
         await this.http
-            .delete<ResponseMessage>(
+            .delete<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/booktour/deleteById?id=' +
                     this.booktourSelected.id,
                 { headers: this.header }

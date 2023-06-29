@@ -12,6 +12,7 @@ import { STATUS, storageKey } from '../app-constant';
 import { ResponseMessage} from '../app-management/Model/ResponseMessage';
 import { Router } from '@angular/router';
 import { Profile } from '../app-management/Model/Profile';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-topbar',
@@ -35,7 +36,7 @@ export class AppTopBarComponent implements OnInit {
 
       
     //websocket
-    webSocketEndPoint: string = 'http://3.1.24.204:8080/ws';
+    webSocketEndPoint: string = 'http://13.229.217.192:8080/ws';
 
     stompClient: any;
 
@@ -75,7 +76,7 @@ export class AppTopBarComponent implements OnInit {
     ]
     showDialog() {
         this.isShowDialog=true;
-        this.http.get<ResponseMessage>("/api/v1/project/getProfile?username="+this.authService.getUsername(),{headers:this.header}).subscribe(
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/getProfile?username="+this.authService.getUsername(),{headers:this.header}).subscribe(
             data => {
                 if(data.resultCode == 0) {
                    this.profile = data.data;
@@ -147,7 +148,7 @@ export class AppTopBarComponent implements OnInit {
 
     async loadNotification() {
         if(this.authService.getRole() == 'ROLE_STAFF' || this.authService.getRole() == 'ROLE_ADMIN') {
-            await this.http.get<ResponseMessage>("/api/v1/project/notifi/findByUsername?username=SYSTEM",{headers:this.header}).toPromise().then(
+            await this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/notifi/findByUsername?username=SYSTEM",{headers:this.header}).toPromise().then(
                 data => {
                     if(data?.resultCode == 0) {
                         this.notifications = data.data;
@@ -169,7 +170,7 @@ export class AppTopBarComponent implements OnInit {
                 }
             )
         }
-        await this.http.get<ResponseMessage>("/api/v1/project/notifi/findByUsername?username="+this.authService.getUsername(),{headers:this.header}).toPromise().then(
+        await this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/notifi/findByUsername?username="+this.authService.getUsername(),{headers:this.header}).toPromise().then(
             data => {
                 if(data?.resultCode == 0) {
                    this.notifications= this.notifications.concat(data.data);
@@ -200,7 +201,7 @@ export class AppTopBarComponent implements OnInit {
         // this.router.navigate(["/pages/empty"])
         this.isShowNotifiDetail = true;
         this.selectedNotifi = object;
-        this.http.put<ResponseMessage>("/api/v1/project/notifi/read?id="+object.id,null,{headers:this.header}).subscribe(
+        this.http.put<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/notifi/read?id="+object.id,null,{headers:this.header}).subscribe(
             data => {
                 // console.log(data)
             }
@@ -208,7 +209,7 @@ export class AppTopBarComponent implements OnInit {
         object.status = STATUS.READED;
     }
     async logout() {
-        await this.http.post<ResponseMessage>("/api/v1/project/logout",null,{headers:this.header}).toPromise().then(
+        await this.http.post<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/logout",null,{headers:this.header}).toPromise().then(
             data => {
                 if(data?.resultCode == 0) {
                     // console.log(data)
@@ -227,7 +228,7 @@ export class AppTopBarComponent implements OnInit {
         this.isShowUpdateProfile = true;
     }
     async updateProfile() {
-        await this.http.put<ResponseMessage>("/api/v1/project/updateProfile?username="+this.authService.getUsername(),this.profile,{headers:this.header}).toPromise().then(
+        await this.http.put<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/updateProfile?username="+this.authService.getUsername(),this.profile,{headers:this.header}).toPromise().then(
             data => {
                 if(data?.resultCode == 0) {
                     this.messageService.add({severity:'success', summary:'Cập nhật thành công'});

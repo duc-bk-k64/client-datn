@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,7 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
   loading: boolean = false;
   async forgotPassword () {
     this.loading = true;
-    await this.httpClient.post<any>("/api/v1/project/auth/forgotpw",{userName:this.email}).toPromise().then(
+    await this.httpClient.post<any>(environment.backendApiUrl+"/api/v1/project/auth/forgotpw",{userName:this.email}).toPromise().then(
       data => {
         if(data.resultCode == "0")
         this.router.navigate(['/auth/reset-password']);

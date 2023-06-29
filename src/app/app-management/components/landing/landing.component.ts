@@ -10,6 +10,7 @@ import { DEPARTURE, PRICE, TIME, storageKey } from 'src/app/app-constant';
 import { ResponseMessage } from '../../Model/ResponseMessage';
 import { Tour } from '../../Model/Tour';
 import { FindTourModel } from '../../Model/FindtourModel';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -112,7 +113,7 @@ export class LandingComponent implements OnInit {
         this.router.navigate(['/auth/signup']);
     }
     loadTour() {
-        this.http.get<ResponseMessage>("/api/v1/project/auth/tour/findAlls",{headers:this.header}).subscribe(
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/tour/findAlls",{headers:this.header}).subscribe(
             data => {
                 if(data.resultCode == 0 ) {
                     this.listTour = data.data;
@@ -134,7 +135,7 @@ export class LandingComponent implements OnInit {
         this.findtour.destination = this.destination;
         this.findtour.price = this.price;
         this.findtour.time = this.time;
-        await this.http.post<ResponseMessage>("/api/v1/project/auth/tour/findTour",this.findtour).toPromise().then(
+        await this.http.post<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/tour/findTour",this.findtour).toPromise().then(
             data => {
                 if(data?.resultCode == 0 ) {
                     this.listResultTour = data.data;
@@ -153,7 +154,7 @@ export class LandingComponent implements OnInit {
         this.loading = false;
     }
     findDestination() {
-        this.http.get<ResponseMessage>("/api/v1/project/auth/des/findAll").subscribe(
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/des/findAll").subscribe(
             data => {
                 if(data.resultCode == 0 ) {
                     this.listDestination = data.data;
@@ -175,7 +176,7 @@ export class LandingComponent implements OnInit {
     showDialogDetailTour(object: any) {
         this.showDetailTour = true;
         this.selectedTour = object;
-        this.http.get<ResponseMessage>("/api/v1/project/auth/pitstop/findByTourId?tourId="+this.selectedTour.id).subscribe(
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/pitstop/findByTourId?tourId="+this.selectedTour.id).subscribe(
             data => {
                 if(data.resultCode == 0) {
                     this.listPitstop = data.data;
@@ -188,7 +189,7 @@ export class LandingComponent implements OnInit {
                 this.messageService.add({severity:'error', summary:'Error occur'});
             }
         )
-        this.http.get<ResponseMessage>("/api/v1/project/auth/des/findByTourId?tourId="+this.selectedTour.id).subscribe(
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/des/findByTourId?tourId="+this.selectedTour.id).subscribe(
             data => {
                 if(data.resultCode == 0 ) {
                     this.listTourDestination = data.data;

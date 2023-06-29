@@ -6,6 +6,7 @@ import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { Tour } from 'src/app/app-management/Model/Tour';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-post-user',
@@ -104,7 +105,7 @@ export class PostUserComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/tour/findTourByDesId?desId=' + this.desId
             )
             .subscribe(
@@ -127,7 +128,7 @@ export class PostUserComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/post/findByDestiantion?desId=' +
                     this.desId
             )

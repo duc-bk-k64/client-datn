@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { Pitstop } from 'src/app/app-management/Model/Pitstop';
 import { PitstopStatus } from 'src/app/app-management/Model/PitstopStatus';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-list-tour-user',
@@ -47,7 +48,7 @@ export class ListTourUserComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/booktour/findByUsername?username=' +
                     this.authService.getUsername(),
                 { headers: this.header }
@@ -72,7 +73,7 @@ export class ListTourUserComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/trip/findByAccount?username=' +
                     this.authService.getUsername(),
                 { headers: this.header }
@@ -104,7 +105,7 @@ export class ListTourUserComponent implements OnInit {
         let code = object.tourTripCode;
         if (code == undefined) code = object.code;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/trip/findTourTripInfor?code=' + code
             )
             .toPromise()
@@ -129,7 +130,7 @@ export class ListTourUserComponent implements OnInit {
             );
               // find list pitstop
         await this.http
-        .get<ResponseMessage>(
+        .get<ResponseMessage>(environment.backendApiUrl+
             '/api/v1/project/auth/pitstop/findByTourId?tourId=' +
                 this.tourTripInfor.tourModel.id
         )
@@ -155,7 +156,7 @@ export class ListTourUserComponent implements OnInit {
         );
     // find status
     await this.http
-        .get<ResponseMessage>(
+        .get<ResponseMessage>(environment.backendApiUrl+
             '/api/v1/project/trip/findPitstopStatus?tripCode=' +
                 this.tourTripInfor.code,
             { headers: this.header }
@@ -199,7 +200,7 @@ export class ListTourUserComponent implements OnInit {
     async feedback() {
       this.loading = true;
       await this.http
-      .post<ResponseMessage>(
+      .post<ResponseMessage>(environment.backendApiUrl+
           '/api/v1/project/feedback/create?tripId=' + this.tourTripInfor.id,{'rating':this.rating,'content':this.comment},{headers:this.header}
       )
       .toPromise()

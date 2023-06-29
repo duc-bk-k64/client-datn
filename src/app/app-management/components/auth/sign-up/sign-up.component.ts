@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AppRoutingUrl } from 'src/app/app-management/app-routing.url';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-sign-up',
@@ -40,7 +41,7 @@ export class SignUpComponent implements OnInit {
      async signup() {
         // console.log(this.rememberMe)
        this.loading = true;
-       await this.httpClient.post<any>('/api/v1/project/auth/signup',{'userName':this.username,'passWord':this.password,"email":this.email}).toPromise().then(
+       await this.httpClient.post<any>(environment.backendApiUrl+'/api/v1/project/auth/signup',{'userName':this.username,'passWord':this.password,"email":this.email}).toPromise().then(
            data => {
             if(data.resultCode == "0")
               {

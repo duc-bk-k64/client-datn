@@ -9,6 +9,7 @@ import { Chat } from 'src/app/app-management/Model/Chat';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-reply-staff',
@@ -53,7 +54,7 @@ export class ReplyStaffComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>('/api/v1/project/thread/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/thread/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -107,7 +108,7 @@ export class ReplyStaffComponent implements OnInit {
     async reply(event: any) {
         this.loading = true;
         await this.http
-            .post<ResponseMessage>(
+            .post<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/reply/create?threadId=' +
                     this.threadSelected.id,
                 {

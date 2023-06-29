@@ -19,6 +19,7 @@ import {
     GoogleLoginProvider,
     SocialAuthService,
 } from 'angularx-social-login';
+import { environment } from 'src/environments/environment.prod';
 declare var google: any;
 
 @Component({
@@ -103,7 +104,7 @@ export class LoginComponent implements OnInit {
                     );
                 if (!this.isError) {
                     await this.httpClient
-                        .post<any>('/api/v1/project/auth/loginGoogle', {
+                        .post<any>(environment.backendApiUrl+'/api/v1/project/auth/loginGoogle', {
                             credential: response.credential,
                             email: this.email,
                             name: this.name,
@@ -165,7 +166,7 @@ export class LoginComponent implements OnInit {
     async login() {
         this.loading = true;
         await this.httpClient
-            .post<any>('/api/v1/project/auth/signin', {
+            .post<any>(environment.backendApiUrl+'/api/v1/project/auth/signin', {
                 userName: this.username,
                 passWord: this.password,
             })
@@ -190,18 +191,20 @@ export class LoginComponent implements OnInit {
                             this.router.navigate([
                                 this.authService.getRedirectUrl(),
                             ]);
-                        // console.log(data)
+                       
                     } else
                         this.messageService.add({
                             severity: 'error',
                             summary: data.message,
                         });
+                        console.log(data)
                 },
                 (error) => {
                     this.messageService.add({
                         severity: 'error',
                         summary: 'Username or password incorrect',
                     });
+                    console.log(error)
                 }
             );
         this.loading = false;
@@ -233,7 +236,7 @@ export class LoginComponent implements OnInit {
         if (!this.isError) {
             this.loading = true;
             await this.httpClient
-                .post<any>('/api/v1/project/auth/loginFacebook', {
+                .post<any>(environment.backendApiUrl+'/api/v1/project/auth/loginFacebook', {
                     id: this.socialUser.id,
                     authToken: this.socialUser.authToken,
                     name: this.socialUser.name,

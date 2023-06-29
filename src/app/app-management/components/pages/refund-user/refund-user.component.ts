@@ -8,6 +8,7 @@ import { Profile } from 'src/app/app-management/Model/Profile';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-refund-user',
@@ -55,7 +56,7 @@ export class RefundUserComponent implements OnInit {
 }
   loadData() {
       this.http
-          .get<ResponseMessage>('/api/v1/project/refund/findByAccount?username='+this.authService.getUsername(), {
+          .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/refund/findByAccount?username='+this.authService.getUsername(), {
               headers: this.header,
           })
           .subscribe(
@@ -79,7 +80,7 @@ export class RefundUserComponent implements OnInit {
               }
           );
           this.http
-          .get<ResponseMessage>('/api/v1/project/bill/findByAccount?username='+this.authService.getUsername(), {
+          .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/bill/findByAccount?username='+this.authService.getUsername(), {
               headers: this.header,
           })
           .subscribe(

@@ -20,6 +20,7 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ResponseMessage } from '../../Model/ResponseMessage';
 import { Table } from 'primeng/table';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -104,7 +105,7 @@ export class DashboardComponent implements OnInit {
     loadTransaction() {
         if(this.dayTransaction == -1) {
             this.http
-            .get<ResponseMessage>('/api/v1/project/transaction/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/transaction/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -129,7 +130,7 @@ export class DashboardComponent implements OnInit {
             );
         } else {
             this.http
-            .get<ResponseMessage>('/api/v1/project/transaction/findAllByTime?day='+this.dayTransaction, {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/transaction/findAllByTime?day='+this.dayTransaction, {
                 headers: this.header,
             })
             .subscribe(
@@ -157,7 +158,7 @@ export class DashboardComponent implements OnInit {
     loadData() {
          // load total booktour
          this.http
-         .get<ResponseMessage>('/api/v1/project/booktour/totalOneDay', {
+         .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/booktour/totalOneDay', {
              headers: this.header,
          })
          .subscribe(
@@ -182,7 +183,7 @@ export class DashboardComponent implements OnInit {
          );
         // load total in
         this.http
-        .get<ResponseMessage>('/api/v1/project/transaction/totalInOneDay', {
+        .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/transaction/totalInOneDay', {
             headers: this.header,
         })
         .subscribe(
@@ -207,7 +208,7 @@ export class DashboardComponent implements OnInit {
         );
           // load total Out
           this.http
-          .get<ResponseMessage>('/api/v1/project/transaction/totalOutOneDay', {
+          .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/transaction/totalOutOneDay', {
               headers: this.header,
           })
           .subscribe(
@@ -232,7 +233,7 @@ export class DashboardComponent implements OnInit {
           );
         //   total transaction
         this.http
-            .get<ResponseMessage>('/api/v1/project/transaction/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/transaction/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -260,7 +261,7 @@ export class DashboardComponent implements OnInit {
 
     async loadStatistic(days: number) {
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/transaction/statisticInByTime?day=' + days,
                 {
                     headers: this.header,
@@ -288,7 +289,7 @@ export class DashboardComponent implements OnInit {
                 }
             );
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/transaction/statisticOutByTime?day=' + days,
                 {
                     headers: this.header,
@@ -403,7 +404,7 @@ export class DashboardComponent implements OnInit {
     }
     async create() {
      await this.http
-        .post<ResponseMessage>(
+        .post<ResponseMessage>(environment.backendApiUrl+
             '/api/v1/project/transaction/create',this.transaction,
             {
                 headers: this.header,

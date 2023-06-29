@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-detail-post',
@@ -99,7 +100,7 @@ export class DetailPostComponent implements OnInit {
     }
     loadData() {
       this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/paragraph/findByPostId?postId=' +
                     this.postId
             )
@@ -123,7 +124,7 @@ export class DetailPostComponent implements OnInit {
                 }
             );
             this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/auth/post/findById?id=' +
                     this.postId
             )

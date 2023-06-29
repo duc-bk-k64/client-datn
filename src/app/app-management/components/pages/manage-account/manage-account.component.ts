@@ -9,6 +9,7 @@ import { Account } from 'src/app/app-management/Model/Account';
 import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
     selector: 'app-manage-account',
@@ -59,7 +60,7 @@ export class ManageAccountComponent implements OnInit {
     }
     loadData() {
         this.http
-            .get<ResponseMessage>('/api/v1/project/account/findAll', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/account/findAll', {
                 headers: this.header,
             })
             .subscribe(
@@ -83,7 +84,7 @@ export class ManageAccountComponent implements OnInit {
                 }
             );
         this.http
-            .get<ResponseMessage>('/api/v1/project/account/findAllRole', {
+            .get<ResponseMessage>(environment.backendApiUrl+'/api/v1/project/account/findAllRole', {
                 headers: this.header,
             })
             .subscribe(
@@ -115,7 +116,7 @@ export class ManageAccountComponent implements OnInit {
     async changeRole() {
         this.loading = true;
         await this.http
-            .get<ResponseMessage>(
+            .get<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/account/changeRole?username=' +
                     this.accountSelected.username +
                     '&role=' +
@@ -153,7 +154,7 @@ export class ManageAccountComponent implements OnInit {
         this.loading = true;
         if (this.accountSelected.status == 0) {
             await this.http
-                .get<ResponseMessage>(
+                .get<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/account/deactiveAccount?username=' +
                         this.accountSelected.username,
 
@@ -185,7 +186,7 @@ export class ManageAccountComponent implements OnInit {
                 );
         } else {
             await this.http
-                .get<ResponseMessage>(
+                .get<ResponseMessage>(environment.backendApiUrl+
                     '/api/v1/project/account/activeAccount?username=' +
                         this.accountSelected.username,
 
@@ -223,7 +224,7 @@ export class ManageAccountComponent implements OnInit {
         this.loading = true;
         this.isShowAccountDetail = false
         await this.http
-            .delete<ResponseMessage>(
+            .delete<ResponseMessage>(environment.backendApiUrl+
                 '/api/v1/project/account/delete?username=' +
                     this.accountSelected.username,
 
@@ -264,7 +265,7 @@ export class ManageAccountComponent implements OnInit {
       this.loading = true;
       this.isShowCreateAccount = false;
       await this.http
-          .post<ResponseMessage>(
+          .post<ResponseMessage>(environment.backendApiUrl+
               '/api/v1/project/account/create',this.accountSelected,
 
               { headers: this.header }
