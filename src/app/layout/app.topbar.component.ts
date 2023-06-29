@@ -36,7 +36,7 @@ export class AppTopBarComponent implements OnInit {
 
       
     //websocket
-    webSocketEndPoint: string = 'http://13.229.217.192:8080/ws';
+    webSocketEndPoint: string = environment.backendApiUrl+'/ws';
 
     stompClient: any;
 

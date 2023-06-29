@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  backendApiUrl:"http://13.229.217.192:8080",
+  backendApiUrl:"http://52.221.222.19:8080",
   firebaseConfig:  {
     apiKey: "AIzaSyCmCtg5S3rNSQ2_FNFR0QrLvYOmE-v5vYA",
     authDomain: "travel-8446a.firebaseapp.com",
