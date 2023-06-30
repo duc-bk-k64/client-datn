@@ -105,7 +105,10 @@ export class AppTopBarComponent implements OnInit {
                 // console.log(sdkEvent)
                 // console.log("abcd")
                _this.newNotifi = 1;
-               _this.messageService.add({severity:'success', summary:"Thông báo mới", detail:sdkEvent.body});
+               let data = sdkEvent.body;
+               data = data.split(":")[2].split(",")[0].slice(1,-1);
+               _this.messageService.add({severity:'success', summary:"Thông báo mới",detail:data});
+            //    console.log(sdkEvent);
                _this.loadNotification();
             });
             //_this.stompClient.reconnect_delay = 2000;

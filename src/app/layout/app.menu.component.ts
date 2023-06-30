@@ -38,32 +38,32 @@ export class AppMenuComponent implements OnInit {
                        
                         {
                             label: 'Quản lý tour',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-car',
                             routerLink: ['/pages/manageTour']
                         },
                         {
                             label: 'Quản lý bài viết',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-server',
                             routerLink: ['/pages/managePost']
                         },
                         {
                             label: 'Quản lý đặt tour',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-shopping-cart',
                             routerLink: ['/pages/manageBooktour']
                         },
                         {
                             label: 'Quản lý hoàn tiền',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-money-bill',
                             routerLink: ['/pages/manageRefund']
                         },
                         {
                             label: 'Quản lý tài khoản',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-users',
                             routerLink: ['/pages/manageAccount']
                         },
                         {
                             label: 'Hỗ trợ khách hàng',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-comments',
                             routerLink: ['/pages/reply']
                         },
                       
@@ -89,27 +89,27 @@ export class AppMenuComponent implements OnInit {
                        
                         {
                             label: 'Quản lý tour',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-car',
                             routerLink: ['/pages/manageTour']
                         },
                         {
                             label: 'Quản lý bài viết',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-server',
                             routerLink: ['/pages/managePost']
                         },
                         {
                             label: 'Quản lý đặt tour',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-shopping-cart',
                             routerLink: ['/pages/manageBooktour']
                         },
                         {
                             label: 'Quản lý hoàn tiền',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-money-bill',
                             routerLink: ['/pages/manageRefund']
                         },
                         {
                             label: 'Hỗ trợ khách hàng',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-comments',
                             routerLink: ['/pages/reply']
                         },
                        

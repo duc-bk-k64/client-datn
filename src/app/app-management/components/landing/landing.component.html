@@ -25,34 +25,34 @@
         </div>
 
         <div class="grid py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
-            <div class = "col-12 lg:col-2 ">
+            <div class = "col-12 lg:col-6  xl:col-2 ">
                 <div class="field">
-                    <label for="departure">Địa điểm khởi hành</label>
+                    <label for="departure" style="display: block;">Địa điểm khởi hành</label>
                     <p-dropdown id ="departure" [options]="listDeparture" [(ngModel)]="departure" placeholder="Chọn nơi đi" optionLabel="name" optionValue = "value"></p-dropdown>
                 </div>
 
             </div>
 
-            <div class = "col-12 lg:col-2 ">
+            <div class = "col-12 lg:col-6  xl:col-2  ">
                 <div class="field">
-                    <label for="des">Địa điểm muốn tới</label>
+                    <label for="des" style="display: block;">Địa điểm muốn tới</label>
                     <p-dropdown id="des" [options]="listDestination" [(ngModel)]="destination" placeholder="Chọn điểm đến" optionLabel="name" optionValue = "id"></p-dropdown>
                 </div>
 
             </div>
 
 
-            <div class = "col-12 lg:col-2 ">
+            <div class = "col-12 lg:col-6  xl:col-2  ">
                 <div class="field">
-                    <label for="price">Khoảng giá</label>
+                    <label for="price" style="display: block;">Khoảng giá</label>
                     <p-dropdown id="price" [options]="listPrice" [(ngModel)]="price" placeholder="Chọn khoảng giá" optionLabel="name" optionValue = "value"></p-dropdown>
                 </div>
 
             </div>
             
-            <div class = "col-12 lg:col-2 ">
+            <div class = "col-12 lg:col-6  xl:col-2  ">
                 <div class="field">
-                    <label for="time">Thời gian</label>
+                    <label for="time" style="display: block;">Thời gian</label>
                     <p-dropdown id="time" [options]="listTime" [(ngModel)]="time" placeholder="Chọn thời gian" optionLabel="name" optionValue = "value"></p-dropdown>
                 </div>
 
@@ -116,7 +116,7 @@
         </div>
         <div class="grid py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8" >
            <div class="text-center col-12">Địa điểm du lịch</div>
-           <p *ngFor="let item of listDestination" class="col-2 mt-2" (click) = "post(item)" style="font-weight: bold;">{{item.name}}</p>
+           <p *ngFor="let item of listDestination" class="col-3 lg:col-2 mt-2" (click) = "post(item)" style="font-weight: bold;">{{item.name}}</p>
 
         </div>
             

@@ -46,57 +46,57 @@
         </div>
 
         <!-- Thông tin đặt tour -->
-        <div class="col-12 lg:col-3">
+        <div class="col-12 lg:col-6 xl:col-3">
             <div class="field">
-                <label for="username" style="font-weight: bold;">Tài khoản đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <label for="username" style="font-weight: bold;display: block;">Tài khoản đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                 <input id="username" pTooltip="Tên đăng nhập của tài khoản đặt tour" tooltipPosition="bottom" pInputText
                     [(ngModel)]="username" required autofocus placeholder="Tên đăng nhập" />
             </div>
             
         </div>
-        <div class="col-12 lg:col-3">
+        <div class="col-12 lg:col-6 xl:col-3">
             <div class="field">
-                <label for="adjust" style="font-weight: bold;">Số lượng người lớn (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <label for="adjust" style="font-weight: bold;display: block;">Số lượng người lớn (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                 <p-inputNumber id="adjust" 
                     [(ngModel)]="booktour.numberOfAdjust" placeholder="Số lượng người lớn" [min]="0" [max]="20"  [showButtons]="true" (onInput)="caculatePrice()"> </p-inputNumber>
             </div>
             
         </div>
-        <div class="col-12 lg:col-3">
+        <div class="col-12 lg:col-6 xl:col-3">
             <div class="field">
-                <label for="children" style="font-weight: bold;">Số lượng trẻ em (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <label for="children" style="font-weight: bold;display: block;">Số lượng trẻ em (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                 <p-inputNumber id="children"  
                     [(ngModel)]="booktour.numberOfChildren" placeholder="Số lượng trẻ em" [min]="0" [max]="20"  [showButtons]="true" (onInput)="caculatePrice()"> </p-inputNumber>
             </div>
             
         </div>
-        <div class="col-12 lg:col-3">
+        <div class="col-12 lg:col-6 xl:col-3">
             <div class="field">
-                <label for="name" style="font-weight: bold;">Tên người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <label for="name" style="font-weight: bold;display: block;">Tên người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                 <input id="name" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
                 [(ngModel)]="booktour.name"required autofocus placeholder="Vũ Văn A" />
             </div>
             
         </div>
-        <div class="col-12 lg:col-3">
+        <div class="col-12 lg:col-6 xl:col-3">
             <div class="field">
-                <label for="email" style="font-weight: bold;">Email người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <label for="email" style="font-weight: bold;display: block;">Email người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                 <input id="email" pTooltip="Email người đặt tour" tooltipPosition="bottom" pInputText
                 [(ngModel)]="booktour.email" required autofocus placeholder="abcd@gmail.com" />
             </div>
             
         </div>
-        <div class="col-12 lg:col-3">
+        <div class="col-12 lg:col-6 xl:col-3">
             <div class="field">
-                <label for="email" style="font-weight: bold;">Số điện thoại (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <label for="email" style="font-weight: bold;display: block;">Số điện thoại (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                 <input id="email" pTooltip="Số điện thoại người đặt tour" tooltipPosition="bottom" pInputText
                 [(ngModel)]="booktour.phoneNumber" required autofocus placeholder="0333 987 123" />
             </div>
             
         </div>
-        <div class="col-12 lg:col-3">
+        <div class="col-12 lg:col-6 xl:col-3">
             <div class="field">
-                <label for="total" style="font-weight: bold;">Tạm tính (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
+                <label for="total" style="font-weight: bold;display: block;">Tạm tính (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                 <p-inputNumber id="total"  
                     [(ngModel)]="booktour.moneyToPay" placeholder="Tạm tính" > </p-inputNumber>
             </div>
