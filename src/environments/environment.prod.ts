@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  backendApiUrl:"http://52.221.222.19:8080",
+  backendApiUrl:"https://server.vuvanduc.id.vn",
   firebaseConfig:  {
     apiKey: "AIzaSyCmCtg5S3rNSQ2_FNFR0QrLvYOmE-v5vYA",
     authDomain: "travel-8446a.firebaseapp.com",

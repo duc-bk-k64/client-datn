@@ -130,7 +130,7 @@ export class AppMenuComponent implements OnInit {
                        
                         {
                             label: 'Danh sách chuyến đi',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-car',
                             routerLink: ['/pages/home-tourguide']
                         }
                        
@@ -152,17 +152,17 @@ export class AppMenuComponent implements OnInit {
                        
                         {
                             label: 'Danh sách  tour',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-car',
                             routerLink: ['/pages/home-user']
                         },
                         {
                             label: 'Hóa đơn và hoàn tiền',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-money-bill',
                             routerLink: ['/pages/refund']
                         },
                         {
                             label: 'Hỗ trợ',
-                            icon: 'pi pi-fw pi-sign-in',
+                            icon: 'pi pi-fw pi-comments',
                             routerLink: ['/pages/question']
                         },
                        
