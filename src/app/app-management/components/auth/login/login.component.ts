@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
             client_id:
                 '447143817673-kakprgbhain4331qff59tra446bfqd90.apps.googleusercontent.com',
             callback: async (response: any) => {
-                console.log(response);
+                // console.log(response);
                 this.loading = true;
                 await this.httpClient
                     .post<any>(
@@ -197,7 +197,7 @@ export class LoginComponent implements OnInit {
                             severity: 'error',
                             summary: data.message,
                         });
-                        console.log(data)
+                        // console.log(data)
                 },
                 (error) => {
                     this.messageService.add({
@@ -215,7 +215,7 @@ export class LoginComponent implements OnInit {
         await this.authSocialService
             .signIn(GoogleLoginProvider.PROVIDER_ID)
             .then((data) => {
-                console.log(data);
+                // console.log(data);
             });
         // console.log(this.access_token)
     }
@@ -227,7 +227,7 @@ export class LoginComponent implements OnInit {
                 (data) => {
                     this.socialUser = data;
                     this.isError = false;
-                    console.log(data);
+                    // console.log(data);
                 },
                 (error) => {
                     this.isError = true;
