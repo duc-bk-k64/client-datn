@@ -56,19 +56,19 @@ export const BOOKTOUR_STATUS: any= [
 export const DEPARTURE : any = [
     {
         name: 'Hà Nội',
-        value: 'hanoi'
+        value: 'Hà Nội'
     },
     {
         name: 'Hải Dương',
-        value: 'haiduong'
+        value: 'Hải Dương'
     },
     {
         name: 'Hải Phòng',
-        value: 'haiphong'
+        value: 'Hải Phòng'
     },
     {
         name: 'TP HCM',
-        value: 'tphcm'
+        value: 'TPHCM'
     }
 ]
 
