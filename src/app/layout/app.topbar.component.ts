@@ -93,6 +93,10 @@ export class AppTopBarComponent implements OnInit {
         this.isShowNotification = true;
 
     }
+    soundNotification() {
+        let audio: HTMLAudioElement = new Audio('https://drive.google.com/uc?export=download&id=1M95VOpto1cQ4FQHzNBaLf0WFQglrtWi7');
+        audio.play();
+    }
 
     connectWebsocket() {
         console.log("Initialize WebSocket Connection");
@@ -110,6 +114,7 @@ export class AppTopBarComponent implements OnInit {
                _this.messageService.add({severity:'success', summary:"Thông báo mới",detail:data});
             //    console.log(sdkEvent);
                _this.loadNotification();
+               _this.soundNotification();
             });
             //_this.stompClient.reconnect_delay = 2000;
         }, this.errorCallBack);
@@ -142,6 +147,7 @@ export class AppTopBarComponent implements OnInit {
                _this.newNotifi = 1;
                _this.messageService.add({severity:'success', summary:"Thông báo mới", detail:sdkEvent.body});
                _this.loadNotification();
+               _this.soundNotification();
             });
             //_this.stompClient.reconnect_delay = 2000;
         }, this.errorCallBackStaff);
