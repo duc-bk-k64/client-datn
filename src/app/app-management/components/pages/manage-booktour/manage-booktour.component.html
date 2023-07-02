@@ -170,14 +170,14 @@
                 <label for="code" style="font-weight: bold;">Tổng tiền thanh toán</label>
                 <p id="code">{{booktourSelected.moneyToPay.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</p>
             </div>
-            <div class="field col-12 lg:col-3">
-                <label for="code" style="font-weight: bold;">Thời gian đặt</label>
-                <p id="code">{{booktourSelected.timeCreate}}</p>
-            </div>
             <div class="field col-12 lg:col-3 grid">
                 <label for="code" style="font-weight: bold;" class="col-12">Trạng thái</label>
                 <p-dropdown id="code" [options]="status" [(ngModel)]="booktourSelected.status"
                 placeholder="Cập nhật trạng thái" (onChange)="confirmUpdate()" optionLabel="name" optionValue="value"></p-dropdown>
+            </div>
+            <div class="field col-12 lg:col-3">
+                <label for="code" style="font-weight: bold;">Thời gian đặt</label>
+                <p id="code">{{booktourSelected.timeCreate}}</p>
             </div>
 
             <div class="col-12 lg:col-3">
