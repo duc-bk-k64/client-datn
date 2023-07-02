@@ -6,7 +6,7 @@
         <div class="text-center col-12" style="font-weight: bold; font-size: large;">Danh sách đặt tour</div>
         <div class="col-12">
             <p-table #dt1 [value]="listBooktour" 
-                [globalFilterFields]="['id','code','name','status']" responsiveLayout="scroll" [rows]="10" [rows]="10"
+                [globalFilterFields]="['id','code','name','status','tourTripCode','timeCreate']" responsiveLayout="scroll" [rows]="10" [rows]="10"
                 [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
                 currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
                 [rowHover]="true" dataKey="id">
@@ -21,46 +21,51 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>
+                        <!-- <th>
                             <div>
                                 ID
                                 <p-columnFilter type="number" field="id" display="menu"></p-columnFilter>
                             </div>
-                        </th>
+                        </th> -->
                         <th>
                             <div>
                                 Mã đặt tour
-                                <p-columnFilter type="text" field="code" display="menu"></p-columnFilter>
+                                <!-- <p-columnFilter type="text" field="code" display="menu"></p-columnFilter> -->
                             </div>
                         </th>
                         <th>
                             <div>
                                 Tên người đặt
-                                <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                                <!-- <p-columnFilter type="text" field="name" display="menu"></p-columnFilter> -->
                             </div>
                         </th>
                         <th>
                             <div>
                                 Email
-                                <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                                <!-- <p-columnFilter type="text" field="email" display="menu"></p-columnFilter> -->
                             </div>
                         </th>
                         <th>
                             <div>
                                 Số điện thoại
-                                <p-columnFilter type="text" field="phoneNumber" display="menu"></p-columnFilter>
+                                <!-- <p-columnFilter type="text" field="phoneNumber" display="menu"></p-columnFilter> -->
                             </div>
                         </th>
                         <th>
                             <div>
                                 Mã chuyến đi
-                                <p-columnFilter type="text" field="tourTripCode" display="menu"></p-columnFilter>
+                                <!-- <p-columnFilter type="text" field="tourTripCode" display="menu"></p-columnFilter> -->
+                            </div>
+                        </th>
+                        <th>
+                            <div>
+                                Thời gian đặt
                             </div>
                         </th>
                         <th>
                             <div>
                                 Trạng thái
-                                <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+                                <!-- <p-columnFilter type="text" field="status" display="menu"></p-columnFilter> -->
                             </div>
                         </th>
 
@@ -74,12 +79,13 @@
                 <ng-template pTemplate="body" let-obj>
                     <tr [class]="obj.hightlightClass">
                        
-                        <td>{{obj.id}}</td>
+                        <!-- <td>{{obj.id}}</td> -->
                         <td>{{obj.code}}</td>
                         <td>{{obj.name}}</td>
                         <td>{{obj.email}}</td>
                         <td> {{obj.phoneNumber}}</td>
                         <td>{{obj.tourTripCode}}</td>
+                        <td>{{obj.timeCreate}}</td>
                         <td>
                             <p-tag value="Đã thanh toán" *ngIf="obj.status == 'paid'" severity="success"></p-tag>
                             <p-tag value="Đã xác nhận" *ngIf="obj.status == 'confimred'" severity="warning"></p-tag>
@@ -150,7 +156,7 @@
                 <p id="code">{{tourTripInfor.note}}</p>
             </div>
 
-            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin chuyến đi</div>
+            <div class="text-center col-12" style="font-weight: bold; font-size: large;"> Thông tin đặt tour</div>
 
             <div class="field col-12 lg:col-3">
                 <label for="code" style="font-weight: bold;">Số người lớn</label>
@@ -164,13 +170,17 @@
                 <label for="code" style="font-weight: bold;">Tổng tiền thanh toán</label>
                 <p id="code">{{booktourSelected.moneyToPay.toLocaleString('en-us', {minimumFractionDigits: 0})}} đồng</p>
             </div>
+            <div class="field col-12 lg:col-3">
+                <label for="code" style="font-weight: bold;">Thời gian đặt</label>
+                <p id="code">{{booktourSelected.timeCreate}}</p>
+            </div>
             <div class="field col-12 lg:col-3 grid">
                 <label for="code" style="font-weight: bold;" class="col-12">Trạng thái</label>
                 <p-dropdown id="code" [options]="status" [(ngModel)]="booktourSelected.status"
                 placeholder="Cập nhật trạng thái" (onChange)="confirmUpdate()" optionLabel="name" optionValue="value"></p-dropdown>
             </div>
 
-            <div class="col-12 lg:col-4">
+            <div class="col-12 lg:col-3">
                 <div class="field">
                     <label for="name" style="font-weight: bold;">Tên người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                     <input id="name" pTooltip="Tên người đặt tour" tooltipPosition="bottom" pInputText
@@ -178,7 +188,7 @@
                 </div>
                 
             </div>
-            <div class="col-12 lg:col-4">
+            <div class="col-12 lg:col-3">
                 <div class="field">
                     <label for="email" style="font-weight: bold;">Email người đặt tour (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                     <input id="email" pTooltip="Email người đặt tour" tooltipPosition="bottom" pInputText
@@ -186,7 +196,7 @@
                 </div>
                 
             </div>
-            <div class="col-12 lg:col-4">
+            <div class="col-12 lg:col-3">
                 <div class="field">
                     <label for="email" style="font-weight: bold;">Số điện thoại (<span class="ng-dirty ng-invalid" style="color: red;">*</span>)</label>
                     <input id="email" pTooltip="Số điện thoại người đặt tour" tooltipPosition="bottom" pInputText
