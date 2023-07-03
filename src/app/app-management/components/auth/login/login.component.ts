@@ -74,8 +74,8 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         google.accounts.id.initialize({
-            client_id:
-                '447143817673-kakprgbhain4331qff59tra446bfqd90.apps.googleusercontent.com',
+            client_id:'447143817673-hmj859opdbgnjnrl2q2oadkj1ig4n0gk.apps.googleusercontent.com',
+                // '447143817673-kakprgbhain4331qff59tra446bfqd90.apps.googleusercontent.com',
             callback: async (response: any) => {
                 // console.log(response);
                 this.loading = true;
@@ -178,13 +178,14 @@ export class LoginComponent implements OnInit {
                         this.authService.setUsername(data.data.username);
                         // console.log(this.authService.getUsername())
                         this.authService.setRole(data.data.role);
+                        console.log(this.authService.getRedirectUrl())
                         if (data.data.role == 'ROLE_USER') {
                             if (this.authService.getRedirectUrl().includes('bookTour'))
                                 this.router.navigate([
                                     this.authService.getRedirectUrl(),
                                 ]);
                             else this.router.navigate(['pages/home-user']);
-                        } if(data.data.role == 'ROLE_TOURGUIDE') {
+                        }else if(data.data.role == 'ROLE_TOURGUIDE') {
                             this.router.navigate(['pages/home-tourguide']);
                         }
                          else
@@ -274,5 +275,8 @@ export class LoginComponent implements OnInit {
                 summary: 'Error when login with facebook',
             });
         }
+    }
+    landing() {
+        this.router.navigate(['landing'])
     }
 }
