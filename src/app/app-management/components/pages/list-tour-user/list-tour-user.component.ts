@@ -201,7 +201,7 @@ export class ListTourUserComponent implements OnInit {
       this.loading = true;
       await this.http
       .post<ResponseMessage>(environment.backendApiUrl+
-          '/api/v1/project/feedback/create?tripId=' + this.tourTripInfor.id,{'rating':this.rating,'content':this.comment},{headers:this.header}
+          '/api/v1/project/feedback/create?tripId=' + this.tourTripInfor.id,{'rating':this.rating,'content':this.comment,'username':this.authService.getUsername()},{headers:this.header}
       )
       .toPromise()
       .then(

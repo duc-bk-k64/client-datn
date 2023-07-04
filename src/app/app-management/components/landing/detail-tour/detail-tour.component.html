@@ -132,7 +132,7 @@
                 <h3 style="font-weight: bold;">Phản hồi của khách hàng</h3>
             </div>
             <div class="col-12" *ngFor="let obj of listFeedback">
-                
+                <span class="text-600 font-medium" style="display: block;">{{obj.username}}</span>
                   <p-rating [(ngModel)]="obj.rating" [readonly]="true" [cancel]="false"></p-rating>
                   <p>{{obj.content}}</p>
 
