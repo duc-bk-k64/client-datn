@@ -88,7 +88,7 @@
 
 
             <h5>Danh sách  giao dịch</h5>
-            <p-table #dt1 [value]="listTransaction" 
+            <p-table #dt1 class="col-12" [value]="listTransaction" 
             [globalFilterFields]="['id','code','content','status','timeCreated','type','createdBy']" responsiveLayout="scroll" [rows]="10" [rows]="10"
             [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true"
             currentPageReportTemplate="Hiển thị {first} đến {last} của {totalRecords} bản ghi"
