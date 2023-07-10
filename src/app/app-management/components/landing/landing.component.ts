@@ -113,7 +113,7 @@ export class LandingComponent implements OnInit {
         this.router.navigate(['/auth/signup']);
     }
     async loadTour() {
-        await this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/tour/findAlls",{headers:this.header}).toPromise().then(
+        await this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/tour/findAlls").toPromise().then(
             data => {
                 if(data?.resultCode == 0 ) {
                     this.listTour = data.data;
