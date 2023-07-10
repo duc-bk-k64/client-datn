@@ -44,8 +44,8 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
               {
                 id: FacebookLoginProvider.PROVIDER_ID,
                 provider: new FacebookLoginProvider(
-                  // '1993019264369427'
-                  '624196749464947'
+                  '1993019264369427'
+                  // '624196749464947'
                   ),
               },
              
