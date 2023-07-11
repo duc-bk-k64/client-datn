@@ -87,7 +87,8 @@
                         <td>{{obj.createdBy}}</td>
                         <td>{{obj.timeCreated}}</td>
                         <td>
-                            <p-tag [value]="obj.status" severity="success"></p-tag>
+                            <p-tag *ngIf="obj.status == 'available'" value="Hiển thị" severity="success"></p-tag>
+                            <p-tag *ngIf="obj.status == 'unavailable'" value="Ẩn" severity="warning"></p-tag>
                         </td>
                         <td>
                            
