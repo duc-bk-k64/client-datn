@@ -58,6 +58,9 @@ export class ManageTourComponent implements OnInit {
 
     listPitstopStatus: PitstopStatus[] = [];
 
+    isShowCreateDestination: boolean = false;
+    destinationName: string = '';
+
 
     constructor(
         private route: ActivatedRoute,
@@ -841,6 +844,41 @@ export class ManageTourComponent implements OnInit {
     }
     listBooktour() {
         this.router.navigate(['pages/list-booktour/'+this.tripSelected.code])
+    }
+    async createDes() {
+        this.loading = true;
+            await this.http
+                .post<ResponseMessage>(environment.backendApiUrl+
+                    '/api/v1/project/des/create?name='+this.destinationName,null,
+                    { headers: this.header }
+                )
+                .toPromise()
+                .then(
+                    (data) => {
+                        if (data?.resultCode == 0) {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary:
+                                    'Tạo điểm du lịch thành công',
+                            });
+                            this.isShowCreateDestination = false;
+                            this.destinationName = '';
+                        } else {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: data?.message,
+                            });
+                        }
+                    },
+                    (error) => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error occur',
+                        });
+                    }
+                );
+        
+        this.loading = false;
     }
 
    
