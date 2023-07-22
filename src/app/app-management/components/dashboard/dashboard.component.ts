@@ -77,6 +77,12 @@ export class DashboardComponent implements OnInit {
 
     dayTransaction: number = -1;
     chartLabel: string[] = [];
+
+    //websocket
+    webSocketEndPoint: string = environment.backendApiUrl+'/ws';
+
+    stompClient: any;
+
     applyFilterGlobal($event: any, stringVal: any) {
         this.dt1!.filterGlobal(
             ($event.target as HTMLInputElement).value,
@@ -97,6 +103,7 @@ export class DashboardComponent implements OnInit {
             this.authService.getToken()
         );
         this.loadData();
+        this.connectWebsocketStaff();
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
             { label: 'Remove', icon: 'pi pi-fw pi-minus' },
@@ -335,9 +342,9 @@ export class DashboardComponent implements OnInit {
             this.statisticIn.push(this.dataStatisticIn[i].value);
             this.statisticOut.push(this.dataStatisticOut[i].value);
         }
-        console.log(this.chartLabel);
-        console.log(this.statisticIn);
-        console.log(this.statisticOut);
+        // console.log(this.chartLabel);
+        // console.log(this.statisticIn);
+        // console.log(this.statisticOut);
         this.chartData = {
             labels: this.chartLabel,
             datasets: [
@@ -346,9 +353,9 @@ export class DashboardComponent implements OnInit {
                     data: this.statisticIn,
                     fill: false,
                     backgroundColor:
-                        documentStyle.getPropertyValue('--bluegray-700'),
+                        documentStyle.getPropertyValue('--orange-500'),
                     borderColor:
-                        documentStyle.getPropertyValue('--bluegray-700'),
+                        documentStyle.getPropertyValue('--orange-500'),
                     tension: 0.4,
                 },
                 {
@@ -437,6 +444,28 @@ export class DashboardComponent implements OnInit {
         );
 
     }
+    connectWebsocketStaff() {
+        // console.log("Initialize WebSocket Connection");
+        let topic = "/topic/transaction";
+        let ws = new SockJS(this.webSocketEndPoint);
+        this.stompClient = Stomp.over(ws);
+        const _this = this;
+        _this.stompClient.connect({}, function (frame:any) {
+            _this.stompClient.subscribe(topic, function (sdkEvent:any) {
+                _this.loadData();
+            });
+            //_this.stompClient.reconnect_delay = 2000;
+        }, this.errorCallBackStaff);
+
+    }
+
+    errorCallBackStaff(error:any) {
+        console.log("errorCallBack Staff -> " + error)
+        setTimeout(() => {
+            this.connectWebsocketStaff();
+        }, 5000);
+    } 
+  
 
     // connectWebsocket() {
     //     console.log("Initialize WebSocket Connection");
