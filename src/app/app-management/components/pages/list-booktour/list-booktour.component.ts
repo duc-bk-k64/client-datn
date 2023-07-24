@@ -73,8 +73,19 @@ export class ListBooktourComponent implements OnInit {
             );
     }
     exportExcel() {
+        let listData: any[] = [];
+        for(let i = 0 ; i <this.listBooktour.length ; i++) {
+            listData.push({
+                'Mã đặt tour': this.listBooktour[i].code,
+                'Tên khách hàng': this.listBooktour[i].name,
+                'Email': this.listBooktour[i].email,
+                'Số điện thoại': this.listBooktour[i].phoneNumber,
+                'Trạng thái': this.listBooktour[i].status == 'paid'? 'Đã thanh toán': 'Chưa thanh toán',
+                'Tiền thanh toán' : this.listBooktour[i].moneyToPay.toLocaleString('en-us', {minimumFractionDigits: 0}) +' đồng'
+            });
+        }
         import('xlsx').then((xlsx) => {
-            const worksheet = xlsx.utils.json_to_sheet(this.listBooktour);
+            const worksheet = xlsx.utils.json_to_sheet(listData);
             const workbook = {
                 Sheets: { data: worksheet },
                 SheetNames: ['data'],
