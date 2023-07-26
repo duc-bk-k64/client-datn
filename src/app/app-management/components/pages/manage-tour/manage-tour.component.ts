@@ -59,7 +59,9 @@ export class ManageTourComponent implements OnInit {
     listPitstopStatus: PitstopStatus[] = [];
 
     isShowCreateDestination: boolean = false;
+    isShowCreateDeparture: boolean = false;
     destinationName: string = '';
+    departureName: string = '';
 
 
     constructor(
@@ -85,7 +87,8 @@ export class ManageTourComponent implements OnInit {
             storageKey.AUTHORIZATION,
             this.authService.getToken()
         );
-        this.listDeparture =  DEPARTURE;
+        // this.listDeparture =  DEPARTURE;
+        this.loadDeparture();
         this.loadData();
         
     }
@@ -94,6 +97,23 @@ export class ManageTourComponent implements OnInit {
             ($event.target as HTMLInputElement).value,
             stringVal
         );
+    }
+    loadDeparture() {
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/departure/findAll").toPromise().then(
+            data => {
+                if(data?.resultCode == 0 ) {
+                    this.listDeparture = data.data;
+                    // this.isFindTour = true;
+                    console.log(this.listDeparture)
+                }
+                else {
+                    this.messageService.add({severity:'error', summary:data?.message});
+                }
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
     }
     loadData() {
         this.http
@@ -863,6 +883,43 @@ export class ManageTourComponent implements OnInit {
                             });
                             this.isShowCreateDestination = false;
                             this.destinationName = '';
+                        } else {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: data?.message,
+                            });
+                        }
+                    },
+                    (error) => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error occur',
+                        });
+                    }
+                );
+        
+        this.loading = false;
+    }
+
+    async createDeparture() {
+        this.loading = true;
+            await this.http
+                .post<ResponseMessage>(environment.backendApiUrl+
+                    '/api/v1/project/departure/create',this.departureName,
+                    { headers: this.header }
+                )
+                .toPromise()
+                .then(
+                    (data) => {
+                        if (data?.resultCode == 0) {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary:
+                                    'Tạo điểm khởi hành thành công',
+                            });
+                            this.isShowCreateDeparture = false;
+                            this.departureName = '';
+                            this.loadDeparture();
                         } else {
                             this.messageService.add({
                                 severity: 'error',

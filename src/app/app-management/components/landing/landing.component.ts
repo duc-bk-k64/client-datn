@@ -102,7 +102,8 @@ export class LandingComponent implements OnInit {
         this.header = new HttpHeaders().set(storageKey.AUTHORIZATION,this.authService.getToken());
         this.loadTour();
         this.findDestination();
-        this.listDeparture =  DEPARTURE;
+        // this.listDeparture =  DEPARTURE;
+        this.loadDeparture();
         this.listPrice = PRICE;
         this.listTime = TIME;
     }
@@ -111,6 +112,23 @@ export class LandingComponent implements OnInit {
     }
     register() {
         this.router.navigate(['/auth/signup']);
+    }
+    loadDeparture() {
+        this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/departure/findAll").toPromise().then(
+            data => {
+                if(data?.resultCode == 0 ) {
+                    this.listDeparture = data.data;
+                    // this.isFindTour = true;
+                    console.log(this.listDeparture)
+                }
+                else {
+                    this.messageService.add({severity:'error', summary:data?.message});
+                }
+            },
+            error => {
+                this.messageService.add({severity:'error', summary:'Error occur'});
+            }
+        )
     }
     async loadTour() {
         await this.http.get<ResponseMessage>(environment.backendApiUrl+"/api/v1/project/auth/tour/findAlls").toPromise().then(

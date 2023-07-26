@@ -10,6 +10,8 @@
                         class="p-button-success mr-2"></button>
                         <button pButton pRipple label="Điểm du lịch" (click)="isShowCreateDestination = true" pTooltip="Tạo mới địa điểm du lịch" icon="pi pi-plus"
                         class="p-button-success mr-2"></button>
+                        <button pButton pRipple label="Điểm khởi hành" (click)="isShowCreateDeparture = true" pTooltip="Tạo mới địa điểm khởi hành" icon="pi pi-plus"
+                        class="p-button-success mr-2"></button>
                     <button pButton pRipple label="Mở tour"  
                     class="p-button-warning mr-2" (click)="openTour()" pTooltip="Mở tour được chọn"></button>
                     <button pButton pRipple (click)="closeTour()" label="Đóng tour" pTooltip="Đóng tour được chọn" 
@@ -502,6 +504,30 @@
     </ng-template>
     <ng-template  pTemplate="footer">
         <button pButton pRipple  label="Tạo"  [disabled]="!destinationName"  (click)="createDes()" icon="pi pi-comments" class="p-button-text"></button>
+        <!-- <button pButton pRipple type="button" label="Create" icon="pi pi-check" class="p-button-text" [disabled]="!this.groupModel.group_code" *ngIf="!isUpdate" (click)="createGroup()" ></button>
+        <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" *ngIf="isUpdate" [disabled]="!this.groupModel.group_code" (click)="updateGroup()" ></button> -->
+    </ng-template>
+
+   
+</p-dialog>
+
+<p-dialog [(visible)]="isShowCreateDeparture" [maximizable]="true" [resizable]="false"  [contentStyle]="{'overflow': 'scroll'}"  [responsive]="true" [draggable]="false" header="Tạo mới điểm khởi hành" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" class="p-fluid" [style]="{width:'40vw', height: '20vw'}" [modal]="true">
+
+    <ng-template pTemplate="content">
+        <div class = "grid">
+          
+            <div class="field col-12">
+                <label for="name" style="font-weight: bold;">Tên địa điểm khởi hành</label>
+                <input id="name" tooltipPosition="bottom" pInputText
+            [(ngModel)]="departureName" required autofocus placeholder="Hải Dương" />
+            </div>
+            
+        </div>
+       
+      
+    </ng-template>
+    <ng-template  pTemplate="footer">
+        <button pButton pRipple  label="Tạo"  [disabled]="!departureName"  (click)="createDeparture()" icon="pi pi-comments" class="p-button-text"></button>
         <!-- <button pButton pRipple type="button" label="Create" icon="pi pi-check" class="p-button-text" [disabled]="!this.groupModel.group_code" *ngIf="!isUpdate" (click)="createGroup()" ></button>
         <button pButton pRipple label="Update" icon="pi pi-pencil" class="p-button-text" *ngIf="isUpdate" [disabled]="!this.groupModel.group_code" (click)="updateGroup()" ></button> -->
     </ng-template>
