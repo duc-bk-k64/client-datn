@@ -94,8 +94,8 @@ export class AppTopBarComponent implements OnInit {
 
     }
     soundNotification() {
-        let audio: HTMLAudioElement = new Audio('https://drive.google.com/uc?export=download&id=1M95VOpto1cQ4FQHzNBaLf0WFQglrtWi7');
-        audio.muted = true;
+        const audio = new Audio('assets/layout/images/toast_sound.mp3');
+        // audio.muted = false;
         audio.play();
     }
 
