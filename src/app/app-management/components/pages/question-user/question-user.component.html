@@ -108,6 +108,7 @@
                 [reply]="msg.reply"
                 [sender]="msg.name"
                 [avatar]="msg.user.avatar"
+                [date] = "msg.timeCreated"
               >
               </nb-chat-message>
               <nb-chat-form  (send)="reply($event)" [dropFiles]="true"> </nb-chat-form>

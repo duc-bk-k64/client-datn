@@ -87,7 +87,7 @@ export class ReplyStaffComponent implements OnInit {
                 reply: false,
                 user: this.user,
                 name: 'Khách hàng',
-                timeCreated: this.threadSelected.questions[i].timeCreated,
+                timeCreated: new Date(this.threadSelected.questions[i].timeCreated*1000),
             };
             this.chatData.push(question);
         }
@@ -97,7 +97,7 @@ export class ReplyStaffComponent implements OnInit {
                 reply: true,
                 user: this.staff,
                 name: 'Bạn',
-                timeCreated: this.threadSelected.replies[i].timeCreated,
+                timeCreated: new Date(this.threadSelected.replies[i].timeCreated*1000),
             };
             this.chatData.push(question);
         }

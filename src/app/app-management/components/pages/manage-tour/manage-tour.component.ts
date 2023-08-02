@@ -62,6 +62,7 @@ export class ManageTourComponent implements OnInit {
     isShowCreateDeparture: boolean = false;
     destinationName: string = '';
     departureName: string = '';
+    listFeedback: any[] = [];
 
 
     constructor(
@@ -206,6 +207,30 @@ export class ManageTourComponent implements OnInit {
                         this.messageService.add({
                             severity: 'error',
                             summary: data?.message,
+                        });
+                    }
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error occur',
+                    });
+                }
+            );
+            this.http
+            .get<ResponseMessage>(environment.backendApiUrl+
+                '/api/v1/project/auth/feedback/findByTourId?tourId=' +
+                    object.id
+            )
+            .subscribe(
+                (data) => {
+                    if (data.resultCode == 0) {
+                        this.listFeedback = data.data;
+                        console.log(this.listFeedback)
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: data.message,
                         });
                     }
                 },
@@ -768,6 +793,18 @@ export class ManageTourComponent implements OnInit {
         });
     }
 
+    confirmDeleteFeedback(object: any) {
+        // console.log("delete")
+        this.confirmationService.confirm({
+            message: 'Xác nhận xóa feedback này?',
+            header: 'Xác nhận xóa feedback',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.deleteFeedback(object);
+            }
+        });
+    }
+
     showConfirmTrip() {
         // console.log("delete")
         this.confirmationService.confirm({
@@ -935,6 +972,42 @@ export class ManageTourComponent implements OnInit {
                     }
                 );
         
+        this.loading = false;
+    }
+
+    async deleteFeedback(object: any) {
+        this.loading = true;
+            await this.http
+                .delete<ResponseMessage>(environment.backendApiUrl+
+                    '/api/v1/project/feedback/delete?id=' +
+                     object.id,
+                    { headers: this.header }
+                )
+                .toPromise()
+                .then(
+                    (data) => {
+                        if (data?.resultCode == 0) {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary:
+                                    'Xóa thành công feedback' 
+                            });
+                            this.showDetailTour(this.tourSelected);
+                        } else {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Xóa feedback không thành công'
+                            });
+                            // console.log(data)
+                        }
+                    },
+                    (error) => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error occur',
+                        });
+                    }
+                )
         this.loading = false;
     }
 

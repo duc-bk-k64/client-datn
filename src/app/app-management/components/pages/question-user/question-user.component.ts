@@ -104,7 +104,7 @@ export class QuestionUserComponent implements OnInit {
                 reply: true,
                 user: this.user,
                 name: 'Bạn',
-                timeCreated: this.threadSelected.questions[i].timeCreated,
+                timeCreated:new Date(this.threadSelected.questions[i].timeCreated*1000),
             };
             this.chatData.push(question);
         }
@@ -114,7 +114,7 @@ export class QuestionUserComponent implements OnInit {
                 reply: false,
                 user: this.staff,
                 name: this.threadSelected.replies[i].createdBy,
-                timeCreated: this.threadSelected.replies[i].timeCreated,
+                timeCreated:new Date(this.threadSelected.replies[i].timeCreated*1000),
             };
             this.chatData.push(question);
         }
