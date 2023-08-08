@@ -10,7 +10,8 @@ import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { environment } from 'src/environments/environment.prod';
-
+import * as SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
 @Component({
     selector: 'app-reply-staff',
     templateUrl: './reply-staff.component.html',
@@ -39,12 +40,18 @@ export class ReplyStaffComponent implements OnInit {
         avatar: 'assets/layout/images/staffAvatar.png',
     };
 
+     //websocket
+     webSocketEndPoint: string = environment.backendApiUrl+'/ws';
+
+     stompClient: any;
+
     ngOnInit(): void {
         this.header = new HttpHeaders().set(
             storageKey.AUTHORIZATION,
             this.authService.getToken()
         );
         this.loadData();
+        this.connectWebsocketStaff();
     }
     applyFilterGlobal($event: any, stringVal: any) {
         this.dt1!.filterGlobal(
@@ -149,4 +156,31 @@ export class ReplyStaffComponent implements OnInit {
             );
         this.loading = false;
     }
+
+    connectWebsocketStaff() {
+        console.log("Initialize WebSocket Connection Reply");
+        let topic = "/topic/staff";
+        let ws = new SockJS(this.webSocketEndPoint);
+        this.stompClient = Stomp.over(ws);
+        const _this = this;
+        _this.stompClient.connect({}, function (frame:any) {
+            _this.stompClient.subscribe(topic, function (sdkEvent:any) {
+                // console.log(sdkEvent)
+                // console.log("abcd")
+                if(sdkEvent.body.includes('yêu cầu hỗ trợ')) {
+                    _this.loadData();
+                }
+             
+            });
+            //_this.stompClient.reconnect_delay = 2000;
+        }, this.errorCallBackStaff);
+
+    }
+
+      errorCallBackStaff(error:any) {
+        console.log("errorCallBack Staff -> " + error)
+        setTimeout(() => {
+            this.connectWebsocketStaff();
+        }, 5000);
+    } 
 }

@@ -9,6 +9,8 @@ import { ResponseMessage } from 'src/app/app-management/Model/ResponseMessage';
 import { AuthService } from 'src/app/app-management/service/auth.service';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { environment } from 'src/environments/environment.prod';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 @Component({
     selector: 'app-question-user',
@@ -52,12 +54,18 @@ export class QuestionUserComponent implements OnInit {
         avatar: 'assets/layout/images/staffAvatar.png',
     };
 
+     //websocket
+     webSocketEndPoint: string = environment.backendApiUrl+'/ws';
+
+     stompClient: any;
+
     ngOnInit(): void {
         this.header = new HttpHeaders().set(
             storageKey.AUTHORIZATION,
             this.authService.getToken()
         );
         this.loadData();
+        this.connectWebsocket()
     }
     applyFilterGlobal($event: any, stringVal: any) {
         this.dt1!.filterGlobal(
@@ -236,4 +244,32 @@ export class QuestionUserComponent implements OnInit {
         this.isShowCreate = false;
         this.loading = false;
     }
+
+    connectWebsocket() {
+        console.log("Initialize WebSocket Connection Reply");
+        let topic = "/user/"+this.authService.getUsername() + "/queue/reply";
+        let ws = new SockJS(this.webSocketEndPoint);
+        this.stompClient = Stomp.over(ws);
+        const _this = this;
+        _this.stompClient.connect({}, function (frame:any) {
+            _this.stompClient.subscribe(topic, function (sdkEvent:any) {
+                // console.log(sdkEvent)
+                // console.log("abcd")
+                if(sdkEvent.body.includes('hỗ trợ')) {
+                    _this.loadData();
+                    // _this.showChatDialog(_this.threadSelected);
+                }
+             
+            });
+            //_this.stompClient.reconnect_delay = 2000;
+        }, this.errorCallBack);
+
+    }
+
+      errorCallBack(error:any) {
+        console.log("errorCallBack Staff -> " + error)
+        setTimeout(() => {
+            this.connectWebsocket();
+        }, 5000);
+    } 
 }
